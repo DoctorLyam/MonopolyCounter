@@ -1,9 +1,8 @@
 from base_class import Base
-from user import User
 
 class Area(Base):
     
-    def init(self, name, price, deposite, rent_stock, rent_one_off, rent_two_off, 
+    def __init__(self, name, price, deposite, rent_stock, rent_one_off, rent_two_off, 
             rent_three_off, rent_four_off, rent_firm, firm=False, office_count=0):
         self.name = name
         self.price = price
@@ -31,7 +30,6 @@ brown_two = First_1(name='Вокзал Кингс-Кросс', price=60, deposit
 class First_2(Area):
     office_price = 50
     firm_price = 4*office_price + 50
-
 
 blue_one = First_2(name='Отдел магического транспорта', price=100, deposite=50, rent_stock=6, 
             rent_one_off=30, rent_two_off=90, rent_three_off=270, rent_four_off=400, rent_firm=550)
