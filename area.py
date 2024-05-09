@@ -2,11 +2,19 @@ from base_class import Base
 from user import User
 
 class Area(Base):
-    def init(self, name, price, industry, office_count, office_price, firm_price, firm = False):
+    name = None
+
+class Muggle(Area):
+    
+    office_price = 50
+    firm_price = 4*office_price + 50
+
+    def init(self, name, rent, price, deposite, firm=False, office_count=0):
         self.name = name
+        self.rent = rent
         self.price = price
-        self.industry = industry
-        self.office_count = office_count
-        self.office_price = office_price
-        self.firm_price = firm_price
+        self.deposite = deposite
         self.firm = firm
+        self.office_count = office_count
+
+        
