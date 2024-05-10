@@ -12,7 +12,7 @@ class User(Area):
         if (area.name in self.areas_obj.areas_list) and (area not in self.areas) and (self.budget >= area.price):
             print(f'Общий спиок предприятий ДО приобритения: {self.areas_obj.areas_list}')
             self.areas_obj.areas_list.remove(area.name)
-            print(f'Общий спиок предприятий ПОСЛЕ приобритения: {self.areas_obj.areas_list}')
+            print(f'Общий спиcок предприятий ПОСЛЕ приобритения: {self.areas_obj.areas_list}')
             self.areas[area.name] = 0
             self.budget = self.budget-brown_one.price
             print(f"Игроку {self.name} добавлен участок {area.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}")
@@ -38,7 +38,7 @@ class User(Area):
 user_1 = User(name="Саша", areas={}, budget=2000)
 user_2 = User(name="Настя", areas={}, budget=2000)
 
-brown_one = First_1(name='Дом Гарри', price=60, deposite=30, rent_stock=2, 
+brown_one = First_1(name='Дом Гарри', price=6000, deposite=30, rent_stock=2, 
             rent_one_off=10, rent_two_off=30, rent_three_off=90, rent_four_off=160, rent_firm=250)
 brown_two = First_1(name='Вокзал Кингс-Кросс', price=60, deposite=30, rent_stock=4, 
             rent_one_off=20, rent_two_off=60, rent_three_off=180, rent_four_off=320, rent_firm=450)
