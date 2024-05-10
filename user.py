@@ -1,5 +1,5 @@
 from base_class import Base
-from area import Area, First_1, First_2, Areas
+from area import Area, First_1, First_1_son, First_2, First_2_son, Areas
 
 class User(Area):
     def __init__(self, name, areas, budget):
@@ -7,9 +7,13 @@ class User(Area):
         self.areas = areas
         self.budget = budget
         self.areas_obj = Areas()
+        self.First_1 = First_1_son()
+        self.First_2 = First_2_son()
 
     # Покупка участка
     def buy_area(self, area):
+        # Имя класса, которому принадлежит участок
+
         if (area.name in self.areas_obj.areas_list) and (area not in self.areas) and (self.budget >= area.price):
             print(f'Общий спиок предприятий ДО приобретения: {self.areas_obj.areas_list}')
             self.areas_obj.areas_list.remove(area.name)
@@ -17,6 +21,19 @@ class User(Area):
             self.areas[area.name] = 0
             self.budget -= brown_one.price
             print(f"Игроку {self.name} добавлен участок {area.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}")
+            
+            class_name = type(area).__name__
+            class_attr = getattr(self, class_name, None)
+
+            temp_list = []
+            for uchastok in self.areas:
+                if uchastok in class_attr.areas_list:
+                    temp_list.append(uchastok)
+            if len(temp_list) == class_attr.areas_count:
+                print(f'Отрасль целиком принадлежит {self.name}')
+
+                    
+
         elif area not in self.areas and self.budget < brown_one.price:
             print(f"Стоимость участка '{area.name}' слишком велика")
         elif area in self.areas:
@@ -48,5 +65,4 @@ brown_two = First_1(name='Вокзал Кингс-Кросс', price=60, deposit
             rent_one_off=20, rent_two_off=60, rent_three_off=180, rent_four_off=320, rent_firm=450)
 
 user_1.buy_area(brown_one)
-user_1.dep_area(brown_one)
-user_1.dep_area(brown_one)
+user_1.buy_area(brown_two)

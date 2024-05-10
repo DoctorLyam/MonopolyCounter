@@ -26,16 +26,21 @@ class Areas(Area):
 class First_1(Area):
     office_price = 50
     firm_price = 4*office_price + 50
-
-# brown_one = First_1(name='Дом Гарри', price=60, deposite=30, rent_stock=2, 
-#             rent_one_off=10, rent_two_off=30, rent_three_off=90, rent_four_off=160, rent_firm=250)
-# brown_two = First_1(name='Вокзал Кингс-Кросс', price=60, deposite=30, rent_stock=4, 
-#             rent_one_off=20, rent_two_off=60, rent_three_off=180, rent_four_off=320, rent_firm=450)
+    areas_count = 2
+class First_1_son(First_1):
+    def __init__(self):
+        self.areas_list = ['Дом Гарри', 'Вокзал Кингс-Кросс']
 
 # Вторая отрасль первой стороны
 class First_2(Area):
     office_price = 50
     firm_price = 4*office_price + 50
+    areas_count = 3
+class First_2_son(First_2):
+    def __init__(self):
+        self.areas_list = ['Отдел магического транспорта', 'Отдел тайн', 'Отдел обеспечения магического правопорядка']
+
+
 
 # blue_one = First_2(name='Отдел магического транспорта', price=100, deposite=50, rent_stock=6, 
 #             rent_one_off=30, rent_two_off=90, rent_three_off=270, rent_four_off=400, rent_firm=550)
