@@ -12,8 +12,9 @@ class User(Area):
 
     # Покупка участка
     def buy_area(self, area):
-        # Имя класса, которому принадлежит участок
-
+        # Если покупаемый участок есть в общем списке участков
+        # и если этого участка еще нет в списке покупающего его юзера
+        # и если бюджет позволяет
         if (area.name in self.areas_obj.areas_list) and (area not in self.areas) and (self.budget >= area.price):
             print(f'Общий спиок предприятий ДО приобретения: {self.areas_obj.areas_list}')
             self.areas_obj.areas_list.remove(area.name)
@@ -21,19 +22,20 @@ class User(Area):
             self.areas[area.name] = 0
             self.budget -= brown_one.price
             print(f"Игроку {self.name} добавлен участок {area.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}")
-            
+            # Через имя класса участка получаем значение атрибута объекта user - First = First_son
             class_name = type(area).__name__
             class_attr = getattr(self, class_name, None)
-
+            # Добавляю участки, принадлежащие данной отрасли, в пустой список
+            # чтобы сравнить длину списка с заданным значением в классе
+            # Это поможет понять, является ли юзер обладаетелем всей отрасли
             temp_list = []
             for uchastok in self.areas:
                 if uchastok in class_attr.areas_list:
                     temp_list.append(uchastok)
             if len(temp_list) == class_attr.areas_count:
                 print(f'Отрасль целиком принадлежит {self.name}')
-
-                    
-
+            else:
+                pass
         elif area not in self.areas and self.budget < brown_one.price:
             print(f"Стоимость участка '{area.name}' слишком велика")
         elif area in self.areas:

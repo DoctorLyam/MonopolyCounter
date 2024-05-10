@@ -24,21 +24,23 @@ class Areas(Area):
 
 # Первая отрасль первой стороны
 class First_1(Area):
-    office_price = 50
-    firm_price = 4*office_price + 50
-    areas_count = 2
+    pass
 class First_1_son(First_1):
     def __init__(self):
         self.areas_list = ['Дом Гарри', 'Вокзал Кингс-Кросс']
+        self.areas_count = 2
+        self.office_price = 50
+        self.firm_price = 4*self.office_price + 50
 
 # Вторая отрасль первой стороны
 class First_2(Area):
-    office_price = 50
-    firm_price = 4*office_price + 50
-    areas_count = 3
+    pass
 class First_2_son(First_2):
     def __init__(self):
         self.areas_list = ['Отдел магического транспорта', 'Отдел тайн', 'Отдел обеспечения магического правопорядка']
+        self.areas_count = 3
+        self.office_price = 50
+        self.firm_price = 4*self.office_price + 50
 
 
 
