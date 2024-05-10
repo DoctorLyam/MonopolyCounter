@@ -26,14 +26,14 @@ class User(Area):
 
     # Заложение участка
     def dep_area(self, area):
-        if (area in self.areas) and (self.areas[area.name]) == 0:
+        if (area.name in self.areas) and (self.areas[area.name]) == 0:
             self.areas[area.name] = -1
             self.budget += area.deposite
             print(f'Участок {area.name} заложен. Баланс {self.name} равен {self.budget}. \nВ собственности {self.name} находятся: {self.areas}')
-        elif area not in self.areas:
+        elif area.name not in self.areas:
             print(f'Участок недоступен для заложения {self.name}, потому что его нет в списке приобретенных участков')
         elif self.areas[area.name] == -1:
-            print(f'{self.name} уже заложил этот участок')
+            print(f'{self.name} уже заложил этот участок ранее')
         elif self.areas[area.name] >= 1:
             print(f'Участок {area.name} имеет филиал(-ы) или предприятие. Сначала следует продать их')
         
@@ -42,10 +42,11 @@ class User(Area):
 user_1 = User(name="Саша", areas={}, budget=2000)
 user_2 = User(name="Настя", areas={}, budget=2000)
 
-brown_one = First_1(name='Дом Гарри', price=6000, deposite=30, rent_stock=2, 
+brown_one = First_1(name='Дом Гарри', price=60, deposite=30, rent_stock=2, 
             rent_one_off=10, rent_two_off=30, rent_three_off=90, rent_four_off=160, rent_firm=250)
 brown_two = First_1(name='Вокзал Кингс-Кросс', price=60, deposite=30, rent_stock=4, 
             rent_one_off=20, rent_two_off=60, rent_three_off=180, rent_four_off=320, rent_firm=450)
 
 user_1.buy_area(brown_one)
+user_1.dep_area(brown_one)
 user_1.dep_area(brown_one)
