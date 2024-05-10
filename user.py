@@ -8,13 +8,14 @@ class User(Area):
         self.budget = budget
         self.areas_obj = Areas()
 
+    # Покупка участка
     def buy_area(self, area):
         if (area.name in self.areas_obj.areas_list) and (area not in self.areas) and (self.budget >= area.price):
-            print(f'Общий спиок предприятий ДО приобритения: {self.areas_obj.areas_list}')
+            print(f'Общий спиок предприятий ДО приобретения: {self.areas_obj.areas_list}')
             self.areas_obj.areas_list.remove(area.name)
-            print(f'Общий спиcок предприятий ПОСЛЕ приобритения: {self.areas_obj.areas_list}')
+            print(f'Общий спиcок предприятий ПОСЛЕ приобретения: {self.areas_obj.areas_list}')
             self.areas[area.name] = 0
-            self.budget = self.budget-brown_one.price
+            self.budget -= brown_one.price
             print(f"Игроку {self.name} добавлен участок {area.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}")
         elif area not in self.areas and self.budget < brown_one.price:
             print(f"Стоимость участка '{area.name}' слишком велика")
@@ -23,17 +24,12 @@ class User(Area):
         elif area.name not in self.areas_obj.areas_list:
             print(f"Участка {area.name} уже нет в общем списке участков")
 
+    # заложение участка
+    def dep_area(self, area):
+        if (area in self.areas) and (self.areas[area.name]) == 0:
+            self.areas[area.name] = -1
+            self.budget += area.deposite
 
-    # def dep_area(self, area):
-    #     if area in self.areas:
-    #         print(f'Участок {area.name} закладывается в банк под сумму {area.deposite}')
-    #         # следует придумать логику закладывания: когда никто кроме заложившего
-    #         # не может выкупить эту собственность
-    #         self.areas.remove(area)
-    #         self.budget += area.deposite
-    #         print(f"Игроку {self.name} добавлен участок {area}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}")
-    #     else:
-    #         print(f'Участка и так нет во владении')
 
 user_1 = User(name="Саша", areas={}, budget=2000)
 user_2 = User(name="Настя", areas={}, budget=2000)
