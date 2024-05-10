@@ -16,6 +16,12 @@ class Area(Base):
         self.firm = firm
         self.office_count = office_count
 
+
+class Areas(Area):
+    def __init__(self):
+        self.areas_list = ['Дом Гарри', 'Вокзал Кингс-Кросс', 'Отдел магического транспорта', 'Отдел тайн', 'Отдел обеспечения магического правопорядка']
+
+
 # Первая отрасль первой стороны
 class First_1(Area):
     office_price = 50
