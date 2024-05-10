@@ -27,6 +27,7 @@ class First_1(Area):
     pass
 class First_1_son(First_1):
     def __init__(self):
+        self.name = 'Браун'
         self.areas_list = ['Дом Гарри', 'Вокзал Кингс-Кросс']
         self.areas_count = 2
         self.office_price = 50
@@ -37,6 +38,7 @@ class First_2(Area):
     pass
 class First_2_son(First_2):
     def __init__(self):
+        self.name = 'Блю'
         self.areas_list = ['Отдел магического транспорта', 'Отдел тайн', 'Отдел обеспечения магического правопорядка']
         self.areas_count = 3
         self.office_price = 50

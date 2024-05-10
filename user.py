@@ -2,10 +2,11 @@ from base_class import Base
 from area import Area, First_1, First_1_son, First_2, First_2_son, Areas
 
 class User(Area):
-    def __init__(self, name, areas, budget):
+    def __init__(self, name, areas, budget, bolshoy_dyadya=[]):
         self.name = name
         self.areas = areas
         self.budget = budget
+        self.bolshoy_dyadya = bolshoy_dyadya
         self.areas_obj = Areas()
         self.First_1 = First_1_son()
         self.First_2 = First_2_son()
@@ -16,7 +17,7 @@ class User(Area):
         # и если этого участка еще нет в списке покупающего его юзера
         # и если бюджет позволяет
         if (area.name in self.areas_obj.areas_list) and (area not in self.areas) and (self.budget >= area.price):
-            print(f'Общий спиок предприятий ДО приобретения: {self.areas_obj.areas_list}')
+            print(f'Общий список предприятий ДО приобретения: {self.areas_obj.areas_list}')
             self.areas_obj.areas_list.remove(area.name)
             print(f'Общий спиcок предприятий ПОСЛЕ приобретения: {self.areas_obj.areas_list}')
             self.areas[area.name] = 0
@@ -34,6 +35,8 @@ class User(Area):
                     temp_list.append(uchastok)
             if len(temp_list) == class_attr.areas_count:
                 print(f'Отрасль целиком принадлежит {self.name}')
+                self.bolshoy_dyadya.append(class_attr.name)
+                print(f'Игроку {self.name} принадлежат отрасли: {self.bolshoy_dyadya}')
             else:
                 pass
         elif area not in self.areas and self.budget < brown_one.price:
