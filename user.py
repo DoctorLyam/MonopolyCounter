@@ -1,6 +1,9 @@
 from base_class import Base
 from area import Area, First_1, First_1_son, First_2, First_2_son, Areas
 
+# Статусы участков:
+# -1 - заложен; 0 - куплен; 1,2,3,4 - установлен(-ы) филиал(-ы); 5 - установлено предприятие 
+
 class User(Area):
     def __init__(self, name, areas, budget, bolshoy_dyadya=[]):
         self.name = name
@@ -10,6 +13,11 @@ class User(Area):
         self.areas_obj = Areas()
         self.First_1 = First_1_son()
         self.First_2 = First_2_son()
+
+    # Круговой доход
+    def cicle_add(self):
+        self.budget += 200
+        print(f'Бюджет {self.name} равен {self.budget}')
 
     # Покупка участка
     def buy_area(self, area):
@@ -41,14 +49,14 @@ class User(Area):
                 pass
         elif area not in self.areas and self.budget < brown_one.price:
             print(f"Стоимость участка '{area.name}' слишком велика")
-        elif area in self.areas:
+        elif area in self.areas and self.areas[area.name] == 0:
             print(f'Участок уже принадлежит игроку {self.name}')
         elif area.name not in self.areas_obj.areas_list:
             print(f"Участка {area.name} уже нет в общем списке участков")
 
     # Заложение участка
     def dep_area(self, area):
-        if (area.name in self.areas) and (self.areas[area.name]) == 0:
+        if (area.name in self.areas) and (self.areas[area.name] == 0):
             self.areas[area.name] = -1
             self.budget += area.deposite
             print(f'Участок {area.name} заложен. Баланс {self.name} равен {self.budget}. \nВ собственности {self.name} находятся: {self.areas}')
@@ -58,8 +66,22 @@ class User(Area):
             print(f'{self.name} уже заложил этот участок ранее')
         elif self.areas[area.name] >= 1:
             print(f'Участок {area.name} имеет филиал(-ы) или предприятие. Сначала следует продать их')
-        
-
+    
+    # Покупка заложенного участка
+    def get_dep_area(self, area):
+        # Если заложенный участок етсь в списке юзера
+        # и если значение ключа для этого участка -1
+        # и если позволяет бюджет
+        if (area.name in self.areas) and (self.areas[area.name] == -1) and (self.budget >= (area.deposite+0.1*area.deposite)):
+            self.areas[area.name] = 0
+            self.budget -= area.deposite+0.1*area.deposite
+            print(f'{self.name} выкупил заложенный участок. Баланс {self.name} равен {self.budget}. \nВ собственности {self.name} находятся: {self.areas}')
+        elif area.name not in self.areas:
+            print(f'Участок {area.name} не принадлежит {self.name}')
+        elif self.areas[area.name] >= 0:
+            print(f'{self.name} уже имеет {area.name} в собственности, участок не под залогом')
+        elif (area.name in self.areas) and (self.areas[area.name] == -1) and (self.budget < (area.deposite+0.1*area.deposite)):
+            print(f'{self.name} не может выкупить {area.name} из залога, потому что в его бюджете недостаточно средств')
 
 user_1 = User(name="Саша", areas={}, budget=2000)
 user_2 = User(name="Настя", areas={}, budget=2000)
@@ -75,5 +97,9 @@ blue_two = First_2(name='Отдел тайн', price=100, deposite=50, rent_stoc
 blue_three = First_2(name='Отдел обеспечения магического правопорядка', price=120, deposite=60, rent_stock=8, 
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
-user_1.buy_area(brown_one)
-user_1.buy_area(brown_two)
+
+user_1.cicle_add()
+# user_1.buy_area(brown_one)
+# user_1.buy_area(brown_two)
+# user_1.dep_area(brown_one)
+# user_1.get_dep_area(brown_one)
