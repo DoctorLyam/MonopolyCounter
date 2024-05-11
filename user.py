@@ -69,7 +69,7 @@ class User(Area):
     
     # Покупка заложенного участка
     def get_dep_area(self, area):
-        # Если заложенный участок етсь в списке юзера
+        # Если заложенный участок есть в списке юзера
         # и если значение ключа для этого участка -1
         # и если позволяет бюджет
         if (area.name in self.areas) and (self.areas[area.name] == -1) and (self.budget >= (area.deposite+0.1*area.deposite)):
@@ -83,8 +83,19 @@ class User(Area):
         elif (area.name in self.areas) and (self.areas[area.name] == -1) and (self.budget < (area.deposite+0.1*area.deposite)):
             print(f'{self.name} не может выкупить {area.name} из залога, потому что в его бюджете недостаточно средств')
 
-    def get_office(self):
-        
+    # Покупка офиса
+    def get_office(self, area):
+        class_name = type(area).__name__
+        class_attr = getattr(self, class_name, None)
+        temp_list = []
+        for uchastok in self.areas:
+            if uchastok in class_attr.areas_list:
+                temp_list.append(uchastok)
+
+        if (area.name in self.areas) and (len(temp_list) == class_attr.areas_count) and (0 <= self.areas[area.name] < 4) and (self.budget >= class_attr.office_price):
+            self.budget -= class_attr.office_price
+            self.areas[area.name] += 1
+            print(f'На участке {self.name} {area.name} появился филиал')
 
 
 user_1 = User(name="Саша", areas={}, budget=2000)
