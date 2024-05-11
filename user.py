@@ -83,6 +83,10 @@ class User(Area):
         elif (area.name in self.areas) and (self.areas[area.name] == -1) and (self.budget < (area.deposite+0.1*area.deposite)):
             print(f'{self.name} не может выкупить {area.name} из залога, потому что в его бюджете недостаточно средств')
 
+    def get_office(self):
+        
+
+
 user_1 = User(name="Саша", areas={}, budget=2000)
 user_2 = User(name="Настя", areas={}, budget=2000)
 
