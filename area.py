@@ -43,12 +43,3 @@ class First_2_son(First_2):
         self.areas_count = 3
         self.office_price = 50
         self.firm_price = 4*self.office_price + 50
-
-
-
-# blue_one = First_2(name='Отдел магического транспорта', price=100, deposite=50, rent_stock=6, 
-#             rent_one_off=30, rent_two_off=90, rent_three_off=270, rent_four_off=400, rent_firm=550)
-# blue_two = First_2(name='Отдел тайн', price=100, deposite=50, rent_stock=6, 
-#             rent_one_off=30, rent_two_off=90, rent_three_off=270, rent_four_off=400, rent_firm=550)
-# blue_three = First_2(name='Отдел обеспечения магического правопорядка', price=120, deposite=60, rent_stock=8, 
-#             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
