@@ -127,8 +127,34 @@ class User(Area):
         else: print(f'{area.name} нет в списке участков игрока {self.name}')
 
     def sale_office(self, area):
-        if (area.name in self.areas) and
+        class_name = type(area).__name__
+        class_attr = getattr(self, class_name, None)
+        if area.name in self.areas:
+            temp_list2 = []
+            for k in self.areas:
+                if (k in class_attr.areas_list) and (k != area.name):
+                    temp_list2.append(self.areas[k])
+            if temp_list2:
+                min_off = max(temp_list2)
+                difference = self.areas[area.name] - min_off
 
+            if (area.name in self.areas) and (0 < self.areas[area.name] <= 4) and ((difference == 0) or (difference == 1)):
+                self.budget += 0.5*class_attr.office_price
+                self.areas[area.name] -= 1
+                if self.areas[area.name] == 0:
+                    print(f'{self.name} продал филиал на участке {area.name} за полцены - на участке больше нет филиалов. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
+                else:
+                    print(f'{self.name} продал филиал на участке {area.name} за полцены. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
+            elif area.name not in self.areas:
+                print(f'Участка {area.name} нет в собственности {self.name}, поэтому он не может продавать филиалы с этого участка')
+            elif self.areas[area.name] == 0:
+                print(f'На участке {area.name} игрока {self.name} нет филиалов. Продажа не удалась')
+            elif self.areas[area.name] == 5:
+                print(f'На участке{area.name} установлено предприятие, а не филиал - продажа филиала не удалась')
+            elif difference == -1:
+                print(f'Есть участки в отрасли {class_attr.name}, на которых расположено предприятие или больше филиалов, чем на данном. Игроку {self.name} не удалось продать филиал на учатстке {area.name}')
+        else: 
+            print(f'{area.name} нет в списке участков игрока {self.name}')
 
 user_1 = User(name="Саша", areas={}, budget=2000)
 user_2 = User(name="Настя", areas={}, budget=2000)
