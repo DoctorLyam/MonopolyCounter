@@ -109,7 +109,7 @@ class User(Area):
                 difference = -2
 
             if difference != -2:
-                if (area.name in self.areas) and (len(temp_list) == class_attr.areas_count) and (0 <= self.areas[area.name] < 4) and (?difference == 0?) and (self.budget >= class_attr.office_price):
+                if (area.name in self.areas) and (len(temp_list) == class_attr.areas_count) and (0 <= self.areas[area.name] < 4) and ((difference == 0) or (difference == -1)) and (self.budget >= class_attr.office_price):
                     self.budget -= class_attr.office_price
                     self.areas[area.name] += 1
                     print(f'На участке {self.name} {area.name} появился филиал. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
