@@ -47,11 +47,11 @@ class User(Area):
                 print(f'Игроку {self.name} принадлежат отрасли: {self.bolshoy_dyadya}')
             else:
                 pass
-        elif area not in self.areas and self.budget < brown_one.price:
+        elif (area not in self.areas) and (self.budget < brown_one.price):
             print(f"Стоимость участка '{area.name}' слишком велика")
-        elif area in self.areas and self.areas[area.name] == 0:
+        elif (area in self.areas) and (self.areas[area.name] >= 0):
             print(f'Участок уже принадлежит игроку {self.name}')
-        elif area.name not in self.areas_obj.areas_list:
+        elif (area not in self.areas) and (area.name not in self.areas_obj.areas_list):
             print(f"Участка {area.name} уже нет в общем списке участков")
 
     # Заложение участка
@@ -103,12 +103,13 @@ class User(Area):
                     temp_list2.append(self.areas[k])
             if temp_list2:
                 min_off = min(temp_list2)
-                difference = self.areas[area.name]-min_off
+                difference = self.areas[area.name]-min_off # РЕШИТЬ ЗАДАЧУ ПРИ КОТОРОЙ Я УСТАНАВЛИВАЮ ФИЛИАЛ, КОГДА ЗНАЧЕНИЯ
+                                                            # РАВНЫ 0 и 1
             else:
                 difference = -2
 
             if difference != -2:
-                if (area.name in self.areas) and (len(temp_list) == class_attr.areas_count) and (0 <= self.areas[area.name] < 4) and (difference == 0) and (self.budget >= class_attr.office_price):
+                if (area.name in self.areas) and (len(temp_list) == class_attr.areas_count) and (0 <= self.areas[area.name] < 4) and (?difference == 0?) and (self.budget >= class_attr.office_price):
                     self.budget -= class_attr.office_price
                     self.areas[area.name] += 1
                     print(f'На участке {self.name} {area.name} появился филиал. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
@@ -124,7 +125,7 @@ class User(Area):
                     print(f'{self.name} не может установить филиал на участок {area.name}, потому что предварительно следует установить филиалы на другие участки отрасли')
             else:
                 print(f'{self.name} не является монополистом данной отрасли, поэтому филиал установить невозможно')
-                
+
         else: print(f'{area.name} нет в списке участков игрока {self.name}')
 
 
@@ -143,7 +144,6 @@ blue_three = First_2(name='Отдел обеспечения магическо�
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
 user_1.buy_area(brown_one)
-# user_1.buy_area(brown_two)
-user_1.get_office(brown_one)
+user_1.buy_area(brown_two)
 user_1.get_office(brown_two)
-# user_1.get_office(brown_one)
+user_1.get_office(brown_one)
