@@ -59,7 +59,7 @@ class User(Area):
         if (area.name in self.areas) and (self.areas[area.name] == 0):
             self.areas[area.name] = -1
             self.budget += area.deposite
-            print(f'Участок {area.name} заложен. Баланс {self.name} равен {self.budget}. \nВ собственности {self.name} находятся: {self.areas}')
+            print(f'Участок {area.name} заложен. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
         elif area.name not in self.areas:
             print(f'Участок недоступен для заложения {self.name}, потому что его нет в списке приобретенных участков')
         elif self.areas[area.name] == -1:
@@ -75,7 +75,7 @@ class User(Area):
         if (area.name in self.areas) and (self.areas[area.name] == -1) and (self.budget >= (area.deposite+0.1*area.deposite)):
             self.areas[area.name] = 0
             self.budget -= area.deposite+0.1*area.deposite
-            print(f'{self.name} выкупил заложенный участок. Баланс {self.name} равен {self.budget}. \nВ собственности {self.name} находятся: {self.areas}')
+            print(f'{self.name} выкупил заложенный участок. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
         elif area.name not in self.areas:
             print(f'Участок {area.name} не принадлежит {self.name}')
         elif self.areas[area.name] >= 0:
@@ -97,9 +97,9 @@ class User(Area):
         # По этой разнице узнаю, можно ли устанавливать филиал на данном участке
         # т.к. если разница = 1, значит прежде филиалы надо устанавить на других участках этой отрасли 
         temp_list2 = []
-        for k, l in self.areas:
+        for k in self.areas:
             if (k in class_attr.areas_list) and (k != area.name):
-                temp_list2.append(l)
+                temp_list2.append(self.areas[k])
         if temp_list2:
             min_off = min(temp_list2)
             difference = self.areas[area.name]-min_off
@@ -110,13 +110,17 @@ class User(Area):
             if (area.name in self.areas) and (len(temp_list) == class_attr.areas_count) and (0 <= self.areas[area.name] < 4) and (difference == 0) and (self.budget >= class_attr.office_price):
                 self.budget -= class_attr.office_price
                 self.areas[area.name] += 1
-                print(f'На участке {self.name} {area.name} появился филиал')
+                print(f'На участке {self.name} {area.name} появился филиал. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
             elif area.name not in self.areas:
                 print(f'Участка {area.name} нет в собственности у {self.name}, поэтому филиал установить невозможно')
             elif len(temp_list) < class_attr.areas_count:
                 print(f'{self.name} не является монополистом данной отрасли, поэтому филиал установить невозможно')
             elif (self.areas[area.name] == 4) and (difference == 0):
                 print(f'На участок {area.name} следует установить не филиал, а предприятие')
+            elif self.areas[area.name] == -1:
+                print(f'Участок {area.name} заложен, поэтому филиал установить невозможно')
+            elif (difference > 0) and (len(temp_list) == class_attr.areas_count):
+                print(f'{self.name} не может установить филиал на участок {area.name}, потому что предварительно следует установить филиалы на другие участки отрасли')
         else:
             print(f'{self.name} не является монополистом данной отрасли, поэтому филиал установить невозможно')
 
@@ -135,9 +139,8 @@ blue_two = First_2(name='Отдел тайн', price=100, deposite=50, rent_stoc
 blue_three = First_2(name='Отдел обеспечения магического правопорядка', price=120, deposite=60, rent_stock=8, 
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
-
-user_1.cicle_add()
-# user_1.buy_area(brown_one)
+user_1.buy_area(brown_one)
 # user_1.buy_area(brown_two)
-# user_1.dep_area(brown_one)
-# user_1.get_dep_area(brown_one)
+user_1.get_office(brown_one)
+user_1.get_office(brown_two)
+# user_1.get_office(brown_one)
