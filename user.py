@@ -174,6 +174,9 @@ blue_three = First_2(name='Отдел обеспечения магическо�
 
 user_1.buy_area(brown_one)
 user_1.buy_area(brown_two)
-
+user_1.get_office(brown_one)
+user_1.get_office(brown_two)
+user_1.get_office(brown_one)
+user_1.get_office(brown_two)
 user_1.sale_office(brown_one)
 user_1.sale_office(brown_two)
