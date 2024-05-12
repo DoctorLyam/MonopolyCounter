@@ -24,7 +24,7 @@ class User(Area):
         # Если покупаемый участок есть в общем списке участков
         # и если этого участка еще нет в списке покупающего его юзера
         # и если бюджет позволяет
-        if (area.name in self.areas_obj.areas_list) and (area not in self.areas) and (self.budget >= area.price):
+        if (area.name in self.areas_obj.areas_list) and (area.name not in self.areas) and (self.budget >= area.price):
             print(f'Общий список предприятий ДО приобретения: {self.areas_obj.areas_list}')
             self.areas_obj.areas_list.remove(area.name)
             print(f'Общий спиcок предприятий ПОСЛЕ приобретения: {self.areas_obj.areas_list}')
@@ -47,11 +47,11 @@ class User(Area):
                 print(f'Игроку {self.name} принадлежат отрасли: {self.bolshoy_dyadya}')
             else:
                 pass
-        elif (area not in self.areas) and (self.budget < brown_one.price):
+        elif (area.name not in self.areas) and (self.budget < brown_one.price):
             print(f"Стоимость участка '{area.name}' слишком велика")
-        elif (area in self.areas) and (self.areas[area.name] >= 0):
-            print(f'Участок уже принадлежит игроку {self.name}')
-        elif (area not in self.areas) and (area.name not in self.areas_obj.areas_list):
+        elif (area.name in self.areas) and (self.areas[area.name] >= 0):
+            print(f'Участок {area.name} уже принадлежит игроку {self.name}')
+        elif (area.name not in self.areas) and (area.name not in self.areas_obj.areas_list):
             print(f"Участка {area.name} уже нет в общем списке участков")
 
     # Заложение участка
@@ -103,8 +103,7 @@ class User(Area):
                     temp_list2.append(self.areas[k])
             if temp_list2:
                 min_off = min(temp_list2)
-                difference = self.areas[area.name]-min_off # РЕШИТЬ ЗАДАЧУ ПРИ КОТОРОЙ Я УСТАНАВЛИВАЮ ФИЛИАЛ, КОГДА ЗНАЧЕНИЯ
-                                                            # РАВНЫ 0 и 1
+                difference = self.areas[area.name] - min_off
             else:
                 difference = -2
 
@@ -145,5 +144,6 @@ blue_three = First_2(name='Отдел обеспечения магическо�
 
 user_1.buy_area(brown_one)
 user_1.buy_area(brown_two)
-user_1.get_office(brown_two)
-user_1.get_office(brown_one)
+# user_1.get_office(brown_two)
+# user_1.get_office(brown_one)
+user_1.buy_area(brown_two)
