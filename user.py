@@ -92,10 +92,33 @@ class User(Area):
             if uchastok in class_attr.areas_list:
                 temp_list.append(uchastok)
 
-        if (area.name in self.areas) and (len(temp_list) == class_attr.areas_count) and (0 <= self.areas[area.name] < 4) and (self.budget >= class_attr.office_price):
-            self.budget -= class_attr.office_price
-            self.areas[area.name] += 1
-            print(f'На участке {self.name} {area.name} появился филиал')
+        # Вычленяю из словаря с участками участки данной отрасли без данного участка
+        # чтобы найти минимальное значение и отнять его от значения данного участка
+        # По этой разнице узнаю, можно ли устанавливать филиал на данном участке
+        # т.к. если разница = 1, значит прежде филиалы надо устанавить на других участках этой отрасли 
+        temp_list2 = []
+        for k, l in self.areas:
+            if (k in class_attr.areas_list) and (k != area.name):
+                temp_list2.append(l)
+        if temp_list2:
+            min_off = min(temp_list2)
+            difference = self.areas[area.name]-min_off
+        else:
+            difference = -2
+
+        if difference != -2:
+            if (area.name in self.areas) and (len(temp_list) == class_attr.areas_count) and (0 <= self.areas[area.name] < 4) and (difference == 0) and (self.budget >= class_attr.office_price):
+                self.budget -= class_attr.office_price
+                self.areas[area.name] += 1
+                print(f'На участке {self.name} {area.name} появился филиал')
+            elif area.name not in self.areas:
+                print(f'Участка {area.name} нет в собственности у {self.name}, поэтому филиал установить невозможно')
+            elif len(temp_list) < class_attr.areas_count:
+                print(f'{self.name} не является монополистом данной отрасли, поэтому филиал установить невозможно')
+            elif (self.areas[area.name] == 4) and (difference == 0):
+                print(f'На участок {area.name} следует установить не филиал, а предприятие')
+        else:
+            print(f'{self.name} не является монополистом данной отрасли, поэтому филиал установить невозможно')
 
 
 user_1 = User(name="Саша", areas={}, budget=2000)
