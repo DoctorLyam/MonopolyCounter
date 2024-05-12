@@ -124,8 +124,10 @@ class User(Area):
                     print(f'{self.name} не может установить филиал на участок {area.name}, потому что предварительно следует установить филиалы на другие участки отрасли')
             else:
                 print(f'{self.name} не является монополистом данной отрасли, поэтому филиал установить невозможно')
-
         else: print(f'{area.name} нет в списке участков игрока {self.name}')
+
+    def sale_office(self, area):
+        if (area.name in self.areas) and
 
 
 user_1 = User(name="Саша", areas={}, budget=2000)
@@ -143,7 +145,4 @@ blue_three = First_2(name='Отдел обеспечения магическо�
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
 user_1.buy_area(brown_one)
-user_1.buy_area(brown_two)
-# user_1.get_office(brown_two)
-# user_1.get_office(brown_one)
 user_1.buy_area(brown_two)
