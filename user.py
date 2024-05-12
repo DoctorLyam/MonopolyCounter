@@ -126,6 +126,7 @@ class User(Area):
                 print(f'{self.name} не является монополистом данной отрасли, поэтому филиал установить невозможно')
         else: print(f'{area.name} нет в списке участков игрока {self.name}')
 
+    # Продажа филиалов
     def sale_office(self, area):
         class_name = type(area).__name__
         class_attr = getattr(self, class_name, None)
