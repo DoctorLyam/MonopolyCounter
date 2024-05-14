@@ -111,7 +111,7 @@ class User(Area):
                 if (area.name in self.areas) and (len(temp_list) == class_attr.areas_count) and (0 <= self.areas[area.name] < 4) and ((difference == 0) or (difference == -1)) and (self.budget >= class_attr.office_price):
                     self.budget -= class_attr.office_price
                     self.areas[area.name] += 1
-                    print(f'На участке {self.name} {area.name} появился филиал. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
+                    print(f'На участке {self.name} {area.name} появился филиал ({self.areas[area.name]}). Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
                 elif area.name not in self.areas:
                     print(f'Участка {area.name} нет в собственности у {self.name}, поэтому филиал установить невозможно')
                 elif len(temp_list) < class_attr.areas_count:
@@ -138,26 +138,70 @@ class User(Area):
             if temp_list2:
                 min_off = max(temp_list2)
                 difference = self.areas[area.name] - min_off
+            else: difference == -2
 
-            if (area.name in self.areas) and (0 < self.areas[area.name] <= 4) and ((difference == 0) or (difference == 1)):
-                self.budget += 0.5*class_attr.office_price
-                self.areas[area.name] -= 1
-                if self.areas[area.name] == 0:
-                    print(f'{self.name} продал филиал на участке {area.name} за полцены - на участке больше нет филиалов. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
-                else:
-                    print(f'{self.name} продал филиал на участке {area.name} за полцены. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
-            elif area.name not in self.areas:
-                print(f'Участка {area.name} нет в собственности {self.name}, поэтому он не может продавать филиалы с этого участка')
-            elif self.areas[area.name] == 0:
-                print(f'На участке {area.name} игрока {self.name} нет филиалов. Продажа не удалась')
-            elif self.areas[area.name] == -1:
-                print(f'Участок {area.name} заложен игроком {self.name}. Продажа филиала не удалась')
-            elif self.areas[area.name] == 5:
-                print(f'На участке{area.name} установлено предприятие, а не филиал - продажа филиала не удалась')
-            elif difference == -1:
-                print(f'Есть участки в отрасли {class_attr.name}, на которых расположено предприятие или больше филиалов, чем на данном. Игроку {self.name} не удалось продать филиал на учатстке {area.name}')
+            if difference != -2:
+                if (area.name in self.areas) and (0 < self.areas[area.name] <= 4) and ((difference == 0) or (difference == 1)):
+                    self.budget += 0.5*class_attr.office_price
+                    self.areas[area.name] -= 1
+                    if self.areas[area.name] == 0:
+                        print(f'{self.name} продал филиал на участке {area.name} за полцены - на участке больше нет филиалов. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
+                    else:
+                        print(f'{self.name} продал филиал на участке {area.name} за полцены. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
+                elif area.name not in self.areas:
+                    print(f'Участка {area.name} нет в собственности {self.name}, поэтому он не может продавать филиалы с этого участка')
+                elif self.areas[area.name] == 0:
+                    print(f'На участке {area.name} игрока {self.name} нет филиалов. Продажа не удалась')
+                elif self.areas[area.name] == -1:
+                    print(f'Участок {area.name} заложен игроком {self.name}. Продажа филиала не удалась')
+                elif self.areas[area.name] == 5:
+                    print(f'На участке{area.name} установлено предприятие, а не филиал - продажа филиала не удалась')
+                elif difference == -1:
+                    print(f'Есть участки в отрасли {class_attr.name}, на которых расположено предприятие или больше филиалов, чем на данном. Игроку {self.name} не удалось продать филиал на учатстке {area.name}')
+            else:
+                print(f'Продажа офиса игроком {self.name} при данных обстоятельствах невозможна')
         else: 
             print(f'{area.name} нет в списке участков игрока {self.name}')
+
+    def get_firm(self, area):
+        class_name = type(area).__name__
+        class_attr = getattr(self, class_name, None)
+
+        temp_list = []
+        for uchastok in self.areas:
+            if uchastok in class_attr.areas_list:
+                temp_list.append(uchastok)
+
+        if area.name in self.areas:
+            temp_list2 = []
+            for k in self.areas:
+                if (k in class_attr.areas_list) and (k != area.name):
+                    temp_list2.append(self.areas[k])
+            if temp_list2:
+                min_off = max(temp_list2)
+                difference = self.areas[area.name] - min_off
+            else:
+                difference == -2
+
+            if difference != 2:
+                if (self.areas[area.name] == 4) and ((difference == 0)or (difference == -1)) and (self.budget >= class_attr.firm_price):
+                    self.budget -= class_attr.firm_price
+                    self.areas[area.name] = 5
+                    print(f'({self.name} приобрел предприятие ({self.areas[area.name]}) для участка {area.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas})')
+                elif 0 <= self.areas[area.name] < 4:
+                    print(f'Прежде, чем установить предприятие на участок {area.name}, игроку {self.name} следует установить филиал. Предприятие не установлено')
+                elif self.areas[area.name] == -1:
+                    print(f'Участок {area.name} игрока {self.name} заложен. Предприятие не установлено')
+                elif (difference > 0) and (len(temp_list) == class_attr.areas_count):
+                    print(f'Прежде, чем установить предприятие, игроку {self.name} следует установить все филиалы на прочие участки отрасли {class_attr.name}. Предприятие не установлено')
+                elif self.budget < class_attr.firm_price:
+                    print(f'Игроку {self.name} не хватает денег. Предприятие на участке {area.name} не установлено')
+                elif self.areas[area.name] == 5:
+                    print(f'Предприятие на участке {area.name} игрока {self.name} уже установлено')
+            else:
+                print(f'Покупка предприятия игроком {self.name} при данных обстоятельствах невозможна')
+        else: 
+            print(f'Участка {area.name} нет в собственности у {self.name}. Предприятие не установлено')
 
 user_1 = User(name="Саша", areas={}, budget=2000)
 user_2 = User(name="Настя", areas={}, budget=2000)
@@ -179,5 +223,13 @@ user_1.get_office(brown_one)
 user_1.get_office(brown_two)
 user_1.get_office(brown_one)
 user_1.get_office(brown_two)
-user_1.sale_office(brown_one)
-user_1.sale_office(brown_two)
+user_1.get_office(brown_one)
+user_1.get_office(brown_two)
+user_1.get_office(brown_one)
+user_1.get_office(brown_two)
+user_1.get_office(brown_one)
+user_1.get_office(brown_two)
+user_1.get_firm(brown_one)
+user_1.get_firm(brown_one)
+user_1.get_firm(brown_two)
+user_1.get_firm(brown_one)
