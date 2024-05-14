@@ -56,17 +56,29 @@ class User(Area):
 
     # Заложение участка
     def dep_area(self, area):
-        if (area.name in self.areas) and (self.areas[area.name] == 0):
-            self.areas[area.name] = -1
-            self.budget += area.deposite
-            print(f'Участок {area.name} заложен. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
-        elif area.name not in self.areas:
-            print(f'Участок недоступен для заложения {self.name}, потому что его нет в списке приобретенных участков')
-        elif self.areas[area.name] == -1:
-            print(f'{self.name} уже заложил этот участок ранее')
-        elif self.areas[area.name] >= 1:
-            print(f'Участок {area.name} имеет филиал(-ы) или предприятие. Сначала следует продать их')
-    
+        class_name = type(area).__name__
+        class_attr = getattr(self, class_name, None)
+
+        if area.name in self.areas:
+            temp_list2 = []
+            for k in self.areas:
+                if (k in class_attr.areas_list):
+                    temp_list2.append(self.areas[k])
+            if temp_list2:
+                if ((1 or 2 or 3 or 4 or 5) not in temp_list2) and (self.areas[area.name] == 0):
+                    self.areas[area.name] = -1
+                    self.budget += area.deposite
+                    print(f'Участок {area.name} заложен. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
+                elif self.areas[area.name] == -1:
+                    print(f'{self.name} уже заложил этот участок ранее')
+                elif self.areas[area.name] >= 1:
+                    print(f'Участок {area.name} имеет филиал(-ы) или предприятие. Сначала следует продать их')
+                else:
+                    print(f'В другом участке отрасли {class_attr.name} есть филиалы и/или предприятия. Игроку {self.name} не удалось заложить участок {area.name}')
+            else:
+                print(f'Заложение учкастка {area.name} игроком {self.name} невозможно')
+        else: print(f'{area.name} нет в списке участков игрока {self.name}. Участок недоступен для заложения')
+
     # Покупка заложенного участка
     def get_dep_area(self, area):
         # Если заложенный участок есть в списке юзера
@@ -159,6 +171,7 @@ class User(Area):
         else: 
             print(f'{area.name} нет в списке участков игрока {self.name}')
 
+    # Покупка предприятия
     def get_firm(self, area):
         class_name = type(area).__name__
         class_attr = getattr(self, class_name, None)
@@ -199,6 +212,37 @@ class User(Area):
         else: 
             print(f'Участка {area.name} нет в собственности у {self.name}. Предприятие не установлено')
 
+    # Продажа предприятия
+    def sale_firm(self, area):
+        class_name = type(area).__name__
+        class_attr = getattr(self, class_name, None)
+        if area.name in self.areas:
+            temp_list2 = []
+            for k in self.areas:
+                if (k in class_attr.areas_list) and (k != area.name):
+                    temp_list2.append(self.areas[k])
+            if temp_list2:
+                min_off = max(temp_list2)
+                difference = self.areas[area.name] - min_off
+            else: difference == -2
+
+            if difference != -2:
+                if (self.areas[area.name] == 5) and ((difference == 0) or (difference == 1)):
+                    self.budget += 0.5*class_attr.firm_price
+                    self.areas[area.name] = 4
+                    print(f'Предприятие на участке {area.name} продано игроком {self.name} за полцены. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
+                elif 0 < self.areas[area.name] < 5:
+                    print(f'На участке {area.name} игрока {self.name} и так нет предприятия, но установлены филиалы. Следует продать их')
+                elif self.areas[area.name] == 0:
+                    print(f'На участке {area.name} игрока {self.name} нет филиалов и предприятий. Продажа не удалась')
+                elif self.areas[area.name] == -1: 
+                    print(f'Участок {area.name} заложен игроком {self.name}. Продажа предприятия не удалась')
+            else:
+                print(f'Продажа предприятия игроком {self.name} при данных обстоятельствах невозможна')
+        else:
+            print(f'Участка {area.name} нет в собственности у {self.name}. Предприятие не продано')
+
+
 user_1 = User(name="Саша", areas={}, budget=2000)
 user_2 = User(name="Настя", areas={}, budget=2000)
 
@@ -223,9 +267,5 @@ user_1.get_office(brown_one)
 user_1.get_office(brown_two)
 user_1.get_office(brown_one)
 user_1.get_office(brown_two)
-user_1.get_office(brown_one)
-user_1.get_office(brown_two)
 user_1.get_firm(brown_one)
-user_1.get_firm(brown_one)
-user_1.get_firm(brown_two)
-user_1.get_firm(brown_one)
+user_1.get_firm(brown_one) # ЗАПУСТИТЬ КОД И ВОСПРОИЗВЕСТИ ОШИБКУ!!!
