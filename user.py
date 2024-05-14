@@ -183,7 +183,7 @@ class User(Area):
                 if (self.areas[area.name] == 4) and ((difference == 0)or (difference == -1)) and (self.budget >= class_attr.firm_price):
                     self.budget -= class_attr.firm_price
                     self.areas[area.name] = 5
-                    print(f'({self.name} приобрел предприятие ({self.areas[area.name]}) для участка {area.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas})')
+                    print(f'{self.name} приобрел предприятие ({self.areas[area.name]}) для участка {area.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
                 elif 0 <= self.areas[area.name] < 4:
                     print(f'Прежде, чем установить предприятие на участок {area.name}, игроку {self.name} следует установить филиал. Предприятие не установлено')
                 elif self.areas[area.name] == -1:
