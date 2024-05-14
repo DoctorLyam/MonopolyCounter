@@ -108,12 +108,10 @@ class User(Area):
                 difference = -2
 
             if difference != -2:
-                if (area.name in self.areas) and (len(temp_list) == class_attr.areas_count) and (0 <= self.areas[area.name] < 4) and ((difference == 0) or (difference == -1)) and (self.budget >= class_attr.office_price):
+                if (len(temp_list) == class_attr.areas_count) and (0 <= self.areas[area.name] < 4) and ((difference == 0) or (difference == -1)) and (self.budget >= class_attr.office_price):
                     self.budget -= class_attr.office_price
                     self.areas[area.name] += 1
                     print(f'На участке {self.name} {area.name} появился филиал ({self.areas[area.name]}). Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
-                elif area.name not in self.areas:
-                    print(f'Участка {area.name} нет в собственности у {self.name}, поэтому филиал установить невозможно')
                 elif len(temp_list) < class_attr.areas_count:
                     print(f'{self.name} не является монополистом данной отрасли, поэтому филиал установить невозможно')
                 elif (self.areas[area.name] == 4) and (difference == 0):
@@ -141,15 +139,13 @@ class User(Area):
             else: difference == -2
 
             if difference != -2:
-                if (area.name in self.areas) and (0 < self.areas[area.name] <= 4) and ((difference == 0) or (difference == 1)):
+                if (0 < self.areas[area.name] <= 4) and ((difference == 0) or (difference == 1)):
                     self.budget += 0.5*class_attr.office_price
                     self.areas[area.name] -= 1
                     if self.areas[area.name] == 0:
                         print(f'{self.name} продал филиал на участке {area.name} за полцены - на участке больше нет филиалов. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
                     else:
                         print(f'{self.name} продал филиал на участке {area.name} за полцены. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}')
-                elif area.name not in self.areas:
-                    print(f'Участка {area.name} нет в собственности {self.name}, поэтому он не может продавать филиалы с этого участка')
                 elif self.areas[area.name] == 0:
                     print(f'На участке {area.name} игрока {self.name} нет филиалов. Продажа не удалась')
                 elif self.areas[area.name] == -1:
