@@ -3,7 +3,7 @@ from base_class import Base
 class Area(Base):
     
     def __init__(self, name, price, deposite, rent_stock, rent_one_off, rent_two_off, 
-            rent_three_off, rent_four_off, rent_firm, firm=False, office_count=0):
+            rent_three_off, rent_four_off, rent_firm, owner = ''):
         self.name = name
         self.price = price
         self.deposite = deposite
@@ -13,9 +13,7 @@ class Area(Base):
         self.rent_three_off = rent_three_off
         self.rent_four_off = rent_four_off
         self.rent_firm = rent_firm
-        self.firm = firm
-        self.office_count = office_count
-
+        self.owner = owner
 
 class Areas(Area):
     def __init__(self):

@@ -5,14 +5,20 @@ from area import Area, First_1, First_1_son, First_2, First_2_son, Areas
 # -1 - заложен; 0 - куплен; 1,2,3,4 - установлен(-ы) филиал(-ы); 5 - установлено предприятие 
 
 class User(Area):
+    areas_list = ['Дом Гарри', 'Вокзал Кингс-Кросс', 'Отдел магического транспорта', 'Отдел тайн', 'Отдел обеспечения магического правопорядка']
+
     def __init__(self, name, areas, budget, bolshoy_dyadya=[]):
         self.name = name
         self.areas = areas
         self.budget = budget
         self.bolshoy_dyadya = bolshoy_dyadya
-        self.areas_obj = Areas()
+        # self.areas_obj = Areas()
         self.First_1 = First_1_son()
         self.First_2 = First_2_son()
+
+    @classmethod
+    def del_area_from_Areas(cls, area_name):
+        return cls.areas_list.remove(area_name)
 
     # Круговой доход
     def cicle_add(self):
@@ -32,10 +38,11 @@ class User(Area):
         # и если бюджет позволяет
         if (area.name in self.areas_obj.areas_list) and (area.name not in self.areas) and (self.budget >= area.price):
             print(f'Общий список предприятий ДО приобретения: {self.areas_obj.areas_list}')
-            self.areas_obj.areas_list.remove(area.name)
+            User.del_area_from_Areas(area.name)
             print(f'Общий спиcок предприятий ПОСЛЕ приобретения: {self.areas_obj.areas_list}')
             self.areas[area.name] = 0
             self.budget -= brown_one.price
+            area.owner = self.name
             print(f"Игроку {self.name} добавлен участок {area.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}")
             # Через имя класса участка получаем значение атрибута объекта user - First = First_son
             class_name = type(area).__name__
@@ -248,6 +255,23 @@ class User(Area):
         else:
             print(f'Участка {area.name} нет в собственности у {self.name}. Предприятие не продано')
 
+    def rent(self, area):
+        if self.areas[area.name] == 0:
+            price = area.rent_stock
+        elif self.areas[area.name] == 1:
+            price = area.rent_one_off
+        elif self.areas[area.name] == 2:
+            price = area.rent_two_off
+        elif self.areas[area.name] == 3:
+            price = area.rent_three_off
+        elif self.areas[area.name] == 4:
+            price = area.rent_four_off
+        elif self.areas[area.name] == 5:
+            price = area.rent_firm
+        
+        if (area.name not in self.areas_obj.areas_list) and (self.areas[area.name] > -1) and (self.budget >= price):
+            self.budget -= price
+            
 
 user_1 = User(name="Саша", areas={}, budget=2000)
 user_2 = User(name="Настя", areas={}, budget=2000)
@@ -265,13 +289,7 @@ blue_three = First_2(name='Отдел обеспечения магическо�
 
 user_1.buy_area(brown_one)
 user_1.buy_area(brown_two)
-user_1.get_office(brown_one)
-user_1.get_office(brown_two)
-user_1.get_office(brown_one)
-user_1.get_office(brown_two)
-user_1.get_office(brown_one)
-user_1.get_office(brown_two)
-user_1.get_office(brown_one)
-user_1.get_office(brown_two)
-user_1.get_firm(brown_one)
-user_1.get_firm(brown_one)
+user_2.buy_area(brown_one)
+
+#ИЗМЕНИТЬ КЛАССОВЫЙ СПИСОК УЧАСТКОВ ВО ВСЕХ МЕТОДАХ (БЫЛ ДОБАВЛЕН @classmethod)
+#ДОБАВИТЬ ЗНАЧЕНИЕ ДЛЯ АТРИБУТА OWNER В РАЗНЫХ МЕТОДАХ И СКОРРЕКТИРОВАТЬ ПРОЧИЕ МЕТОДЫ В СООТВЕТСТВИИ С ИЗМЕНЕНИЕМ
