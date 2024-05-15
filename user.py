@@ -202,11 +202,11 @@ class User(Area):
                 elif self.areas[area.name] == -1:
                     print(f'Участок {area.name} игрока {self.name} заложен. Предприятие не установлено')
                 elif (difference > 0) and (len(temp_list) == class_attr.areas_count):
-                    print(f'Прежде, чем установить предприятие, игроку {self.name} следует установить все филиалы на прочие участки отрасли {class_attr.name}. Предприятие не установлено')
+                    print(f'Предприятие уже установлено на участке {area.name}. Но есть возможность установить предприятие(-я) на другие участки отрасли {class_attr.name}')
                 elif self.budget < class_attr.firm_price:
                     print(f'Игроку {self.name} не хватает денег. Предприятие на участке {area.name} не установлено')
-                elif self.areas[area.name] == 5:
-                    print(f'Предприятие на участке {area.name} игрока {self.name} уже установлено')
+                elif (self.areas[area.name] == 5) and (difference == 0):
+                    print(f'Предприятие на участке {area.name} игрока {self.name} уже установлено, как и предприятия на всех прочих участках отрасли {class_attr.name}')
             else:
                 print(f'Покупка предприятия игроком {self.name} при данных обстоятельствах невозможна')
         else: 
@@ -268,4 +268,4 @@ user_1.get_office(brown_two)
 user_1.get_office(brown_one)
 user_1.get_office(brown_two)
 user_1.get_firm(brown_one)
-user_1.get_firm(brown_one) # ЗАПУСТИТЬ КОД И ВОСПРОИЗВЕСТИ ОШИБКУ!!!
+user_1.get_firm(brown_one)
