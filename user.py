@@ -17,7 +17,13 @@ class User(Area):
     # Круговой доход
     def cicle_add(self):
         self.budget += 200
-        print(f'Бюджет {self.name} равен {self.budget}')
+        print(f'Получен круговой доход. Бюджет {self.name} равен {self.budget}')
+    
+    def prison(self):
+        if self.budget >= 50:
+            self.budget -= 50
+            print(f'{self.name} платит за выход из тюрьмы. Бюджет {self.name} равен {self.budget}')
+        else: print(f'{self.name} недостаточно денег для выхода на свободу')
 
     # Покупка участка
     def buy_area(self, area):
