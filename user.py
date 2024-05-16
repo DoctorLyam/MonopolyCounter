@@ -36,10 +36,10 @@ class User(Area):
         # Если покупаемый участок есть в общем списке участков
         # и если этого участка еще нет в списке покупающего его юзера
         # и если бюджет позволяет
-        if (area.name in self.areas_obj.areas_list) and (area.name not in self.areas) and (self.budget >= area.price):
-            print(f'Общий список предприятий ДО приобретения: {self.areas_obj.areas_list}')
+        if (area.name in User.areas_list) and (area.name not in self.areas) and (self.budget >= area.price):
+            print(f'Общий список предприятий ДО приобретения: {User.areas_list}')
             User.del_area_from_Areas(area.name)
-            print(f'Общий спиcок предприятий ПОСЛЕ приобретения: {self.areas_obj.areas_list}')
+            print(f'Общий спиcок предприятий ПОСЛЕ приобретения: {User.areas_list}')
             self.areas[area.name] = 0
             self.budget -= brown_one.price
             area.owner = self.name
@@ -64,7 +64,7 @@ class User(Area):
             print(f"Стоимость участка '{area.name}' слишком велика")
         elif (area.name in self.areas) and (self.areas[area.name] >= 0):
             print(f'Участок {area.name} уже принадлежит игроку {self.name}')
-        elif (area.name not in self.areas) and (area.name not in self.areas_obj.areas_list):
+        elif (area.name not in self.areas) and (area.name not in User.areas_list):
             print(f"Участка {area.name} уже нет в общем списке участков")
 
     # Заложение участка
@@ -269,7 +269,7 @@ class User(Area):
         elif self.areas[area.name] == 5:
             price = area.rent_firm
         
-        if (area.name not in self.areas_obj.areas_list) and (self.areas[area.name] > -1) and (self.budget >= price):
+        if (area.name not in User.areas_list) and (self.areas[area.name] > -1) and (self.budget >= price):
             self.budget -= price
             
 
@@ -290,6 +290,7 @@ blue_three = First_2(name='Отдел обеспечения магическо�
 user_1.buy_area(brown_one)
 user_1.buy_area(brown_two)
 user_2.buy_area(brown_one)
+user_1.get_office(brown_one)
+user_1.get_firm(brown_one)
 
-#ИЗМЕНИТЬ КЛАССОВЫЙ СПИСОК УЧАСТКОВ ВО ВСЕХ МЕТОДАХ (БЫЛ ДОБАВЛЕН @classmethod)
 #ДОБАВИТЬ ЗНАЧЕНИЕ ДЛЯ АТРИБУТА OWNER В РАЗНЫХ МЕТОДАХ И СКОРРЕКТИРОВАТЬ ПРОЧИЕ МЕТОДЫ В СООТВЕТСТВИИ С ИЗМЕНЕНИЕМ
