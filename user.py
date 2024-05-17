@@ -260,7 +260,7 @@ class User(Area):
             print(f'Участка {area.name} нет в собственности у {self.name}. Предприятие не продано')
 
     # Оплата аренды
-    def rent(self, area):
+    def pay_rent(self, area):
         if area.owner.areas[area.name] == 0:
             price = area.rent_stock
         elif area.owner.areas[area.name] == 1:
@@ -275,10 +275,12 @@ class User(Area):
             price = area.rent_firm
         
         if (area.name not in User.areas_list) and (area.owner.areas[area.name] > -1) and (self.budget >= price):
-            print(f'Бюджет {area.owner.name}')
+            print(f'Бюджет {area.owner.name} был равен {area.owner.budget}')
+            print(f'Бюджет {self.name} был равен {self.budget}')
             self.budget -= price
             area.owner.budget += price
-            
+            print(f'Бюджет {area.owner.name} стал равен {area.owner.budget}')
+            print(f'Бюджет {self.name} стал равен {self.budget}')
             
 
 user_1 = User(name="Саша", areas={}, budget=2000)
@@ -297,6 +299,6 @@ blue_three = First_2(name='Отдел обеспечения магическо�
 
 user_1.buy_area(brown_one)
 user_2.buy_area(brown_one)
-user_2.rent(brown_one)
+user_2.pay_rent(brown_one)
 
 #ДОБАВИТЬ ЗНАЧЕНИЕ ДЛЯ АТРИБУТА OWNER В РАЗНЫХ МЕТОДАХ И СКОРРЕКТИРОВАТЬ ПРОЧИЕ МЕТОДЫ В СООТВЕТСТВИИ С ИЗМЕНЕНИЕМ
