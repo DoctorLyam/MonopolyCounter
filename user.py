@@ -281,7 +281,12 @@ class User(Area):
             area.owner.budget += price
             print(f'Бюджет {area.owner.name} стал равен {area.owner.budget}')
             print(f'Бюджет {self.name} стал равен {self.budget}')
-            
+    
+    # Передать участок другому игроку
+    def give_area(self, area, user):
+        if (area.name in self.areas) and (self.areas[area.name]):
+# ЗАКОНЧИТЬ--------------------------------------------------------------
+
 
 user_1 = User(name="Саша", areas={}, budget=2000)
 user_2 = User(name="Настя", areas={}, budget=2000)
@@ -300,5 +305,6 @@ blue_three = First_2(name='Отдел обеспечения магическо�
 user_1.buy_area(brown_one)
 user_2.buy_area(brown_one)
 user_2.pay_rent(brown_one)
+user_1.give_area(brown_one, user_2)
 
 #ДОБАВИТЬ ЗНАЧЕНИЕ ДЛЯ АТРИБУТА OWNER В РАЗНЫХ МЕТОДАХ И СКОРРЕКТИРОВАТЬ ПРОЧИЕ МЕТОДЫ В СООТВЕТСТВИИ С ИЗМЕНЕНИЕМ
