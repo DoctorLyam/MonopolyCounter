@@ -16,6 +16,7 @@ class User(Area):
         self.First_1 = First_1_son()
         self.First_2 = First_2_son()
 
+    # Удаление участка из общего списка участков
     @classmethod
     def del_area_from_Areas(cls, area_name):
         return cls.areas_list.remove(area_name)
@@ -43,7 +44,9 @@ class User(Area):
             print(f'Общий спиcок предприятий ПОСЛЕ приобретения: {User.areas_list}')
             self.areas[area.name] = 0
             self.budget -= brown_one.price
-            area.owner = self.name
+            # Присваиваю участку в качестве атрибута объект Юзер, чтобы
+            # через участок можно было обращаться к самому Юзеру и его атрибутам
+            area.owner = self
             print(f"Игроку {self.name} добавлен участок {area.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.areas}")
             # Через имя класса участка получаем значение атрибута объекта user - First = First_son
             class_name = type(area).__name__
@@ -66,7 +69,7 @@ class User(Area):
         elif (area.name in self.areas) and (self.areas[area.name] >= 0):
             print(f'Участок {area.name} уже принадлежит игроку {self.name}')
         elif (area.name not in self.areas) and (area.name not in User.areas_list):
-            print(f"Участка {area.name} уже нет в общем списке участков")
+            print(f"Участка {area.name} уже нет в общем списке участков. Он находится в собственности {area.owner.name}")
 
     # Заложение участка
     def dep_area(self, area):
@@ -88,9 +91,9 @@ class User(Area):
                 elif self.areas[area.name] >= 1:
                     print(f'Участок {area.name} имеет филиал(-ы) или предприятие. Сначала следует продать их')
                 else:
-                    print(f'В другом участке отрасли {class_attr.name} есть филиалы и/или предприятия. Игроку {self.name} не удалось заложить участок {area.name}')
+                    print(f'На другом участке отрасли {class_attr.name} есть филиалы и/или предприятия. Игроку {self.name} не удалось заложить участок {area.name}')
             else:
-                print(f'Заложение учкастка {area.name} игроком {self.name} невозможно')
+                print(f'Заложение участка {area.name} игроком {self.name} невозможно')
         else: print(f'{area.name} нет в списке участков игрока {self.name}. Участок недоступен для заложения')
 
     # Покупка заложенного участка
@@ -256,22 +259,26 @@ class User(Area):
         else:
             print(f'Участка {area.name} нет в собственности у {self.name}. Предприятие не продано')
 
+    # Оплата аренды
     def rent(self, area):
-        if self.areas[area.name] == 0:
+        if area.owner.areas[area.name] == 0:
             price = area.rent_stock
-        elif self.areas[area.name] == 1:
+        elif area.owner.areas[area.name] == 1:
             price = area.rent_one_off
-        elif self.areas[area.name] == 2:
+        elif area.owner.areas[area.name] == 2:
             price = area.rent_two_off
-        elif self.areas[area.name] == 3:
+        elif area.owner.areas[area.name] == 3:
             price = area.rent_three_off
-        elif self.areas[area.name] == 4:
+        elif area.owner.areas[area.name] == 4:
             price = area.rent_four_off
-        elif self.areas[area.name] == 5:
+        elif area.owner.areas[area.name] == 5:
             price = area.rent_firm
         
-        if (area.name not in User.areas_list) and (self.areas[area.name] > -1) and (self.budget >= price):
+        if (area.name not in User.areas_list) and (area.owner.areas[area.name] > -1) and (self.budget >= price):
+            print(f'Бюджет {area.owner.name}')
             self.budget -= price
+            area.owner.budget += price
+            
             
 
 user_1 = User(name="Саша", areas={}, budget=2000)
@@ -289,9 +296,7 @@ blue_three = First_2(name='Отдел обеспечения магическо�
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
 user_1.buy_area(brown_one)
-user_1.buy_area(brown_two)
 user_2.buy_area(brown_one)
-user_1.get_office(brown_one)
-user_1.get_firm(brown_one)
+user_2.rent(brown_one)
 
 #ДОБАВИТЬ ЗНАЧЕНИЕ ДЛЯ АТРИБУТА OWNER В РАЗНЫХ МЕТОДАХ И СКОРРЕКТИРОВАТЬ ПРОЧИЕ МЕТОДЫ В СООТВЕТСТВИИ С ИЗМЕНЕНИЕМ
