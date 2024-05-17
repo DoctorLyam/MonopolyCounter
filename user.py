@@ -25,6 +25,7 @@ class User(Area):
         self.budget += 200
         print(f'Получен круговой доход. Бюджет {self.name} равен {self.budget}')
     
+    # Попадание в тюрьму
     def prison(self):
         if self.budget >= 50:
             self.budget -= 50
