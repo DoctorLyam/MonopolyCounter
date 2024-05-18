@@ -21,6 +21,21 @@ class User(Area):
     def del_area_from_Areas(cls, area_name):
         return cls.areas_list.remove(area_name)
 
+    # Взять деньги из банка
+    def get_money_from_bank(self, money: int):
+        try:
+            self.budget += money
+            print(f'{self.name} получил {money} галлеонов из банка.\nБюджет {self.name} составляет {self.budget}')
+        except TypeError:
+            print('Сумма получаемых в банке денег должна быть в формате int')
+
+    def give_money_to_bank(self, money: int):
+        try:
+            self.budget -= money
+            print(f'{self.name} отдал {money} галлеонов банку.\nБюджет {self.name} составляет {self.budget}')
+        except TypeError:
+            print('Сумма отдаваемы банку денег должна быть в формате int')
+
     # Круговой доход
     def cicle_add(self):
         self.budget += 200
@@ -306,6 +321,7 @@ class User(Area):
                 print(f'{self.name} не может передать игроку {user.name} {money} галлеонов, потому что у него их нет')
         except TypeError: print('Надо ввести сумму в формате int')
 
+
 user_1 = User(name="Саша", areas={}, budget=2000)
 user_2 = User(name="Настя", areas={}, budget=2000)
 
@@ -320,5 +336,7 @@ blue_two = First_2(name='Отдел тайн', price=100, deposite=50, rent_stoc
 blue_three = First_2(name='Отдел обеспечения магического правопорядка', price=120, deposite=60, rent_stock=8, 
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
-user_1.give_money(300, user_2)
-user_1.give_money('kek', user_2)
+user_1.get_money_from_bank(300)
+user_2.give_money_to_bank(500)
+
+
