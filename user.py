@@ -287,7 +287,12 @@ class User(Area):
         if (area.name in self.areas) and (self.areas[area.name] > -1):
             user.areas[area.name] = self.areas.pop(area.name)
             print(f'{self.name} передал участок игроку {user.name}.\nВ собственности у {self.name}: {self.areas}\nВ собственности у {user.name}: {user.areas}')
-
+        elif (area.name in self.areas) and (self.areas[area.name] == -1):
+            print(f'Участок {area.name} игрока {self.name} заложен, поэтому не может быть передан')
+        elif area.name not in self.areas:
+            print(f'Участок {area.name} не принадлежит {self.name}, поэтому не может быть передан')
+    
+    
 
 
 user_1 = User(name="Саша", areas={}, budget=2000)
