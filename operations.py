@@ -5,6 +5,7 @@ from area import Area, First_1, First_1_son, First_2, First_2_son, Transport
 
 class User(Area):
     areas_list = ['Дом Гарри', 'Вокзал Кингс-Кросс', 'Отдел магического транспорта', 'Отдел тайн', 'Отдел обеспечения магического правопорядка']
+    transport_list = ['Хогвартс-Экспресс', 'Летающая метла', 'Летучий порох', 'Магический портал']
 
     def __init__(self, name, areas, budget: int, bolshoy_dyadya=[]):
         self.name = name
@@ -18,6 +19,10 @@ class User(Area):
     @classmethod
     def del_area_from_Areas(cls, area_name):
         return cls.areas_list.remove(area_name)
+    
+    @classmethod
+    def del_transport_from_Transports(cls, transport_name):
+        return cls.transport_list.remove(transport_name)
 
     # Взять деньги из банка
     def get_money_from_bank(self, money: int):
@@ -38,6 +43,13 @@ class User(Area):
     def cicle_add(self):
         self.budget += 200
         print(f'Получен круговой доход. Бюджет {self.name} равен {self.budget}')
+
+    # Налог
+    def nalog(self):
+        if self.budget >= 50:
+            self.budget -= 50
+            print(f'{self.name} платит за выход из тюрьмы. Бюджет {self.name} равен {self.budget}')
+        else: print(f'{self.name} недостаточно денег для выхода на свободу')
     
     # Попадание в тюрьму
     def prison(self):
@@ -318,6 +330,9 @@ class User(Area):
             else:
                 print(f'{self.name} не может передать игроку {user.name} {money} галлеонов, потому что у него их нет')
         except TypeError: print('Надо ввести сумму в формате int')
+
+    # Покупка транспорта
+    def buy_transport(self, trans):
 
 
 user_1 = User(name="Саша", areas={}, budget=2000)
