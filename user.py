@@ -292,8 +292,19 @@ class User(Area):
         elif area.name not in self.areas:
             print(f'Участок {area.name} не принадлежит {self.name}, поэтому не может быть передан')
     
-    
-
+    # Передать деньги другому игроку
+    def give_money(self, money: int, user):
+        try:
+            if self.budget >= money:
+                print(f'Бюджет {self.name} ДО передачи денег: {self.budget}')
+                print(f'Бюджет {user.name} ДО получения денег: {user.budget}')
+                user.budget += money
+                self.budget -= money
+                print(f'Бюджет {self.name} ПОСЛЕ передачи денег: {self.budget}')
+                print(f'Бюджет {user.name} ПОСЛЕ получения денег: {user.budget}')
+            else:
+                print(f'{self.name} не может передать игроку {user.name} {money} галлеонов, потому что у него их нет')
+        except TypeError: print('Надо ввести сумму в формате int')
 
 user_1 = User(name="Саша", areas={}, budget=2000)
 user_2 = User(name="Настя", areas={}, budget=2000)
@@ -309,8 +320,5 @@ blue_two = First_2(name='Отдел тайн', price=100, deposite=50, rent_stoc
 blue_three = First_2(name='Отдел обеспечения магического правопорядка', price=120, deposite=60, rent_stock=8, 
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
-user_1.buy_area(brown_one)
-user_1.buy_area(blue_one)
-user_2.buy_area(brown_one)
-user_2.pay_rent(brown_one)
-user_1.give_area(brown_one, user_2)
+user_1.give_money(300, user_2)
+user_1.give_money('kek', user_2)
