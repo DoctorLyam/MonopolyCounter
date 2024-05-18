@@ -284,8 +284,10 @@ class User(Area):
     
     # Передать участок другому игроку
     def give_area(self, area, user):
-        if (area.name in self.areas) and (self.areas[area.name]):
-# ЗАКОНЧИТЬ--------------------------------------------------------------
+        if (area.name in self.areas) and (self.areas[area.name] > -1):
+            user.areas[area.name] = self.areas.pop(area.name)
+            print(f'{self.name} передал участок игроку {user.name}.\nВ собственности у {self.name}: {self.areas}\nВ собственности у {user.name}: {user.areas}')
+
 
 
 user_1 = User(name="Саша", areas={}, budget=2000)
@@ -303,8 +305,7 @@ blue_three = First_2(name='Отдел обеспечения магическо�
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
 user_1.buy_area(brown_one)
+user_1.buy_area(blue_one)
 user_2.buy_area(brown_one)
 user_2.pay_rent(brown_one)
 user_1.give_area(brown_one, user_2)
-
-#ДОБАВИТЬ ЗНАЧЕНИЕ ДЛЯ АТРИБУТА OWNER В РАЗНЫХ МЕТОДАХ И СКОРРЕКТИРОВАТЬ ПРОЧИЕ МЕТОДЫ В СООТВЕТСТВИИ С ИЗМЕНЕНИЕМ
