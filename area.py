@@ -1,6 +1,4 @@
-from base_class import Base
-
-class Area(Base):
+class Area():
     
     def __init__(self, name, price, deposite, rent_stock, rent_one_off, rent_two_off, 
             rent_three_off, rent_four_off, rent_firm, owner = ''):
@@ -14,11 +12,6 @@ class Area(Base):
         self.rent_four_off = rent_four_off
         self.rent_firm = rent_firm
         self.owner = owner
-
-class Areas(Area):
-    def __init__(self):
-        self.areas_list = ['Дом Гарри', 'Вокзал Кингс-Кросс', 'Отдел магического транспорта', 'Отдел тайн', 'Отдел обеспечения магического правопорядка']
-
 
 # Первая отрасль первой стороны
 class First_1(Area):

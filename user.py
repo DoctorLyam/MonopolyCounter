@@ -1,5 +1,4 @@
-from base_class import Base
-from area import Area, First_1, First_1_son, First_2, First_2_son, Areas
+from area import Area, First_1, First_1_son, First_2, First_2_son
 
 # Статусы участков:
 # -1 - заложен; 0 - куплен; 1,2,3,4 - установлен(-ы) филиал(-ы); 5 - установлено предприятие 
@@ -12,7 +11,6 @@ class User(Area):
         self.areas = areas
         self.budget = budget
         self.bolshoy_dyadya = bolshoy_dyadya
-        # self.areas_obj = Areas()
         self.First_1 = First_1_son()
         self.First_2 = First_2_son()
 
