@@ -7,9 +7,11 @@ class User(Area):
     areas_list = ['Дом Гарри', 'Вокзал Кингс-Кросс', 'Отдел магического транспорта', 'Отдел тайн', 'Отдел обеспечения магического правопорядка']
     transport_list = ['Хогвартс-Экспресс', 'Летающая метла', 'Летучий порох', 'Магический портал']
 
-    def __init__(self, name, areas, budget: int, bolshoy_dyadya=[]):
+    def __init__(self, name, areas, transps, supports, budget: int, bolshoy_dyadya=[]):
         self.name = name
         self.areas = areas
+        self.transps = transps
+        self.supports = supports
         self.budget = budget
         self.bolshoy_dyadya = bolshoy_dyadya
         self.First_1 = First_1_son()
@@ -89,7 +91,7 @@ class User(Area):
                 print(f'Игроку {self.name} принадлежат отрасли: {self.bolshoy_dyadya}')
             else:
                 pass
-        elif (area.name not in self.areas) and (self.budget < brown_one.price):
+        elif (area.name not in self.areas) and (self.budget < area.price):
             print(f"Стоимость участка '{area.name}' слишком велика")
         elif (area.name in self.areas) and (self.areas[area.name] >= 0):
             print(f'Участок {area.name} уже принадлежит игроку {self.name}')
@@ -332,11 +334,16 @@ class User(Area):
         except TypeError: print('Надо ввести сумму в формате int')
 
     # Покупка транспорта
-    def buy_transport(self, trans):
+    def buy_transport(self, transp):
+        if (transp.name in User.transport_list) and (transp.name not in self.transps) and (self.budget >= 200):
+            self.budget -= 200
+            User.del_transport_from_Transports(transp.name)
+            self.transps[transp.name] = 
 
 
-user_1 = User(name="Саша", areas={}, budget=2000)
-user_2 = User(name="Настя", areas={}, budget=2000)
+
+user_1 = User(name="Саша", areas={}, transps={}, supports={}, budget=2000)
+user_2 = User(name="Настя", areas={}, transps={}, supports={}, budget=2000)
 
 transp_one = Transport(name='Хогвартс-Экспресс')
 transp_two = Transport(name='Летающая метла')
