@@ -1,4 +1,4 @@
-from area import Area, First_1, First_1_son, First_2, First_2_son
+from area import Area, First_1, First_1_son, First_2, First_2_son, Transport
 
 # Статусы участков:
 # -1 - заложен; 0 - куплен; 1,2,3,4 - установлен(-ы) филиал(-ы); 5 - установлено предприятие 
@@ -6,7 +6,7 @@ from area import Area, First_1, First_1_son, First_2, First_2_son
 class User(Area):
     areas_list = ['Дом Гарри', 'Вокзал Кингс-Кросс', 'Отдел магического транспорта', 'Отдел тайн', 'Отдел обеспечения магического правопорядка']
 
-    def __init__(self, name, areas, budget, bolshoy_dyadya=[]):
+    def __init__(self, name, areas, budget: int, bolshoy_dyadya=[]):
         self.name = name
         self.areas = areas
         self.budget = budget
@@ -322,6 +322,11 @@ class User(Area):
 
 user_1 = User(name="Саша", areas={}, budget=2000)
 user_2 = User(name="Настя", areas={}, budget=2000)
+
+transp_one = Transport(name='Хогвартс-Экспресс')
+transp_two = Transport(name='Летающая метла')
+transp_three = Transport(name='Летучий порох')
+transp_four = Transport(name='Магический портал')
 
 brown_one = First_1(name='Дом Гарри', price=60, deposite=30, rent_stock=2, 
             rent_one_off=10, rent_two_off=30, rent_three_off=90, rent_four_off=160, rent_firm=250)

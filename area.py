@@ -1,7 +1,7 @@
 class Area():
     
-    def __init__(self, name, price, deposite, rent_stock, rent_one_off, rent_two_off, 
-            rent_three_off, rent_four_off, rent_firm, owner = ''):
+    def __init__(self, name, price: int, deposite: int, rent_stock: int, rent_one_off: int, rent_two_off: int, 
+            rent_three_off: int, rent_four_off: int, rent_firm: int, owner=''):
         self.name = name
         self.price = price
         self.deposite = deposite
@@ -11,6 +11,12 @@ class Area():
         self.rent_three_off = rent_three_off
         self.rent_four_off = rent_four_off
         self.rent_firm = rent_firm
+        self.owner = owner
+
+#Транаспортная отрасль
+class Transport():
+    def __init__(self, name, owner=''):
+        self.name = name
         self.owner = owner
 
 # Первая отрасль первой стороны
