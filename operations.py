@@ -341,5 +341,5 @@ blue_three = First_2(name='Отдел обеспечения магическо�
 
 user_1.get_money_from_bank(300)
 user_2.give_money_to_bank(500)
-
+user_1.buy_area(blue_one)
 
