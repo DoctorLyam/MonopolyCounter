@@ -6,13 +6,13 @@ from area import Area, First_1, First_1_son, First_2, First_2_son, Transport, Su
 class User(Area):
     areas_list = ['Дом Гарри', 'Вокзал Кингс-Кросс', 'Отдел магического транспорта', 'Отдел тайн', 'Отдел обеспечения магического правопорядка']
     transport_list = ['Хогвартс-Экспресс', 'Летающая метла', 'Летучий порох', 'Магический портал']
-    suppurot_list = ['Добби', 'Кикимер']
+    support_list = ['Добби', 'Кикимер']
 
-    def __init__(self, name, areas, transps, supports, budget: int, bolshoy_dyadya=[]):
+    def __init__(self, name, areas, transps, sups, budget: int, bolshoy_dyadya=[]):
         self.name = name
         self.areas = areas
         self.transps = transps
-        self.supports = supports
+        self.sups = sups
         self.budget = budget
         self.bolshoy_dyadya = bolshoy_dyadya
         self.First_1 = First_1_son()
@@ -20,12 +20,14 @@ class User(Area):
 
     # Удаление участка из общего списка участков
     @classmethod
-    def del_area_from_Areas(cls, area_name):
-        return cls.areas_list.remove(area_name)
-    
+    def del_area_from_areas_list(cls, name):
+        return cls.areas_list.remove(name)
     @classmethod
-    def del_transport_from_Transports(cls, transport_name):
-        return cls.transport_list.remove(transport_name)
+    def del_area_from_transps_list(cls, name):
+        return cls.transport_list.remove(name)
+    @classmethod
+    def del_area_from_sups_list(cls, name):
+        return cls.support_list.remove(name)
 
     # Взять деньги из банка
     def get_money_from_bank(self, money: int):
@@ -68,7 +70,7 @@ class User(Area):
         # и если бюджет позволяет
         if (area.name in User.areas_list) and (area.name not in self.areas) and (self.budget >= area.price):
             print(f'Общий список предприятий ДО приобретения: {User.areas_list}')
-            User.del_area_from_Areas(area.name)
+            User.del_area_from_areas_list(area.name)
             print(f'Общий спиcок предприятий ПОСЛЕ приобретения: {User.areas_list}')
             self.areas[area.name] = 0
             self.budget -= brown_one.price
@@ -360,7 +362,7 @@ class User(Area):
         if (transp.name in User.transport_list) and (self.budget >= 200):
             print(f'Общий список средств передвижения ДО приобретения: {User.transport_list}')
             self.budget -= 200
-            User.del_transport_from_Transports(transp.name)
+            User.del_area_from_transps_list(transp.name)
             self.transps[transp.name] = 0
             transp.owner = self
             print(f'Общий список средств передвижения ПОСЛЕ приобретения: {User.transport_list}')
@@ -428,10 +430,20 @@ class User(Area):
         elif transp.owner.areas[transp.name] == -1:
             print(f'Транспорт {transp.name} заложен игроком {transp.owner.name}, поэтому {self.name} не должен платить аренду за его использование')
 
+    # Покупка саппорта
+    def buy_support(cls, self, sup):
+        if (sup.name in User.support_list) and (self.budget >= 150):
+            print(f'Общий список средств передвижения ДО приобретения: {User.support_list}')
+            self.budget -= 150
+            User.del_area_from_sups_list(sup.name)
+            self.sups[sup.name] = 0
+            sup.owner = self
+            print(f'Общий список средств передвижения ПОСЛЕ приобретения: {User.transport_list}')
+            print(f"Игроку {self.name} добавлен участок {sup.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.sups}")
+        
 
-
-user_1 = User(name="Саша", areas={}, transps={}, supports={}, budget=2000)
-user_2 = User(name="Настя", areas={}, transps={}, supports={}, budget=2000)
+user_1 = User(name="Саша", areas={}, transps={}, sups={}, budget=2000)
+user_2 = User(name="Настя", areas={}, transps={}, sups={}, budget=2000)
 
 transp_one = Transport(name='Хогвартс-Экспресс')
 transp_two = Transport(name='Летающая метла')
@@ -453,8 +465,8 @@ blue_three = First_2(name='Отдел обеспечения магическо�
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
 user_1.buy_transport(transp_one)
-user_1.give_thing(transp_one, user_2)
-user_2.give_thing(transp_one, user_1)
+# user_1.give_thing(transp_one, user_2)
+# user_2.give_thing(transp_one, user_1)
 
 # ДОБАВИТЬ ФУНКЦИЮ ПОКУПКИ ВЕЩИ ЗА УСТАНОВЛЕННУЮ СУММУ В РЕЗУЛЬТАТЕ ТОРГОВ НА АУКЦИОНЕ
 # ДОБАВИТЬ САПОРТА В GIVE_THING
