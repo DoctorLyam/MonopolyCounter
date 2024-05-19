@@ -318,15 +318,18 @@ class User(Area):
         elif area.owner.areas[area.name] == -1:
             print(f'Участок {area.name} заложен игроком {area.owner.name}, поэтому {self.name} не должен платить аренду')
     
-    # Передать участок другому игроку
-    def give_area(self, area, user):
-        if (area.name in self.areas) and (self.areas[area.name] > -1):
-            user.areas[area.name] = self.areas.pop(area.name)
-            print(f'{self.name} передал участок игроку {user.name}.\nВ собственности у {self.name}: {self.areas}\nВ собственности у {user.name}: {user.areas}')
-        elif (area.name in self.areas) and (self.areas[area.name] == -1):
-            print(f'Участок {area.name} игрока {self.name} заложен, поэтому не может быть передан')
-        elif area.name not in self.areas:
-            print(f'Участок {area.name} не принадлежит {self.name}, поэтому не может быть передан')
+    # Передать участок/транспорт/помощника другому игроку
+    def give_thing(self, area, user):
+        if type(area).__name__ == ('First_1' or 'First_2' or 'First_3' or 'First_4'):
+            if (area.name in self.areas) and (self.areas[area.name] > -1):
+                user.areas[area.name] = self.areas.pop(area.name)
+                print(f'{self.name} передал участок игроку {user.name}.\nВ собственности у {self.name}: {self.areas}\nВ собственности у {user.name}: {user.areas}')
+            elif (area.name in self.areas) and (self.areas[area.name] == -1):
+                print(f'Участок {area.name} игрока {self.name} заложен, поэтому не может быть передан')
+            elif area.name not in self.areas:
+                print(f'Участок {area.name} не принадлежит {self.name}, поэтому не может быть передан')
+        elif type(area).__name__ == 'Transport':
+            if 
     
     # Передать деньги другому игроку
     def give_money(self, money: int, user):
@@ -436,5 +439,5 @@ blue_two = First_2(name='Отдел тайн', price=100, deposite=50, rent_stoc
 blue_three = First_2(name='Отдел обеспечения магического правопорядка', price=120, deposite=60, rent_stock=8, 
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
-user_1.buy_area(brown_one)
-user_2.pay_area_rent(brown_one)
+user_1.buy_transport(transp_one)
+user_1.give_thing(transp_one, user_1)
