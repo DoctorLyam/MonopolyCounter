@@ -523,6 +523,25 @@ class User(Area):
         except AttributeError:
             print(f'У {sup.name} нет хозяина')
 
+    # Покупка вещи за свободную сумму на аукционе
+    def buy_thing_in_auction(self, thing, price):
+        if (thing.name in (User.areas_list or User.transport_list or User.support_list)) and (self.budget >= price):
+            self.budget -= price
+            User.del_area_from_gen_list(thing)
+            if type(thing).__name__ == ('First_1' or 'First_2' or 'First_3' or 'First_4'):
+                self.areas[thing.name] = 0
+                print(f'Продано! {self.name} приобрел участок {thing.name} за {price} галлеонов')
+            elif type(thing).__name__ == 'Transport':
+                self.transps[thing.name] = 0
+                print(f'Продано! {self.name} приобрел транспорт {thing.name} за {price} галлеонов')
+            elif type(thing).__name__ == 'Support':
+                self.sups[thing.name] = 0
+                print(f'Продано! {self.name} приобрел помощника {thing.name} за {price} галлеонов')
+        elif thing.name not in (User.areas_list or User.transport_list or User.support_list):
+            print(f'{thing.name} нет на поле - разыгрывать на аукционе нечего')
+        elif (thing.name in (User.areas_list or User.transport_list or User.support_list)) and (self.budget < price):
+            print(f'{self.name} не может приобрести лот на сумму {price}, потому что у него нет таких денег')
+
 
 user_1 = User(name="Саша", areas={}, transps={}, sups={}, budget=2000)
 user_2 = User(name="Настя", areas={}, transps={}, sups={}, budget=2000)
@@ -546,7 +565,6 @@ blue_two = First_2(name='Отдел тайн', price=100, deposite=50, rent_stoc
 blue_three = First_2(name='Отдел обеспечения магического правопорядка', price=120, deposite=60, rent_stock=8, 
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
-user_1.buy_area(brown_one)
-user_1.pay_area_rent(brown_one)
-
+user_1.buy_thing_in_auction(brown_one, 30)
+user_1.buy_thing_in_auction(brown_one, 30)
 # ДОБАВИТЬ ФУНКЦИЮ ПОКУПКИ ВЕЩИ ЗА УСТАНОВЛЕННУЮ СУММУ В РЕЗУЛЬТАТЕ ТОРГОВ НА АУКЦИОНЕ
