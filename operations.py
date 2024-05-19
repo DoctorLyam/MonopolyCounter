@@ -387,6 +387,7 @@ class User(Area):
         elif (transp.name in self.areas) and (self.transps[transp.name] == -1) and (self.budget < 110):
             print(f'{self.name} не может выкупить {transp.name} из залога, потому что в его бюджете недостаточно средств')
 
+    # Оплатить аренду за использование транспорта
     def pay_transp_rent(self, transp):
         try:
             if len(transp.owner.transps) == 1:
