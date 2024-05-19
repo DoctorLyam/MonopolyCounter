@@ -352,6 +352,19 @@ class User(Area):
         elif (transp.name in User.transport_list) and (transp.name not in self.transps) and (self.budget < 200):
             print(f"Стоимость транспорта '{transp.name}' слишком велика")
 
+    # Заложение транспорта
+    def dep_transp(self, transp):
+        if (transp.name in self.areas) and (self.areas[transp.name] == 0):
+            self.areas[transp.name] = -1
+            self.budget += 100
+            print(f'Игрок {self.name} заложил {transp.name}Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}')
+        elif (transp.name in self.areas) and (self.areas[transp.name] == -1):
+            print(f'{self.name} не удалось заложить {transp.nsme} - он у него уже заложен')
+        elif (transp.name not in self.areas) and (transp.name in User.transport_list):
+            print(f'{transp.name} прежде следует купить, а только потом закладывать. Транспорт не заложен')
+        elif (transp.name not in self.areas) and (transp.name not in User.transport_list):
+            print(f'Игрок {self.name} не может заложить транспорт, находящийся в собственности другого игрока. {transp.name} принадлежит {transp.owner}')
+
     # Покупка заложенного транспорта
     def get_dep_transp(self, transp):
         if (transp.name in self.areas) and (self.areas[transp.name] == -1) and (self.budget >= 110):
