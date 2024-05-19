@@ -401,12 +401,12 @@ class User(Area):
         if (transp.name in self.transps) and (self.transps[transp.name] == -1) and (self.budget >= 110):
             self.transps[transp.name] = 0
             self.budget -= 110
-            print(f'{self.name} выкупил заложенный транспорт. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}')
+            print(f'{self.name} выкупил заложенный транспорт {transp.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}')
         elif transp.name not in self.transps:
             print(f'Транспорт {transp.name} не принадлежит {self.name}')
         elif self.transps[transp.name] == 0:
             print(f'{self.name} уже имеет {transp.name} в собственности, транспорт не под залогом')
-        elif (transp.name in self.areas) and (self.transps[transp.name] == -1) and (self.budget < 110):
+        elif (transp.name in self.transps) and (self.transps[transp.name] == -1) and (self.budget < 110):
             print(f'{self.name} не может выкупить {transp.name} из залога, потому что в его бюджете недостаточно средств')
 
     # Оплатить аренду за использование транспорта
@@ -469,18 +469,20 @@ class User(Area):
         elif (sup.name not in self.sups) and (sup.name not in User.support_list):
             print(f'Игрок {self.name} не может заложить помощника, находящегося в собственности другого игрока. {sup.name} принадлежит {sup.owner.name}')
 
-    # Выкуп заложенного саппорта#####ДОДЕЛАААЛЖЖ,ПЛДОКПЩШЫРПЛЮОРЫЛРПЛОРЫПЛВРЛОЫП
+    # Выкуп заложенного саппорта
     def get_dep_sup(self, sup):
-        if (sup.name in self.transps) and (self.sups[sup.name] == -1) and (self.budget >= ):
-            self.transps[transp.name] = 0
-            self.budget -= 110
-            print(f'{self.name} выкупил заложенный транспорт. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}')
-        elif transp.name not in self.transps:
-            print(f'Транспорт {transp.name} не принадлежит {self.name}')
-        elif self.transps[transp.name] == 0:
-            print(f'{self.name} уже имеет {transp.name} в собственности, транспорт не под залогом')
-        elif (transp.name in self.areas) and (self.transps[transp.name] == -1) and (self.budget < 110):
-            print(f'{self.name} не может выкупить {transp.name} из залога, потому что в его бюджете недостаточно средств')
+        if (sup.name in self.sups) and (self.sups[sup.name] == -1) and (self.budget >= 83):
+            self.sups[sup.name] = 0
+            self.budget -= 83
+            print(f'{self.name} выкупил помощника {sup.name} из залога. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.sups}')
+        elif sup.name not in self.sups:
+            print(f'Помощник {sup.name} не принадлежит {self.name}')
+        elif self.sups[sup.name] == 0:
+            print(f'{self.name} уже имеет {sup.name} в собственности, помощник не под залогом')
+        elif (sup.name in self.sups) and (self.sups[sup.name] == -1) and (self.budget < 83):
+            print(f'{self.name} не может выкупить {sup.name} из залога, потому что в его бюджете недостаточно средств')
+
+    def pay_sup_rent(self, sup):
 
 user_1 = User(name="Саша", areas={}, transps={}, sups={}, budget=2000)
 user_2 = User(name="Настя", areas={}, transps={}, sups={}, budget=2000)
@@ -508,5 +510,4 @@ user_1.buy_transport(transp_one)
 # user_1.give_thing(transp_one, user_2)
 # user_2.give_thing(transp_one, user_1)
 
-# ДОПИСАТЬ ВЫКУП ИЗ ЗАЛОГА САППОРТА
 # ДОБАВИТЬ ФУНКЦИЮ ПОКУПКИ ВЕЩИ ЗА УСТАНОВЛЕННУЮ СУММУ В РЕЗУЛЬТАТЕ ТОРГОВ НА АУКЦИОНЕ
