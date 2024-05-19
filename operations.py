@@ -399,6 +399,3 @@ blue_three = First_2(name='Отдел обеспечения магическо�
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
 user_1.buy_transport(transp_one)
-user_1.buy_transport(transp_one)
-user_2.buy_transport(transp_one)
-user_1.dep_transp(transp_one)
