@@ -339,8 +339,15 @@ class User(Area):
                 elif (thing.name in self.transps) and (self.transps[thing.name] == -1):
                     print(f'Участок {thing.name} игрока {self.name} заложен, поэтому не может быть передан')
                 elif thing.name not in self.transps:
-                    print(f'Участок {thing.name} не принадлежит {self.name}, поэтому не может быть передан')
-            # elif ДОБАВИТЬ ПОМОЩНИКА
+                    print(f'Транспорт {thing.name} не принадлежит {self.name}, поэтому не может быть передан')
+            elif type(thing).__name__ == 'Support':
+                if (thing.name in self.sups) and (self.sups[thing.name] > -1):
+                    user.sups[thing.name] = self.sups.pop(thing.name)
+                    print(f'{self.name} передал помощника {thing.name} игроку {user.name}.\nВ собственности у {self.name}: {self.sups}\nВ собственности у {user.name}: {user.sups}')
+                elif (thing.name in self.sups) and (self.sups[thing.name] == -1):
+                    print(f'Помощник {thing.name} игрока {self.name} под залогом, поэтому не может быть передан')
+                elif thing.name not in self.sups:
+                    print(f'Помощник {thing.name} не принадлежит {self.name}, поэтому не может быть передан')
         else: print(f'Нельзя передать собственность самому себе')
     
     # Передать деньги другому игроку
@@ -366,7 +373,7 @@ class User(Area):
             self.transps[transp.name] = 0
             transp.owner = self
             print(f'Общий список средств передвижения ПОСЛЕ приобретения: {User.transport_list}')
-            print(f"Игроку {self.name} добавлен участок {transp.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}")
+            print(f"Игроку {self.name} добавлен транспорт {transp.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}")
         elif (transp.name in self.transps) and (self.transps[transp.name] == 0):
             print(f'{transp.name} уже принадлежит игроку {self.name} и не может быть куплен повторно')
         elif (transp.name in self.transps) and (self.transps[transp.name] == -1):
@@ -438,9 +445,16 @@ class User(Area):
             User.del_area_from_gen_list(sup)
             self.sups[sup.name] = 0
             sup.owner = self
-            print(f'Общий список средств передвижения ПОСЛЕ приобретения: {User.transport_list}')
-            print(f"Игроку {self.name} добавлен участок {sup.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.sups}")
-        
+            print(f'Общий список средств передвижения ПОСЛЕ приобретения: {User.support_list}')
+            print(f"Игроку {self.name} добавлен помощник {sup.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.sups}")
+        elif (sup.name in self.sups) and (self.sups[sup.name] == 0):
+            print(f'{sup.name} уже принадлежит игроку {self.name} и не может быть куплен повторно')
+        elif (sup.name in self.sups) and (self.sups[sup.name] == -1):
+            print(f'{self.name} ранее отдал этого помощника под залог, и приобрести его этим методом нельзя')
+        elif (sup.name not in User.support_list_list) and (sup.name not in self.sups):
+            print(f"Помощника {sup.name} уже нет в общем списке участков, и {self.name} не может его купить. Он находится в собственности {sup.owner.name}")
+        elif (sup.name in User.transport_list) and (sup.name not in self.transps) and (self.budget < 150):
+            print(f"Стоимость помощника '{sup.name}' слишком велика") 
 
 user_1 = User(name="Саша", areas={}, transps={}, sups={}, budget=2000)
 user_2 = User(name="Настя", areas={}, transps={}, sups={}, budget=2000)
