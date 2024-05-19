@@ -126,7 +126,7 @@ class User(Area):
                 print(f'Заложение участка {area.name} игроком {self.name} невозможно')
         else: print(f'{area.name} нет в списке участков игрока {self.name}. Участок недоступен для заложения')
 
-    # Покупка заложенного участка
+    # Выкуп заложенного участка
     def get_dep_area(self, area):
         # Если заложенный участок есть в списке юзера
         # и если значение ключа для этого участка -1
@@ -396,7 +396,7 @@ class User(Area):
         elif (transp.name not in self.transps) and (transp.name not in User.transport_list):
             print(f'Игрок {self.name} не может заложить транспорт, находящийся в собственности другого игрока. {transp.name} принадлежит {transp.owner.name}')
 
-    # Покупка заложенного транспорта
+    # Выкуп заложенного транспорта
     def get_dep_transp(self, transp):
         if (transp.name in self.transps) and (self.transps[transp.name] == -1) and (self.budget >= 110):
             self.transps[transp.name] = 0
