@@ -335,12 +335,14 @@ class User(Area):
 
     # Покупка транспорта
     def buy_transport(self, transp):
-        if (transp.name in User.transport_list) and (transp.name not in self.transps) and (self.budget >= 200):
+        if (transp.name in User.transport_list) and (self.budget >= 200):
+            print(f'Общий список средств передвижения ДО приобретения: {User.transport_list}')
             self.budget -= 200
             User.del_transport_from_Transports(transp.name)
-            self.transps[transp.name] = 
-
-
+            self.transps[transp.name] = 0
+            transp.owner = self
+            print(f'Общий список средств передвижения ДО приобретения: {User.transport_list}')
+            print(f"Игроку {self.name} добавлен участок {transp.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}")
 
 user_1 = User(name="Саша", areas={}, transps={}, supports={}, budget=2000)
 user_2 = User(name="Настя", areas={}, transps={}, supports={}, budget=2000)
@@ -361,7 +363,5 @@ blue_two = First_2(name='Отдел тайн', price=100, deposite=50, rent_stoc
 blue_three = First_2(name='Отдел обеспечения магического правопорядка', price=120, deposite=60, rent_stock=8, 
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
-user_1.get_money_from_bank(300)
-user_2.give_money_to_bank(500)
-user_1.buy_area(blue_one)
+user_1.buy_transport(transp_one)
 
