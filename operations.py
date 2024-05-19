@@ -1,4 +1,4 @@
-from area import Area, First_1, First_1_son, First_2, First_2_son, Transport, Support
+from area import Area, Transport, Support, First_1, First_1_son, First_2, First_2_son, Second_1, Second_1_son, Second_2, Second_2_son, Third_1, Third_1_son, Third_2, Third_2_son, Fourth_1, Fourth_1_son, Fourth_2, Fourth_2_son
 from random import randint
 
 # Статусы участков:
