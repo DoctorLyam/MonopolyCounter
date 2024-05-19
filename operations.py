@@ -348,7 +348,7 @@ class User(Area):
         elif (transp.name in self.transps) and (self.transps[transp.name] == -1):
             print(f'{self.name} ранее заложил этот транспорт, и приобрести его этим методом нельзя')
         elif (transp.name not in User.transport_list) and (transp.name not in self.transps):
-            print(f"Участка {area.name} уже нет в общем списке участков. Он находится в собственности {transp.owner.name}")
+            print(f"Транспорта {transp.name} уже нет в общем списке участков. Он находится в собственности {transp.owner.name}")
 
 
 user_1 = User(name="Саша", areas={}, transps={}, supports={}, budget=2000)
