@@ -388,7 +388,7 @@ class User(Area):
         if (transp.name in self.transps) and (self.transps[transp.name] == 0):
             self.transps[transp.name] = -1
             self.budget += 100
-            print(f'Игрок {self.name} заложил {transp.name}Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}')
+            print(f'Игрок {self.name} заложил {transp.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}')
         elif (transp.name in self.transps) and (self.transps[transp.name] == -1):
             print(f'{self.name} не удалось заложить {transp.name} - он у него уже заложен')
         elif (transp.name not in self.transps) and (transp.name in User.transport_list):
@@ -455,6 +455,20 @@ class User(Area):
             print(f"Помощника {sup.name} уже нет в общем списке участков, и {self.name} не может его купить. Он находится в собственности {sup.owner.name}")
         elif (sup.name in User.transport_list) and (sup.name not in self.transps) and (self.budget < 150):
             print(f"Стоимость помощника '{sup.name}' слишком велика") 
+
+    # Заложение саппорта
+    def dep_sup(self, sup):
+        if (sup.name in self.sups) and (self.sups[sup.name] == 0):
+            self.sups[sup.name] = -1
+            self.budget += 75
+            print(f'Игрок {self.name} отдал под залог помощника {sup.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.sups}')
+        elif (sup.name in self.sups) and (self.sups[sup.name] == -1):
+            print(f'{self.name} не удалось отдать под залог {sup.name} - он у него уже под залогом')
+        elif (sup.name not in self.sups) and (sup.name in User.support_list):
+            print(f'{sup.name} прежде следует купить, а только потом закладывать. Помощник не заложен')
+        elif (sup.name not in self.sups) and (sup.name not in User.support_list):
+            print(f'Игрок {self.name} не может заложить помощника, находящегося в собственности другого игрока. {sup.name} принадлежит {sup.owner.name}')
+
 
 user_1 = User(name="Саша", areas={}, transps={}, sups={}, budget=2000)
 user_2 = User(name="Настя", areas={}, transps={}, sups={}, budget=2000)
