@@ -46,3 +46,13 @@ class First_2_son(First_2):
         self.areas_count = 3
         self.office_price = 50
         self.firm_price = 4*self.office_price + 50
+
+class Second_1(Area):
+    pass
+class Second_1_son(Second_1):
+    def __init__(self):
+        self.name = 'Пинк'
+        self.areas_list = ['Магазин Совы', 'Лавка Олливандера', 'Всё для Квиддича']
+        self.areas_count = 3
+        self.office_price = 50
+        self.firm_price = 4*self.office_price + 50
