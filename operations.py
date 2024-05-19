@@ -287,7 +287,7 @@ class User(Area):
             print(f'Участка {area.name} нет в собственности у {self.name}. Предприятие не продано')
 
     # Оплата аренды
-    def pay_rent(self, area):
+    def pay_area_rent(self, area):
         if area.owner.areas[area.name] == 0:
             price = area.rent_stock
         elif area.owner.areas[area.name] == 1:
@@ -301,13 +301,19 @@ class User(Area):
         elif area.owner.areas[area.name] == 5:
             price = area.rent_firm
         
-        if (area.name not in User.areas_list) and (area.owner.areas[area.name] > -1) and (self.budget >= price):
+        if (area.owner.areas[area.name] > -1) and (self.budget >= price):
             print(f'Бюджет {area.owner.name} был равен {area.owner.budget}')
             print(f'Бюджет {self.name} был равен {self.budget}')
             self.budget -= price
             area.owner.budget += price
             print(f'Бюджет {area.owner.name} стал равен {area.owner.budget}')
             print(f'Бюджет {self.name} стал равен {self.budget}')
+        elif area.name in User.areas_list:
+            print(f'Участок {area.name} еще никем не куплен, аренду платить не за что')
+        elif (area.owner.areas[area.name] > -1) and (self.budget < price):
+            print(f'Игроку {self.name} не хватает денег, чтобы заплатить аренду за участок {area.name}')
+        elif area.owner.areas[area.name] == -1:
+            print(f'Участок {area.name} заложен игроком {area.owner.name}, поэтому {self.name} не должен платить аренду')
     
     # Передать участок другому игроку
     def give_area(self, area, user):
@@ -377,6 +383,31 @@ class User(Area):
             print(f'{self.name} уже имеет {transp.name} в собственности, транспорт не под залогом')
         elif (transp.name in self.areas) and (self.transps[transp.name] == -1) and (self.budget < 110):
             print(f'{self.name} не может выкупить {transp.name} из залога, потому что в его бюджете недостаточно средств')
+
+    def pay_transp_rent(self, transp):
+        if len(self.transps) == 1:
+            price = 25
+        elif len(self.transps) == 2:
+            price = 50
+        elif len(self.transps) == 3:
+            price = 100
+        elif len(self.transps) == 4:
+            price = 200
+        
+        if (transp.owner.transps[transp.name] > -1) and (self.budget >= price):
+            print(f'Бюджет {transp.owner.name} был равен {transp.owner.budget}')
+            print(f'Бюджет {self.name} был равен {self.budget}')
+            self.budget -= price
+            transp.owner.budget += price
+            print(f'Бюджет {transp.owner.name} стал равен {transp.owner.budget}')
+            print(f'Бюджет {self.name} стал равен {self.budget}')
+        elif transp.name in User.transport_list:
+            print(f'Транспорт {transp.name} еще никем не куплен, аренду платить не за что')
+        elif (transp.owner.areas[transp.name] == 0) and (self.budget < price):
+            print(f'Игроку {self.name} не хватает денег, чтобы заплатить аренду за использование транспорта {transp.name}')
+        elif transp.owner.areas[transp.name] == -1:
+            print(f'Транспорт {transp.name} заложен игроком {transp.owner.name}, поэтому {self.name} не должен платить аренду за его использование')
+
 
 
 user_1 = User(name="Саша", areas={}, transps={}, supports={}, budget=2000)
