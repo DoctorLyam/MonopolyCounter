@@ -18,11 +18,17 @@ class User(Area):
         self.bolshoy_dyadya = bolshoy_dyadya
         self.First_1 = First_1_son()
         self.First_2 = First_2_son()
+        self.Second_1 = Second_1_son()
+        self.Second_2 = Second_2_son()
+        self.Third_1 = Third_1_son()
+        self.Third_2 = Third_2_son()
+        self.Fourth_1 = Fourth_1_son()
+        self.Fourth_2 = Fourth_2_son()
 
     # Удаление участка из общего списка участков
     @classmethod
     def del_area_from_gen_list(cls, typel):
-        if type(typel).__name__ == ('First_1' or 'First_2' or 'First_3' or 'First_4'):
+        if type(typel).__name__ == ('First_1' or 'First_2' or 'Second_1' or 'Second_2' or 'Third_1' or 'Third_2' or 'Fourth_1' or 'Fourth_2'):
             return cls.areas_list.remove(typel.name)
         elif type(typel).__name__ == 'Transport':
             return cls.transport_list.remove(typel.name)
@@ -327,7 +333,7 @@ class User(Area):
     # Передать участок/транспорт/помощника другому игроку
     def give_thing(self, thing, user):
         if user != self:
-            if type(thing).__name__ == ('First_1' or 'First_2' or 'First_3' or 'First_4'):
+            if type(thing).__name__ == ('First_1' or 'First_2' or 'Second_1' or 'Second_2' or 'Third_1' or 'Third_2' or 'Fourth_1' or 'Fourth_2'):
                 if (thing.name in self.areas) and (self.areas[thing.name] > -1):
                     user.areas[thing.name] = self.areas.pop(thing.name)
                     print(f'{self.name} передал участок игроку {user.name}.\nВ собственности у {self.name}: {self.areas}\nВ собственности у {user.name}: {user.areas}')
@@ -528,7 +534,7 @@ class User(Area):
         if (thing.name in (User.areas_list or User.transport_list or User.support_list)) and (self.budget >= price):
             self.budget -= price
             User.del_area_from_gen_list(thing)
-            if type(thing).__name__ == ('First_1' or 'First_2' or 'First_3' or 'First_4'):
+            if type(thing).__name__ == ('First_1' or 'First_2' or 'Second_1' or 'Second_2' or 'Third_1' or 'Third_2' or 'Fourth_1' or 'Fourth_2'):
                 self.areas[thing.name] = 0
                 print(f'Продано! {self.name} приобрел участок {thing.name} за {price} галлеонов')
             elif type(thing).__name__ == 'Transport':
@@ -558,12 +564,37 @@ brown_one = First_1(name='Дом Гарри', price=60, deposite=30, rent_stock=
             rent_one_off=10, rent_two_off=30, rent_three_off=90, rent_four_off=160, rent_firm=250)
 brown_two = First_1(name='Вокзал Кингс-Кросс', price=60, deposite=30, rent_stock=4, 
             rent_one_off=20, rent_two_off=60, rent_three_off=180, rent_four_off=320, rent_firm=450)
+
 blue_one = First_2(name='Отдел магического транспорта', price=100, deposite=50, rent_stock=6, 
             rent_one_off=30, rent_two_off=90, rent_three_off=270, rent_four_off=400, rent_firm=550)
 blue_two = First_2(name='Отдел тайн', price=100, deposite=50, rent_stock=6, 
             rent_one_off=30, rent_two_off=90, rent_three_off=270, rent_four_off=400, rent_firm=550)
 blue_three = First_2(name='Отдел обеспечения магического правопорядка', price=120, deposite=60, rent_stock=8, 
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
+
+pink_one = Second_1(name='Магазин Совы',)
+pink_two = Second_1
+pink_three = Second_1
+
+orange_one = Second_2
+orange_two = Second_2
+orange_three = Second_2
+
+red_one = Third_1
+red_two = Third_1
+red_three = Third_1
+
+yellow_one = Third_2
+yellow_two = Third_2
+yellow_three = Third_2
+
+green_one = Fourth_1
+green_two = Fourth_1
+green_three = Fourth_1
+
+purple_one = Fourth_2
+purple_two = Fourth_2
+purple_three = Fourth_2
 
 user_1.buy_thing_in_auction(brown_one, 30)
 user_1.buy_thing_in_auction(brown_one, 30)
