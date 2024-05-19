@@ -56,3 +56,53 @@ class Second_1_son(Second_1):
         self.areas_count = 3
         self.office_price = 50
         self.firm_price = 4*self.office_price + 50
+
+class Second_2(Area):
+    pass
+class Second_2_son(Second_2):
+    def __init__(self):
+        self.name = 'Оранж'
+        self.areas_list = ['Три метлы', 'Кабанья голова', 'Сладкое королевство']
+        self.areas_count = 3
+        self.office_price = 100
+        self.firm_price = 4*self.office_price + 100
+
+class Third_1(Area):
+    pass
+class Third_1_son(Third_1):
+    def __init__(self):
+        self.name = 'Ред'
+        self.areas_list = ['Большой зал', 'Выручай Комната', 'Хижина Хагрида']
+        self.areas_count = 3
+        self.office_price = 150
+        self.firm_price = 4*self.office_price + 150
+
+class Third_2(Area):
+    pass
+class Third_2_son(Third_2):
+    def __init__(self):
+        self.name = 'Йелоу'
+        self.areas_list = ['Карта Мародёров', 'Маховик времени', 'Меч Гриффиндора']
+        self.areas_count = 3
+        self.office_price = 150
+        self.firm_price = 4*self.office_price + 150
+
+class Fourth_1(Area):
+    pass
+class Fourth_1_son(Fourth_1):
+    def __init__(self):
+        self.name = 'Грин'
+        self.areas_list = ['Бузинная палочка', 'Воскрешающий камень', 'Мантия-Невидимка']
+        self.areas_count = 3
+        self.office_price = 200
+        self.firm_price = 4*self.office_price + 200
+
+class Fourth_2(Area):
+    pass
+class Fourth_2_son(Fourth_2):
+    def __init__(self):
+        self.name = 'Пёпл'
+        self.areas_list = ['Придира', 'Ежедневный пророк']
+        self.areas_count = 2
+        self.office_price = 200
+        self.firm_price = 4*self.office_price + 200
