@@ -91,7 +91,7 @@ class User(Area):
                 print(f'Игроку {self.name} принадлежат отрасли: {self.bolshoy_dyadya}')
             else:
                 pass
-        elif (area.name not in self.areas) and (self.budget < area.price):
+        elif (area.name in User.areas_list) and (area.name not in self.areas) and (self.budget < area.price):
             print(f"Стоимость участка '{area.name}' слишком велика")
         elif (area.name in self.areas) and (self.areas[area.name] >= 0):
             print(f'Участок {area.name} уже принадлежит игроку {self.name}')
@@ -348,7 +348,22 @@ class User(Area):
         elif (transp.name in self.transps) and (self.transps[transp.name] == -1):
             print(f'{self.name} ранее заложил этот транспорт, и приобрести его этим методом нельзя')
         elif (transp.name not in User.transport_list) and (transp.name not in self.transps):
-            print(f"Транспорта {transp.name} уже нет в общем списке участков. Он находится в собственности {transp.owner.name}")
+            print(f"Транспорта {transp.name} уже нет в общем списке участков, и {self.name} не может его купить. Он находится в собственности {transp.owner.name}")
+        elif (transp.name in User.transport_list) and (transp.name not in self.transps) and (self.budget < 200):
+            print(f"Стоимость транспорта '{transp.name}' слишком велика")
+
+    # Покупка заложенного транспорта
+    def get_dep_transp(self, transp):
+        if (transp.name in self.areas) and (self.areas[transp.name] == -1) and (self.budget >= 110):
+            self.areas[transp.name] = 0
+            self.budget -= 110
+            print(f'{self.name} выкупил заложенный участок. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}')
+        elif transp.name not in self.areas:
+            print(f'Транспорт {transp.name} не принадлежит {self.name}')
+        elif self.areas[transp.name] == 0:
+            print(f'{self.name} уже имеет {transp.name} в собственности, транспорт не под залогом')
+        elif (transp.name in self.areas) and (self.areas[transp.name] == -1) and (self.budget < 110):
+            print(f'{self.name} не может выкупить {transp.name} из залога, потому что в его бюджете недостаточно средств')
 
 
 user_1 = User(name="Саша", areas={}, transps={}, supports={}, budget=2000)
@@ -371,4 +386,6 @@ blue_three = First_2(name='Отдел обеспечения магическо�
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
 user_1.buy_transport(transp_one)
+user_1.buy_transport(transp_one)
+user_2.buy_transport(transp_one)
 
