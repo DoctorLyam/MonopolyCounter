@@ -288,20 +288,23 @@ class User(Area):
 
     # Оплата аренды
     def pay_area_rent(self, area):
-        if area.owner.areas[area.name] == 0:
-            price = area.rent_stock
-        elif area.owner.areas[area.name] == 1:
-            price = area.rent_one_off
-        elif area.owner.areas[area.name] == 2:
-            price = area.rent_two_off
-        elif area.owner.areas[area.name] == 3:
-            price = area.rent_three_off
-        elif area.owner.areas[area.name] == 4:
-            price = area.rent_four_off
-        elif area.owner.areas[area.name] == 5:
-            price = area.rent_firm
+        try:
+            if area.owner.areas[area.name] == 0:
+                price = area.rent_stock
+            elif area.owner.areas[area.name] == 1:
+                price = area.rent_one_off
+            elif area.owner.areas[area.name] == 2:
+                price = area.rent_two_off
+            elif area.owner.areas[area.name] == 3:
+                price = area.rent_three_off
+            elif area.owner.areas[area.name] == 4:
+                price = area.rent_four_off
+            elif area.owner.areas[area.name] == 5:
+                price = area.rent_firm
+        except AttributeError:
+            pass
         
-        if (area.owner.areas[area.name] > -1) and (self.budget >= price):
+        if (area.owner != '') and (area.owner.areas[area.name] > -1) and (self.budget >= price):
             print(f'Бюджет {area.owner.name} был равен {area.owner.budget}')
             print(f'Бюджет {self.name} был равен {self.budget}')
             self.budget -= price
@@ -385,16 +388,19 @@ class User(Area):
             print(f'{self.name} не может выкупить {transp.name} из залога, потому что в его бюджете недостаточно средств')
 
     def pay_transp_rent(self, transp):
-        if len(self.transps) == 1:
-            price = 25
-        elif len(self.transps) == 2:
-            price = 50
-        elif len(self.transps) == 3:
-            price = 100
-        elif len(self.transps) == 4:
-            price = 200
+        try:
+            if len(transp.owner.transps) == 1:
+                price = 25
+            elif len(transp.owner.transps) == 2:
+                price = 50
+            elif len(transp.owner.transps) == 3:
+                price = 100
+            elif len(transp.owner.transps) == 4:
+                price = 200
+        except AttributeError:
+            pass
         
-        if (transp.owner.transps[transp.name] > -1) and (self.budget >= price):
+        if (transp.owner != '') and (transp.owner.transps[transp.name] > -1) and (self.budget >= price):
             print(f'Бюджет {transp.owner.name} был равен {transp.owner.budget}')
             print(f'Бюджет {self.name} был равен {self.budget}')
             self.budget -= price
@@ -429,4 +435,5 @@ blue_two = First_2(name='Отдел тайн', price=100, deposite=50, rent_stoc
 blue_three = First_2(name='Отдел обеспечения магического правопорядка', price=120, deposite=60, rent_stock=8, 
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
-user_1.buy_transport(transp_one)
+user_1.buy_area(brown_one)
+user_2.pay_area_rent(brown_one)
