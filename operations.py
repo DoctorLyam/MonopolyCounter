@@ -20,14 +20,14 @@ class User(Area):
 
     # Удаление участка из общего списка участков
     @classmethod
-    def del_area_from_areas_list(cls, name):
-        return cls.areas_list.remove(name)
-    @classmethod
-    def del_area_from_transps_list(cls, name):
-        return cls.transport_list.remove(name)
-    @classmethod
-    def del_area_from_sups_list(cls, name):
-        return cls.support_list.remove(name)
+    def del_area_from_gen_list(cls, typel):
+        if type(typel).__name__ == ('First_1' or 'First_2' or 'First_3' or 'First_4'):
+            return cls.areas_list.remove(typel.name)
+        elif type(typel).__name__ == 'Transport':
+            return cls.transport_list.remove(typel.name)
+        elif type(typel).__name__ == 'Support':
+            return cls.support_list.remove(typel.name)
+
 
     # Взять деньги из банка
     def get_money_from_bank(self, money: int):
@@ -70,7 +70,7 @@ class User(Area):
         # и если бюджет позволяет
         if (area.name in User.areas_list) and (area.name not in self.areas) and (self.budget >= area.price):
             print(f'Общий список предприятий ДО приобретения: {User.areas_list}')
-            User.del_area_from_areas_list(area.name)
+            User.del_area_from_gen_list(area)
             print(f'Общий спиcок предприятий ПОСЛЕ приобретения: {User.areas_list}')
             self.areas[area.name] = 0
             self.budget -= brown_one.price
@@ -362,7 +362,7 @@ class User(Area):
         if (transp.name in User.transport_list) and (self.budget >= 200):
             print(f'Общий список средств передвижения ДО приобретения: {User.transport_list}')
             self.budget -= 200
-            User.del_area_from_transps_list(transp.name)
+            User.del_area_from_gen_list(transp)
             self.transps[transp.name] = 0
             transp.owner = self
             print(f'Общий список средств передвижения ПОСЛЕ приобретения: {User.transport_list}')
@@ -431,11 +431,11 @@ class User(Area):
             print(f'Транспорт {transp.name} заложен игроком {transp.owner.name}, поэтому {self.name} не должен платить аренду за его использование')
 
     # Покупка саппорта
-    def buy_support(cls, self, sup):
+    def buy_support(self, sup):
         if (sup.name in User.support_list) and (self.budget >= 150):
             print(f'Общий список средств передвижения ДО приобретения: {User.support_list}')
             self.budget -= 150
-            User.del_area_from_sups_list(sup.name)
+            User.del_area_from_gen_list(sup)
             self.sups[sup.name] = 0
             sup.owner = self
             print(f'Общий список средств передвижения ПОСЛЕ приобретения: {User.transport_list}')
