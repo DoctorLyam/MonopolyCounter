@@ -1,4 +1,4 @@
-from area import Area, First_1, First_1_son, First_2, First_2_son, Transport
+from area import Area, First_1, First_1_son, First_2, First_2_son, Transport, Support
 
 # Статусы участков:
 # -1 - заложен; 0 - куплен; 1,2,3,4 - установлен(-ы) филиал(-ы); 5 - установлено предприятие 
@@ -6,6 +6,7 @@ from area import Area, First_1, First_1_son, First_2, First_2_son, Transport
 class User(Area):
     areas_list = ['Дом Гарри', 'Вокзал Кингс-Кросс', 'Отдел магического транспорта', 'Отдел тайн', 'Отдел обеспечения магического правопорядка']
     transport_list = ['Хогвартс-Экспресс', 'Летающая метла', 'Летучий порох', 'Магический портал']
+    suppurot_list = ['Добби', 'Кикимер']
 
     def __init__(self, name, areas, transps, supports, budget: int, bolshoy_dyadya=[]):
         self.name = name
@@ -48,8 +49,8 @@ class User(Area):
 
     # Налог
     def nalog(self):
-        if self.budget >= 50:
-            self.budget -= 50
+        if self.budget >= 200:
+            self.budget -= 200
             print(f'{self.name} платит за выход из тюрьмы. Бюджет {self.name} равен {self.budget}')
         else: print(f'{self.name} недостаточно денег для выхода на свободу')
     
@@ -337,6 +338,7 @@ class User(Area):
                     print(f'Участок {thing.name} игрока {self.name} заложен, поэтому не может быть передан')
                 elif thing.name not in self.transps:
                     print(f'Участок {thing.name} не принадлежит {self.name}, поэтому не может быть передан')
+            # elif ДОБАВИТЬ ПОМОЩНИКА
         else: print(f'Нельзя передать собственность самому себе')
     
     # Передать деньги другому игроку
@@ -390,7 +392,7 @@ class User(Area):
         if (transp.name in self.transps) and (self.transps[transp.name] == -1) and (self.budget >= 110):
             self.transps[transp.name] = 0
             self.budget -= 110
-            print(f'{self.name} выкупил заложенный участок. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}')
+            print(f'{self.name} выкупил заложенный транспорт. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}')
         elif transp.name not in self.transps:
             print(f'Транспорт {transp.name} не принадлежит {self.name}')
         elif self.transps[transp.name] == 0:
@@ -436,6 +438,9 @@ transp_two = Transport(name='Летающая метла')
 transp_three = Transport(name='Летучий порох')
 transp_four = Transport(name='Магический портал')
 
+sup_one = Support(name='Добби')
+sup_two = Support(name='Кикимер')
+
 brown_one = First_1(name='Дом Гарри', price=60, deposite=30, rent_stock=2, 
             rent_one_off=10, rent_two_off=30, rent_three_off=90, rent_four_off=160, rent_firm=250)
 brown_two = First_1(name='Вокзал Кингс-Кросс', price=60, deposite=30, rent_stock=4, 
@@ -452,3 +457,4 @@ user_1.give_thing(transp_one, user_2)
 user_2.give_thing(transp_one, user_1)
 
 # ДОБАВИТЬ ФУНКЦИЮ ПОКУПКИ ВЕЩИ ЗА УСТАНОВЛЕННУЮ СУММУ В РЕЗУЛЬТАТЕ ТОРГОВ НА АУКЦИОНЕ
+# ДОБАВИТЬ САПОРТА В GIVE_THING

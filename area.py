@@ -13,8 +13,14 @@ class Area():
         self.rent_firm = rent_firm
         self.owner = owner
 
-#Транаспортная отрасль
+# Транспортная отрасль
 class Transport():
+    def __init__(self, name, owner=''):
+        self.name = name
+        self.owner = owner
+
+# Помощники
+class Support():
     def __init__(self, name, owner=''):
         self.name = name
         self.owner = owner
