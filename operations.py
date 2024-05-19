@@ -572,9 +572,12 @@ blue_two = First_2(name='Отдел тайн', price=100, deposite=50, rent_stoc
 blue_three = First_2(name='Отдел обеспечения магического правопорядка', price=120, deposite=60, rent_stock=8, 
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
-pink_one = Second_1(name='Магазин Совы',)
-pink_two = Second_1
-pink_three = Second_1
+pink_one = Second_1(name='Магазин Совы', price=140, deposite=70, rent_stock=10,
+                    rent_one_off=50, rent_two_off=150, rent_three_off=450, rent_four_off=625, rent_firm=750)
+pink_two = Second_1(name='Лавка Олливандера', price=140, deposite=70, rent_stock=10,
+                    rent_one_off=50, rent_two_off=150, rent_three_off=450, rent_four_off=625, rent_firm=750)
+pink_three = Second_1(name='Всё для Квиддича', price=160, deposite=80, rent_stock=12,
+                    rent_one_off=60, rent_two_off=180, rent_three_off=500, rent_four_off=700, rent_firm=900)
 
 orange_one = Second_2
 orange_two = Second_2
