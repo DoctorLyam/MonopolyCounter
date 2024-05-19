@@ -1,4 +1,5 @@
 from area import Area, First_1, First_1_son, First_2, First_2_son, Transport, Support
+from random import randint
 
 # Статусы участков:
 # -1 - заложен; 0 - куплен; 1,2,3,4 - установлен(-ы) филиал(-ы); 5 - установлено предприятие 
@@ -291,36 +292,38 @@ class User(Area):
 
     # Оплата аренды
     def pay_area_rent(self, area):
-        try:
-            if area.owner.areas[area.name] == 0:
-                price = area.rent_stock
-            elif area.owner.areas[area.name] == 1:
-                price = area.rent_one_off
-            elif area.owner.areas[area.name] == 2:
-                price = area.rent_two_off
-            elif area.owner.areas[area.name] == 3:
-                price = area.rent_three_off
-            elif area.owner.areas[area.name] == 4:
-                price = area.rent_four_off
-            elif area.owner.areas[area.name] == 5:
-                price = area.rent_firm
-        except AttributeError:
-            pass
-        
-        if (area.owner != '') and (area.owner.areas[area.name] > -1) and (self.budget >= price):
-            print(f'Бюджет {area.owner.name} был равен {area.owner.budget}')
-            print(f'Бюджет {self.name} был равен {self.budget}')
-            self.budget -= price
-            area.owner.budget += price
-            print(f'Бюджет {area.owner.name} стал равен {area.owner.budget}')
-            print(f'Бюджет {self.name} стал равен {self.budget}')
-        elif area.name in User.areas_list:
-            print(f'Участок {area.name} еще никем не куплен, аренду платить не за что')
-        elif (area.owner.areas[area.name] > -1) and (self.budget < price):
-            print(f'Игроку {self.name} не хватает денег, чтобы заплатить аренду за участок {area.name}')
-        elif area.owner.areas[area.name] == -1:
-            print(f'Участок {area.name} заложен игроком {area.owner.name}, поэтому {self.name} не должен платить аренду')
-    
+        if area.owner != self:
+            try:
+                if area.owner.areas[area.name] == 0:
+                    price = area.rent_stock
+                elif area.owner.areas[area.name] == 1:
+                    price = area.rent_one_off
+                elif area.owner.areas[area.name] == 2:
+                    price = area.rent_two_off
+                elif area.owner.areas[area.name] == 3:
+                    price = area.rent_three_off
+                elif area.owner.areas[area.name] == 4:
+                    price = area.rent_four_off
+                elif area.owner.areas[area.name] == 5:
+                    price = area.rent_firm
+            except AttributeError:
+                pass
+            
+            if (area.owner != '') and (area.owner.areas[area.name] > -1) and (self.budget >= price):
+                print(f'Бюджет {area.owner.name} был равен {area.owner.budget}')
+                print(f'Бюджет {self.name} был равен {self.budget}')
+                self.budget -= price
+                area.owner.budget += price
+                print(f'Бюджет {area.owner.name} стал равен {area.owner.budget}')
+                print(f'Бюджет {self.name} стал равен {self.budget}')
+            elif area.name in User.areas_list:
+                print(f'Участок {area.name} еще никем не куплен, аренду платить не за что')
+            elif (area.owner.areas[area.name] > -1) and (self.budget < price):
+                print(f'Игроку {self.name} не хватает денег, чтобы заплатить аренду за участок {area.name}')
+            elif area.owner.areas[area.name] == -1:
+                print(f'Участок {area.name} заложен игроком {area.owner.name}, поэтому {self.name} не должен платить аренду')
+        else: print('Нет смысла платить аренду самому себе')
+
     # Передать участок/транспорт/помощника другому игроку
     def give_thing(self, thing, user):
         if user != self:
@@ -411,31 +414,33 @@ class User(Area):
 
     # Оплатить аренду за использование транспорта
     def pay_transp_rent(self, transp):
-        try:
-            if len(transp.owner.transps) == 1:
-                price = 25
-            elif len(transp.owner.transps) == 2:
-                price = 50
-            elif len(transp.owner.transps) == 3:
-                price = 100
-            elif len(transp.owner.transps) == 4:
-                price = 200
-        except AttributeError:
-            pass
-        
-        if (transp.owner != '') and (transp.owner.transps[transp.name] > -1) and (self.budget >= price):
-            print(f'Бюджет {transp.owner.name} был равен {transp.owner.budget}')
-            print(f'Бюджет {self.name} был равен {self.budget}')
-            self.budget -= price
-            transp.owner.budget += price
-            print(f'Бюджет {transp.owner.name} стал равен {transp.owner.budget}')
-            print(f'Бюджет {self.name} стал равен {self.budget}')
-        elif transp.name in User.transport_list:
-            print(f'Транспорт {transp.name} еще никем не куплен, аренду платить не за что')
-        elif (transp.owner.areas[transp.name] == 0) and (self.budget < price):
-            print(f'Игроку {self.name} не хватает денег, чтобы заплатить аренду за использование транспорта {transp.name}')
-        elif transp.owner.areas[transp.name] == -1:
-            print(f'Транспорт {transp.name} заложен игроком {transp.owner.name}, поэтому {self.name} не должен платить аренду за его использование')
+        if transp.owner != self:
+            try:
+                if len(transp.owner.transps) == 1:
+                    price = 25
+                elif len(transp.owner.transps) == 2:
+                    price = 50
+                elif len(transp.owner.transps) == 3:
+                    price = 100
+                elif len(transp.owner.transps) == 4:
+                    price = 200
+            except AttributeError:
+                pass
+            
+            if (transp.owner != '') and (transp.owner.transps[transp.name] > -1) and (self.budget >= price):
+                print(f'Бюджет {transp.owner.name} был равен {transp.owner.budget}')
+                print(f'Бюджет {self.name} был равен {self.budget}')
+                self.budget -= price
+                transp.owner.budget += price
+                print(f'Бюджет {transp.owner.name} стал равен {transp.owner.budget}')
+                print(f'Бюджет {self.name} стал равен {self.budget}')
+            elif transp.name in User.transport_list:
+                print(f'Транспорт {transp.name} еще никем не куплен, аренду платить не за что')
+            elif (transp.owner.areas[transp.name] == 0) and (self.budget < price):
+                print(f'Игроку {self.name} не хватает денег, чтобы заплатить аренду за использование транспорта {transp.name}')
+            elif transp.owner.areas[transp.name] == -1:
+                print(f'Транспорт {transp.name} заложен игроком {transp.owner.name}, поэтому {self.name} не должен платить аренду за его использование')
+        else: print('Нет смысла платить аренду самому себе')
 
     # Покупка саппорта
     def buy_support(self, sup):
@@ -482,7 +487,42 @@ class User(Area):
         elif (sup.name in self.sups) and (self.sups[sup.name] == -1) and (self.budget < 83):
             print(f'{self.name} не может выкупить {sup.name} из залога, потому что в его бюджете недостаточно средств')
 
+    # Оплата за использование помощника
     def pay_sup_rent(self, sup):
+        try:
+            if self != sup.owner:
+                if (len(sup.owner.sups) == 2) and (sup.owner.sups[sup.name] > -1):
+                    r1 = randint(1, 6)
+                    r2 = randint(1, 6)
+                    price = 10*(r1+r2)
+                    print(f'На костях выпало {r1} и {r2}. У {sup.owner.name} два помощника, поэтому результат умножается на 10 и равен {price}')
+                    if self.budget >= price:
+                        print(f'Бюджет {sup.owner.name} был равен {sup.owner.budget}')
+                        print(f'Бюджет {self.name} был равен {self.budget}')
+                        self.budget -= price
+                        sup.owner.budget += price
+                        print(f'Бюджет {sup.owner.name} стал равен {sup.owner.budget}')
+                        print(f'Бюджет {self.name} стал равен {self.budget}')
+                    else: print(f'У {self.name} недостаточно средств, чтобы заплатить за помощника игроку {sup.owner.name}')
+                elif (len(sup.owner.sups) == 1) and (sup.owner.sups[sup.name] > -1):
+                    r1 = randint(1, 6)
+                    r2 = randint(1, 6)
+                    price = 4*(r1+r2)
+                    print(f'На костях выпало {r1} и {r2}. У {sup.owner.name} один помощник, поэтому результат умножается на 4 и равен {price}')
+                    if self.budget >= price:
+                        print(f'Бюджет {sup.owner.name} был равен {sup.owner.budget}')
+                        print(f'Бюджет {self.name} был равен {self.budget}')
+                        self.budget -= price
+                        sup.owner.budget += price
+                        print(f'Бюджет {sup.owner.name} стал равен {sup.owner.budget}')
+                        print(f'Бюджет {self.name} стал равен {self.budget}')
+                    else: print(f'У {self.name} недостаточно средств, чтобы заплатить за помощника игроку {sup.owner.name}')
+                elif sup.owner.sups[sup.name] == -1:
+                    print(f'{sup.owner.name} отдал своего помощника {sup.name} под залог, поэтому {self.name} не обязан платить')
+            else: print(f'Нет смысла платить аренду самому себе')
+        except AttributeError:
+            print(f'У {sup.name} нет хозяина')
+
 
 user_1 = User(name="Саша", areas={}, transps={}, sups={}, budget=2000)
 user_2 = User(name="Настя", areas={}, transps={}, sups={}, budget=2000)
@@ -506,8 +546,7 @@ blue_two = First_2(name='Отдел тайн', price=100, deposite=50, rent_stoc
 blue_three = First_2(name='Отдел обеспечения магического правопорядка', price=120, deposite=60, rent_stock=8, 
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
-user_1.buy_transport(transp_one)
-# user_1.give_thing(transp_one, user_2)
-# user_2.give_thing(transp_one, user_1)
+user_1.buy_area(brown_one)
+user_1.pay_area_rent(brown_one)
 
 # ДОБАВИТЬ ФУНКЦИЮ ПОКУПКИ ВЕЩИ ЗА УСТАНОВЛЕННУЮ СУММУ В РЕЗУЛЬТАТЕ ТОРГОВ НА АУКЦИОНЕ
