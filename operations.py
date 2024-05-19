@@ -343,6 +343,13 @@ class User(Area):
             transp.owner = self
             print(f'Общий список средств передвижения ДО приобретения: {User.transport_list}')
             print(f"Игроку {self.name} добавлен участок {transp.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}")
+        elif (transp.name in self.transps) and (self.transps[transp.name] == 0):
+            print(f'{transp.name} уже принадлежит игроку {self.name} и не может быть куплен повторно')
+        elif (transp.name in self.transps) and (self.transps[transp.name] == -1):
+            print(f'{self.name} ранее заложил этот транспорт, и приобрести его этим методом нельзя')
+        elif (transp.name not in User.transport_list) and (transp.name not in self.transps):
+            print(f"Участка {area.name} уже нет в общем списке участков. Он находится в собственности {transp.owner.name}")
+
 
 user_1 = User(name="Саша", areas={}, transps={}, supports={}, budget=2000)
 user_2 = User(name="Настя", areas={}, transps={}, supports={}, budget=2000)
