@@ -319,17 +319,25 @@ class User(Area):
             print(f'Участок {area.name} заложен игроком {area.owner.name}, поэтому {self.name} не должен платить аренду')
     
     # Передать участок/транспорт/помощника другому игроку
-    def give_thing(self, area, user):
-        if type(area).__name__ == ('First_1' or 'First_2' or 'First_3' or 'First_4'):
-            if (area.name in self.areas) and (self.areas[area.name] > -1):
-                user.areas[area.name] = self.areas.pop(area.name)
-                print(f'{self.name} передал участок игроку {user.name}.\nВ собственности у {self.name}: {self.areas}\nВ собственности у {user.name}: {user.areas}')
-            elif (area.name in self.areas) and (self.areas[area.name] == -1):
-                print(f'Участок {area.name} игрока {self.name} заложен, поэтому не может быть передан')
-            elif area.name not in self.areas:
-                print(f'Участок {area.name} не принадлежит {self.name}, поэтому не может быть передан')
-        elif type(area).__name__ == 'Transport':
-            if 
+    def give_thing(self, thing, user):
+        if user != self:
+            if type(thing).__name__ == ('First_1' or 'First_2' or 'First_3' or 'First_4'):
+                if (thing.name in self.areas) and (self.areas[thing.name] > -1):
+                    user.areas[thing.name] = self.areas.pop(thing.name)
+                    print(f'{self.name} передал участок игроку {user.name}.\nВ собственности у {self.name}: {self.areas}\nВ собственности у {user.name}: {user.areas}')
+                elif (thing.name in self.areas) and (self.areas[thing.name] == -1):
+                    print(f'Участок {thing.name} игрока {self.name} заложен, поэтому не может быть передан')
+                elif thing.name not in self.areas:
+                    print(f'Участок {thing.name} не принадлежит {self.name}, поэтому не может быть передан')
+            elif type(thing).__name__ == 'Transport':
+                if (thing.name in self.transps) and (self.transps[thing.name] > -1):
+                    user.transps[thing.name] = self.transps.pop(thing.name)
+                    print(f'{self.name} передал транспорт {thing.name} игроку {user.name}.\nВ собственности у {self.name}: {self.transps}\nВ собственности у {user.name}: {user.transps}')
+                elif (thing.name in self.transps) and (self.transps[thing.name] == -1):
+                    print(f'Участок {thing.name} игрока {self.name} заложен, поэтому не может быть передан')
+                elif thing.name not in self.transps:
+                    print(f'Участок {thing.name} не принадлежит {self.name}, поэтому не может быть передан')
+        else: print(f'Нельзя передать собственность самому себе')
     
     # Передать деньги другому игроку
     def give_money(self, money: int, user):
@@ -353,7 +361,7 @@ class User(Area):
             User.del_transport_from_Transports(transp.name)
             self.transps[transp.name] = 0
             transp.owner = self
-            print(f'Общий список средств передвижения ДО приобретения: {User.transport_list}')
+            print(f'Общий список средств передвижения ПОСЛЕ приобретения: {User.transport_list}')
             print(f"Игроку {self.name} добавлен участок {transp.name}. Баланс {self.name} равен {self.budget}.\nВ собственности {self.name} находятся: {self.transps}")
         elif (transp.name in self.transps) and (self.transps[transp.name] == 0):
             print(f'{transp.name} уже принадлежит игроку {self.name} и не может быть куплен повторно')
@@ -440,4 +448,7 @@ blue_three = First_2(name='Отдел обеспечения магическо�
             rent_one_off=40, rent_two_off=100, rent_three_off=300, rent_four_off=450, rent_firm=600)
 
 user_1.buy_transport(transp_one)
-user_1.give_thing(transp_one, user_1)
+user_1.give_thing(transp_one, user_2)
+user_2.give_thing(transp_one, user_1)
+
+# ДОБАВИТЬ ФУНКЦИЮ ПОКУПКИ ВЕЩИ ЗА УСТАНОВЛЕННУЮ СУММУ В РЕЗУЛЬТАТЕ ТОРГОВ НА АУКЦИОНЕ
