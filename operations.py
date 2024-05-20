@@ -582,17 +582,26 @@ pink_two = Second_1(name='Лавка Олливандера', price=140, deposit
 pink_three = Second_1(name='Всё для Квиддича', price=160, deposite=80, rent_stock=12,
                     rent_one_off=60, rent_two_off=180, rent_three_off=500, rent_four_off=700, rent_firm=900)
 
-orange_one = Second_2
-orange_two = Second_2
-orange_three = Second_2
+orange_one = Second_2(name='Три метлы', price=180, deposite=90, rent_stock=14,
+            rent_one_off=70, rent_two_off=200, rent_three_off=550, rent_four_off=750, rent_firm=950)
+orange_two = Second_2(name='Кабанья голова', price=180, deposite=90, rent_stock=14,
+            rent_one_off=70, rent_two_off=200, rent_three_off=550, rent_four_off=750, rent_firm=950)
+orange_three = Second_2(name='Сладкое королевство', price=200, deposite=100, rent_stock=16,
+            rent_one_off=80, rent_two_off=220, rent_three_off=600, rent_four_off=800, rent_firm=1000)
 
-red_one = Third_1
-red_two = Third_1
-red_three = Third_1
+red_one = Third_1(name='Большой зал', price=220, deposite=110, rent_stock=18,
+        rent_one_off=90, rent_two_off=250, rent_three_off=700, rent_four_off=875, rent_firm=1050)
+red_two = Third_1(name='Выручай Комната', price=220, deposite=110, rent_stock=18,
+        rent_one_off=90, rent_two_off=250, rent_three_off=700, rent_four_off=875, rent_firm=1050)
+red_three = Third_1(name='Хижина Хагрида', price=240, deposite=120, rent_stock=20,
+        rent_one_off=100, rent_two_off=300, rent_three_off=750, rent_four_off=925, rent_firm=1100)
 
-yellow_one = Third_2
-yellow_two = Third_2
-yellow_three = Third_2
+yellow_one = Third_2(name='Карта Мародёров', price=260, deposite=130, rent_stock=22,
+        rent_one_off=110, rent_two_off=330, rent_three_off=800, rent_four_off=975, rent_firm=1150)
+yellow_two = Third_2(name='Маховик времени', price=260, deposite=130, rent_stock=22,
+        rent_one_off=110, rent_two_off=330, rent_three_off=800, rent_four_off=975, rent_firm=1150)
+yellow_three = Third_2(name='Меч Гриффиндора', price=280, deposite=140, rent_stock=24,
+        rent_one_off=120, rent_two_off=360, rent_three_off=850, rent_four_off=1025, rent_firm=1200)
 
 green_one = Fourth_1
 green_two = Fourth_1
