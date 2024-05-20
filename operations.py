@@ -614,4 +614,3 @@ purple_one = Fourth_2(name='Придира', price=350, deposite=175, rent_stock
         rent_one_off=175, rent_two_off=500, rent_three_off=1100, rent_four_off=1500, rent_firm=1800)
 purple_two = Fourth_2(name='Ежедневный пророк', price=400, deposite=200, rent_stock=50,
         rent_one_off=175, rent_two_off=500, rent_three_off=1100, rent_four_off=1500, rent_firm=1800)
-
