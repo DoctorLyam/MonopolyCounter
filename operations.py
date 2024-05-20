@@ -603,13 +603,17 @@ yellow_two = Third_2(name='Маховик времени', price=260, deposite=1
 yellow_three = Third_2(name='Меч Гриффиндора', price=280, deposite=140, rent_stock=24,
         rent_one_off=120, rent_two_off=360, rent_three_off=850, rent_four_off=1025, rent_firm=1200)
 
-green_one = Fourth_1
-green_two = Fourth_1
-green_three = Fourth_1
+green_one = Fourth_1(name='Бузинная палочка', price=300, deposite=150, rent_stock=26,
+        rent_one_off=130, rent_two_off=390, rent_three_off=900, rent_four_off=1100, rent_firm=1275)
+green_two = Fourth_1(name='Воскрешающий камень', price=300, deposite=150, rent_stock=26,
+        rent_one_off=130, rent_two_off=390, rent_three_off=900, rent_four_off=1100, rent_firm=1275)
+green_three = Fourth_1(name='Мантия-Невидимка', price=320, deposite=160, rent_stock=28,
+        rent_one_off=150, rent_two_off=450, rent_three_off=1000, rent_four_off=1200, rent_firm=1400)
 
-purple_one = Fourth_2
-purple_two = Fourth_2
-purple_three = Fourth_2
+purple_one = Fourth_2(name='Придира', price=350, deposite=175, rent_stock=35,
+        rent_one_off=175, rent_two_off=500, rent_three_off=1100, rent_four_off=1500, rent_firm=1800)
+purple_two = Fourth_2(name='Ежедневный пророк', price=400, deposite=200, rent_stock=50,
+        rent_one_off=175, rent_two_off=500, rent_three_off=1100, rent_four_off=1500, rent_firm=1800)
 
 user_1.buy_thing_in_auction(brown_one, 30)
 user_1.buy_thing_in_auction(brown_one, 30)
