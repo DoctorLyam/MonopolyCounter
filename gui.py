@@ -1,6 +1,7 @@
 # Написание графического интерфейса для программы
 from area import Area, Transport, Support, First_1, First_1_son, First_2, First_2_son, Second_1, Second_1_son, Second_2, Second_2_son, Third_1, Third_1_son, Third_2, Third_2_son, Fourth_1, Fourth_1_son, Fourth_2, Fourth_2_son
 from operations import User
+import tkinter as tk
 
 user_1 = User(name="Саша", areas={}, transps={}, sups={}, budget=2000)
 user_2 = User(name="Настя", areas={}, transps={}, sups={}, budget=2000)
@@ -64,3 +65,13 @@ purple_one = Fourth_2(name='Придира', price=350, deposite=175, rent_stock
         rent_one_off=175, rent_two_off=500, rent_three_off=1100, rent_four_off=1500, rent_firm=1800)
 purple_two = Fourth_2(name='Ежедневный пророк', price=400, deposite=200, rent_stock=50,
         rent_one_off=175, rent_two_off=500, rent_three_off=1100, rent_four_off=1500, rent_firm=1800)
+#-----------------------------------------------------------------------------
+root = tk.Tk()
+root.title('Счетчик для Монополии')
+root.geometry("1000x500") # Размеры окна
+root.minsize(1000,500)   # минимальные размеры: ширина - 200, высота - 150
+label = tk.Label(text='Монополия') # Текстовая метка
+label.pack() # Размещение текстовой метки в окне
+root.iconbitmap(default="ICO.ico") # Иконка
+
+root.mainloop()
