@@ -2,6 +2,7 @@
 from area import Area, Transport, Support, First_1, First_1_son, First_2, First_2_son, Second_1, Second_1_son, Second_2, Second_2_son, Third_1, Third_1_son, Third_2, Third_2_son, Fourth_1, Fourth_1_son, Fourth_2, Fourth_2_son
 from operations import User
 import tkinter as tk
+from tkinter import ttk
 
 user_1 = User(name="Саша", areas={}, transps={}, sups={}, budget=2000)
 user_2 = User(name="Настя", areas={}, transps={}, sups={}, budget=2000)
@@ -73,5 +74,34 @@ root.minsize(1000,500)   # минимальные размеры: ширина -
 label = tk.Label(text='Монополия') # Текстовая метка
 label.pack() # Размещение текстовой метки в окне
 root.iconbitmap(default="ICO.ico") # Иконка
+# WM_DELETE_WINDOW — это событие в системе управления окнами, которое указывает, что пользователь хочет закрыть окно
+# protocol() позволяет переопределить событие
+# и в данном случае мы биндим на это событие корректное закрытие всего приложения destroy (чтоб наверняка) 
+def finish():
+    root.destroy()  # ручное закрытие окна и всего приложения
+    print("Закрытие приложения...")
+root.protocol("WM_DELETE_WINDOW", finish)
+root.attributes("-alpha", 0.95) # Прозрачность
+
+
+def log_message(message):
+    # Добавляем новое сообщение в конец текстового поля
+    game_log.insert(tk.END, message + '\n')
+    # Прокручиваем текстовое поле до конца, чтобы видеть последние добавленные сообщения
+    game_log.see(tk.END)
+
+game_log = tk.Text(root, height=20, width=50)
+game_log.pack(side=tk.BOTTOM, expand=True)
+log_message("Начало работы приложения")
+log_message("Загрузка данных...")
+log_message("Данные загружены успешно")
+
+btn = ttk.Button(command=user_1.buy_area(brown_one), width=50)
+# Задам координаты кнопке
+btn.pack(anchor="nw")
+# устанавливаем параметр text
+btn["text"]="Send"
+
+print(btn.winfo_x(), btn.winfo_y())
 
 root.mainloop()
