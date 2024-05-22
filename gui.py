@@ -91,17 +91,30 @@ def log_message(message):
     game_log.see(tk.END)
 
 game_log = tk.Text(root, height=20, width=50)
-game_log.pack(side=tk.BOTTOM, expand=True)
+game_log.pack(side=tk.BOTTOM, anchor='ne', expand=True)
 log_message("Начало работы приложения")
 log_message("Загрузка данных...")
 log_message("Данные загружены успешно")
 
-btn = ttk.Button(command=lambda:user_1.buy_area(brown_one), width=50)
-# Задам координаты кнопке
-btn.pack(anchor="nw")
-# устанавливаем параметр text
-btn["text"]="Send"
 
-print(btn.winfo_x(), btn.winfo_y())
+var = tk.IntVar() # Тип переменоой, которая будет хранить в себе состояние виджета в value
+user_list = [user_1, user_2]
+for numb, i in enumerate(user_list):
+    tk.Radiobutton(root, text=i.name, variable=var, value=numb).pack(anchor=tk.W)
+
+
+area_list = [brown_one.name, brown_two.name]
+ttk.Combobox(root, values=area_list, command=lambda:log_message('Так')).pack(anchor='nw', padx=6, pady=6)
+
+
+
+
+# btn = ttk.Button(command=lambda:user_1.buy_area(brown_one), width=50)
+# # Задам координаты кнопке
+# btn.pack(anchor="nw")
+# # устанавливаем параметр text
+# btn["text"]="Send"
+
+
 
 root.mainloop()
