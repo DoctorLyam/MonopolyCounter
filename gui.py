@@ -73,7 +73,7 @@ root.geometry("1000x500") # Размеры окна
 root.minsize(1000,500)   # минимальные размеры: ширина - 200, высота - 150
 label = tk.Label(text='Монополия') # Текстовая метка
 label.pack() # Размещение текстовой метки в окне
-root.iconbitmap(default="ICO.ico") # Иконка
+# root.iconbitmap(default="ICO.ico") # Иконка
 # WM_DELETE_WINDOW — это событие в системе управления окнами, которое указывает, что пользователь хочет закрыть окно
 # protocol() позволяет переопределить событие
 # и в данном случае мы биндим на это событие корректное закрытие всего приложения destroy (чтоб наверняка) 
@@ -96,7 +96,7 @@ log_message("Начало работы приложения")
 log_message("Загрузка данных...")
 log_message("Данные загружены успешно")
 
-btn = ttk.Button(command=user_1.buy_area(brown_one), width=50)
+btn = ttk.Button(command=lambda:user_1.buy_area(brown_one), width=50)
 # Задам координаты кнопке
 btn.pack(anchor="nw")
 # устанавливаем параметр text
