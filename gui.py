@@ -66,6 +66,13 @@ purple_one = Fourth_2(name='Придира', price=350, deposite=175, rent_stock
         rent_one_off=175, rent_two_off=500, rent_three_off=1100, rent_four_off=1500, rent_firm=1800)
 purple_two = Fourth_2(name='Ежедневный пророк', price=400, deposite=200, rent_stock=50,
         rent_one_off=175, rent_two_off=500, rent_three_off=1100, rent_four_off=1500, rent_firm=1800)
+
+# Примеры запуска кода:
+# user_1.buy_area(purple_one) # positive
+# user_2.buy_area(purple_one) # negative
+# user_1.get_office(purple_two) # negative
+# user_1.get_office(purple_one) # positive
+
 #-----------------------------------------------------------------------------
 root = tk.Tk()
 root.title('Счетчик для Монополии')
@@ -103,8 +110,8 @@ for numb, i in enumerate(user_list):
     tk.Radiobutton(root, text=i.name, variable=var, value=numb).pack(anchor=tk.W)
 
 
-area_list = [brown_one.name, brown_two.name]
-ttk.Combobox(root, values=area_list, command=lambda:log_message('Так')).pack(anchor='nw', padx=6, pady=6)
+# area_list = [brown_one.name, brown_two.name]
+# ttk.Combobox(root, values=area_list, command=lambda:log_message('Так')).pack(anchor='nw', padx=6, pady=6)
 
 
 
