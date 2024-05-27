@@ -102,15 +102,16 @@ log_message("Начало работы приложения")
 log_message("Загрузка данных...")
 log_message("Данные загружены успешно")
 
-
+# Радиобаттон для выбора юзера
 chosen_user = tk.IntVar(value=0) # Тип переменоой, которая будет хранить в себе состояние виджета в value
 user_list = [user_1, user_2]
 for numb, user in enumerate(user_list):
     tk.Radiobutton(root, text=user.name, variable=chosen_user, value=numb).pack(anchor=tk.W)
 
 
-# area_list = [brown_one.name, brown_two.name]
-# ttk.Combobox(root, values=area_list, command=lambda:log_message('Так')).pack(anchor='nw', padx=6, pady=6)
+area_list = [brown_one.name, brown_two.name]
+for nump, area in enumerate(area_list):
+        ttk.Combobox(root, values=area_list, command=lambda:log_message('Так')).pack(anchor='nw', padx=6, pady=6)
 
 
 
