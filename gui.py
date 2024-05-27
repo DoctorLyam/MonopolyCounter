@@ -96,7 +96,6 @@ def log_message(message):
     game_log.insert(tk.END, message + '\n')
     # Прокручиваем текстовое поле до конца, чтобы видеть последние добавленные сообщения
     game_log.see(tk.END)
-
 game_log = tk.Text(root, height=20, width=50)
 game_log.pack(side=tk.BOTTOM, anchor='ne', expand=True)
 log_message("Начало работы приложения")
@@ -104,10 +103,10 @@ log_message("Загрузка данных...")
 log_message("Данные загружены успешно")
 
 
-var = tk.IntVar() # Тип переменоой, которая будет хранить в себе состояние виджета в value
+chosen_user = tk.IntVar(value=0) # Тип переменоой, которая будет хранить в себе состояние виджета в value
 user_list = [user_1, user_2]
-for numb, i in enumerate(user_list):
-    tk.Radiobutton(root, text=i.name, variable=var, value=numb).pack(anchor=tk.W)
+for numb, user in enumerate(user_list):
+    tk.Radiobutton(root, text=user.name, variable=chosen_user, value=numb).pack(anchor=tk.W)
 
 
 # area_list = [brown_one.name, brown_two.name]
