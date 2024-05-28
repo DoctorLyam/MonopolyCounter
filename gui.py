@@ -108,15 +108,24 @@ user_list = [user_1, user_2]
 for numb, user in enumerate(user_list):
     tk.Radiobutton(root, text=user.name, variable=chosen_user, value=numb).pack(anchor=tk.W)
 
+# Поле для ввода числа
+entry_text = tk.StringVar() # Вводимый текст
+# само поле
+sum = ttk.Entry(width=10, textvariable = entry_text).pack(anchor='nw', padx=8, pady=8)
+def character_limit(entry_text):
+    if (len(entry_text.get())) > 5 and entry_text is int: #ИСПРАВИТЬ ЭТО УСЛОВИЕ
+        entry_text.set(entry_text.get()[-1])
+entry_text.trace("w", lambda *args: character_limit(entry_text))
+
+
 # Список выбора участка
-area_list = [brown_one.name, brown_two.name, blue_one.name, blue_two.name, blue_three.name, pink_one.name, pink_two.name, pink_three.name,
+areas_list = [brown_one.name, brown_two.name, blue_one.name, blue_two.name, blue_three.name, pink_one.name, pink_two.name, pink_three.name,
              orange_one.name, orange_two.name, orange_three.name, red_one.name, red_two.name, red_three.name, yellow_one.name, yellow_two.name, yellow_three.name, 
              green_one.name, green_two.name, green_three.name, purple_one.name, purple_two.name]
-chosen_area = tk.IntVar(value=0)
-areas = ttk.Combobox(root, values=area_list).pack(anchor='nw', padx=6, pady=6)
+areas = ttk.Combobox(root, values=areas_list).pack(anchor='nw', padx=6, pady=6)
 
 # Список выбора действий
-
+action_areas_list = []
 
 
 # btn = ttk.Button(command=lambda:user_1.buy_area(brown_one), width=50)
