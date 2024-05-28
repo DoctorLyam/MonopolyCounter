@@ -108,11 +108,14 @@ user_list = [user_1, user_2]
 for numb, user in enumerate(user_list):
     tk.Radiobutton(root, text=user.name, variable=chosen_user, value=numb).pack(anchor=tk.W)
 
+# Список выбора участка
+area_list = [brown_one.name, brown_two.name, blue_one.name, blue_two.name, blue_three.name, pink_one.name, pink_two.name, pink_three.name,
+             orange_one.name, orange_two.name, orange_three.name, red_one.name, red_two.name, red_three.name, yellow_one.name, yellow_two.name, yellow_three.name, 
+             green_one.name, green_two.name, green_three.name, purple_one.name, purple_two.name]
+chosen_area = tk.IntVar(value=0)
+areas = ttk.Combobox(root, values=area_list).pack(anchor='nw', padx=6, pady=6)
 
-area_list = [brown_one.name, brown_two.name]
-for nump, area in enumerate(area_list):
-        ttk.Combobox(root, values=area_list, command=lambda:log_message('Так')).pack(anchor='nw', padx=6, pady=6)
-
+# Список выбора действий
 
 
 
