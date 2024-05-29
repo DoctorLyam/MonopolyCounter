@@ -114,7 +114,7 @@ entry_text = tk.StringVar() # Вводимый текст
 # само поле
 sum = ttk.Entry(width=10, textvariable = entry_text).pack(anchor='nw', padx=8, pady=8)
 def character_limit(entry_text):
-    if использовать re (len(entry_text.get())) > 6:
+    if использовать re https://metanit.com/python/tkinter/2.8.php (len(entry_text.get())) > 6:
         entry_text=entry_text[:-1]
 entry_text.trace("w", lambda *args: character_limit(entry_text))
 
