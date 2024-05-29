@@ -108,13 +108,14 @@ user_list = [user_1, user_2]
 for numb, user in enumerate(user_list):
     tk.Radiobutton(root, text=user.name, variable=chosen_user, value=numb).pack(anchor=tk.W)
 
+numb_list=['0','1','2','3','4','5','6','7','8','9']
 # Поле для ввода числа
 entry_text = tk.StringVar() # Вводимый текст
 # само поле
 sum = ttk.Entry(width=10, textvariable = entry_text).pack(anchor='nw', padx=8, pady=8)
 def character_limit(entry_text):
-    if (len(entry_text.get())) > 5 and entry_text is int: #ИСПРАВИТЬ ЭТО УСЛОВИЕ
-        entry_text.set(entry_text.get()[-1])
+    if использовать re (len(entry_text.get())) > 6:
+        entry_text=entry_text[:-1]
 entry_text.trace("w", lambda *args: character_limit(entry_text))
 
 
