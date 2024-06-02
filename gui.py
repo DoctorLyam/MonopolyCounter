@@ -112,7 +112,7 @@ for numb, user in enumerate(user_list):
 # Поле для ввода числа
 entry_text = tk.StringVar() # Вводимый текст
 # само поле
-sum = ttk.Entry(width=10, textvariable = entry_text).pack(anchor='nw', padx=8, pady=8)
+sum = ttk.Entry(width=7, textvariable = entry_text).pack(anchor='nw', padx=8, pady=8)
 def character_limit(entry_text):
         try:
                 entry_text_1 = int(entry_text.get())
@@ -129,16 +129,12 @@ areas_list = [brown_one.name, brown_two.name, blue_one.name, blue_two.name, blue
              green_one.name, green_two.name, green_three.name, purple_one.name, purple_two.name]
 areas = ttk.Combobox(root, values=areas_list).pack(anchor='nw', padx=6, pady=6)
 
-# Список выбора действий
-action_areas_list = []
-
-
-# btn = ttk.Button(command=lambda:user_1.buy_area(brown_one), width=50)
-# # Задам координаты кнопке
-# btn.pack(anchor="nw")
-# # устанавливаем параметр text
-# btn["text"]="Send"
-
+# Список выбора действий для участков
+# Словарь с методами (действиями)
+dict_area_methods = {'Покупка участка':'buy_area(area)', 'Заложение участка':'dep_area(area)', 'Выкуп заложенного участка':'get_dep_area(area)',
+                'Покупка филиала':'sale_office(area)', 'Покупка предприятия':'get_firm(area)', 'Продажа предприятия':'sale_firm(area)',
+                'Оплата аренды':'pay_area_rent(area)', 'Передать участок другому игроку':'give_thing(thing, user)'}
+area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()), width=32).pack(anchor='nw', padx=6, pady=6)
 
 
 root.mainloop()
