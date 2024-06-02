@@ -108,14 +108,18 @@ user_list = [user_1, user_2]
 for numb, user in enumerate(user_list):
     tk.Radiobutton(root, text=user.name, variable=chosen_user, value=numb).pack(anchor=tk.W)
 
-numb_list=['0','1','2','3','4','5','6','7','8','9']
+
 # Поле для ввода числа
 entry_text = tk.StringVar() # Вводимый текст
 # само поле
 sum = ttk.Entry(width=10, textvariable = entry_text).pack(anchor='nw', padx=8, pady=8)
 def character_limit(entry_text):
-    if использовать re https://metanit.com/python/tkinter/2.8.php (len(entry_text.get())) > 6:
-        entry_text=entry_text[:-1]
+        try:
+                entry_text_1 = int(entry_text.get())
+                if len(entry_text.get()) > 6:
+                        entry_text.set(entry_text.get()[:-1])
+        except ValueError:
+              entry_text.set(entry_text.get()[:-1])
 entry_text.trace("w", lambda *args: character_limit(entry_text))
 
 
