@@ -76,7 +76,7 @@ purple_two = Fourth_2(name='Ежедневный пророк', price=400, depos
 #-----------------------------------------------------------------------------
 root = tk.Tk()
 root.title('Счетчик для Монополии')
-root.geometry("1000x500") # Размеры окна
+root.geometry("1000x700") # Размеры окна
 root.minsize(1000,500)   # минимальные размеры: ширина - 200, высота - 150
 label = tk.Label(text='Монополия') # Текстовая метка
 label.pack() # Размещение текстовой метки в окне
@@ -134,7 +134,8 @@ areas = ttk.Combobox(root, values=areas_list).pack(anchor='nw', padx=6, pady=6)
 dict_area_methods = {'Покупка участка':'buy_area(area)', 'Заложение участка':'dep_area(area)', 'Выкуп заложенного участка':'get_dep_area(area)',
                 'Покупка филиала':'sale_office(area)', 'Покупка предприятия':'get_firm(area)', 'Продажа предприятия':'sale_firm(area)',
                 'Оплата аренды':'pay_area_rent(area)', 'Передать участок другому игроку':'give_thing(thing, user)'}
-area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()), width=32).pack(anchor='nw', padx=6, pady=6)
+area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()), width=32).pack(anchor='w', padx=10, pady=10)
 
+btn = ttk.Button(text="Совершить действие\nнад участком").pack(anchor='sw')
 
 root.mainloop()
