@@ -106,7 +106,7 @@ log_message("Данные загружены успешно")
 chosen_user = tk.IntVar(value=0) # Тип переменоой, которая будет хранить в себе состояние виджета в value
 user_list = [user_1, user_2]
 for numb, user in enumerate(user_list):
-    tk.Radiobutton(root, text=user.name, variable=chosen_user, value=numb).pack(anchor=tk.W)
+    user_rad = tk.Radiobutton(root, text=user.name, variable=chosen_user, value=numb).pack(anchor=tk.W)
 
 
 # Поле для ввода числа
