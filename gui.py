@@ -136,6 +136,11 @@ dict_area_methods = {'Покупка участка':'buy_area(area)', 'Зало
                 'Оплата аренды':'pay_area_rent(area)', 'Передать участок другому игроку':'give_thing(thing, user)'}
 area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()), width=32).pack(anchor='w', padx=10, pady=10)
 
-btn = ttk.Button(text="Совершить действие\nнад участком").pack(anchor='sw')
+
+# Функция для кнопки
+
+
+btn = ttk.Button(text="Совершить действие\nнад участком", command=).pack(anchor='sw')
+
 
 root.mainloop()
