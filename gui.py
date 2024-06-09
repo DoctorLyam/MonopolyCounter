@@ -138,7 +138,8 @@ area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()), width=3
 
 
 # Функция для кнопки
-
+def area_oper_btn():
+      
 
 btn = ttk.Button(text="Совершить действие\nнад участком", command=).pack(anchor='sw')
 
