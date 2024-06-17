@@ -104,9 +104,9 @@ log_message("Данные загружены успешно")
 
 # Радиобаттон для выбора юзера
 chosen_user = tk.StringVar(value='Юзер не выбран') # Тип переменоой, которая будет хранить в себе состояние виджета в value
-user_list = [user_1, user_2]
-for numb, user in enumerate(user_list):
-    user_rad = tk.Radiobutton(root, text=user.name, variable=chosen_user, value=user).pack(anchor=tk.W)
+user_list = {'Саша':'user_1', 'Настя':'user_2'}
+for user in user_list:
+    user_rad = tk.Radiobutton(root, text=user, variable=chosen_user, value=user_list[user]).pack(anchor=tk.W)
 
 
 # Поле для ввода числа
@@ -124,27 +124,40 @@ entry_text.trace("w", lambda *args: character_limit(entry_text))
 
 
 # Список выбора участка
-areas_list = [brown_one.name, brown_two.name, blue_one.name, blue_two.name, blue_three.name, pink_one.name, pink_two.name, pink_three.name,
-             orange_one.name, orange_two.name, orange_three.name, red_one.name, red_two.name, red_three.name, yellow_one.name, yellow_two.name, yellow_three.name, 
-             green_one.name, green_two.name, green_three.name, purple_one.name, purple_two.name]
-areas = ttk.Combobox(root, values=areas_list).pack(anchor='nw', padx=6, pady=6)
+chosen_area = tk.StringVar(value='')
+areas_list = {'Дом Гарри':'brown_name', 'Вокзал Кингс-Кросс':'brown_two', 'Отдел магического транспорта':'blue_one', 'Отдел тайн':'blue_two', 
+                'Отдел обеспечения магического правопорядка':'blue_three', 'Магазин Совы':'pink_one', 'Лавка Олливандера':'pink_two', 'Всё для Квиддича':'pink_three',
+                'Три метлы':'orange_one', 'Кабанья голова':'orange_two', 'Сладкое королевство':'orange_three', 
+                'Большой зал':'red_one', 'Выручай Комната':'red_two', 'Хижина Хагрида':'red_three', 
+                'Карта Мародёров':'yellow_one', 'Маховик времени':'yellow_two', 'Меч Гриффиндора':'yellow_three', 
+                'Бузинная палочка':'green_one', 'Воскрешающий камень':'green_two', 'Мантия-Невидимка':'green_three', 
+                'Придира':'purple_one', 'Ежедневный пророк':'purple_two'}
+areas = ttk.Combobox(root, values=list(areas_list.keys()), textvariable=chosen_area).pack(anchor='nw', padx=6, pady=6)
 
 # Список выбора действий для участков
 # Словарь с методами (действиями)
-dict_area_methods = {'Покупка участка':'buy_area(area)', 'Заложение участка':'dep_area(area)', 'Выкуп заложенного участка':'get_dep_area(area)',
-                'Покупка филиала':'sale_office(area)', 'Покупка предприятия':'get_firm(area)', 'Продажа предприятия':'sale_firm(area)',
-                'Оплата аренды':'pay_area_rent(area)', 'Передать участок другому игроку':'give_thing(thing, user)'}
-area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()), width=32).pack(anchor='w', padx=10, pady=10)
+chosen_method = tk.StringVar(value='')
+dict_area_methods = {'Покупка участка':'buy_area', 'Заложение участка':'dep_area', 'Выкуп заложенного участка':'get_dep_area',
+                'Покупка филиала':'sale_office', 'Покупка предприятия':'get_firm', 'Продажа предприятия':'sale_firm',
+                'Оплата аренды':'pay_area_rent'}
+area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()), 
+                            textvariable=chosen_method, width=32).pack(anchor='w', padx=10, pady=10)
 
 
-# # Функция для кнопки
-# def area_oper_btn():
+# def give_user():
+#       a = chosen_user.get()
+#       print(f'Выбранный юзер: {a}')
+# def give_operation():
+#       b = dict_area_methods[chosen_method.get()]
+#       print(f'Выбранный метод: {b}')
+# def give_area():
+#         c = areas_list[chosen_area.get()]
+#         print(f'Выбранный участок: {c}')
 
+# Функция для кнопки
+def area_oper_btn():
+        exec(f'{chosen_user.get()}'+'.'+f'{dict_area_methods[chosen_method.get()]}'+f'({areas_list[chosen_area.get()]})')
 
-def give_user():
-      a = chosen_user.get()
-      print(f'Выбранный юзер: {a}')
-
-btn = ttk.Button(text="Совершить действие\nнад участком", command=give_user).pack(anchor='sw')
+btn = ttk.Button(text="Совершить действие\nнад участком", command=area_oper_btn).pack(anchor='sw')
 
 root.mainloop()
