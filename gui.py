@@ -103,10 +103,10 @@ log_message("Загрузка данных...")
 log_message("Данные загружены успешно")
 
 # Радиобаттон для выбора юзера
-chosen_user = tk.IntVar(value=0) # Тип переменоой, которая будет хранить в себе состояние виджета в value
+chosen_user = tk.StringVar(value=user_1.name) # Тип переменоой, которая будет хранить в себе состояние виджета в value
 user_list = [user_1, user_2]
 for numb, user in enumerate(user_list):
-    user_rad = tk.Radiobutton(root, text=user.name, variable=chosen_user, value=numb).pack(anchor=tk.W)
+    user_rad = tk.Radiobutton(root, text=user.name, variable=chosen_user, value=user.name).pack(anchor=tk.W)
 
 
 # Поле для ввода числа
@@ -137,11 +137,14 @@ dict_area_methods = {'Покупка участка':'buy_area(area)', 'Зало
 area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()), width=32).pack(anchor='w', padx=10, pady=10)
 
 
-# Функция для кнопки
-def area_oper_btn():
-      
+# # Функция для кнопки
+# def area_oper_btn():
 
-btn = ttk.Button(text="Совершить действие\nнад участком", command=).pack(anchor='sw')
 
+def give_user():
+      a = chosen_user.get()
+      print(f'Выбранный юзер: {a}')
+
+btn = ttk.Button(text="Совершить действие\nнад участком", command=give_user).pack(anchor='sw')
 
 root.mainloop()
