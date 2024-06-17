@@ -103,10 +103,10 @@ log_message("Загрузка данных...")
 log_message("Данные загружены успешно")
 
 # Радиобаттон для выбора юзера
-chosen_user = tk.StringVar(value=user_1.name) # Тип переменоой, которая будет хранить в себе состояние виджета в value
+chosen_user = tk.StringVar(value='Юзер не выбран') # Тип переменоой, которая будет хранить в себе состояние виджета в value
 user_list = [user_1, user_2]
 for numb, user in enumerate(user_list):
-    user_rad = tk.Radiobutton(root, text=user.name, variable=chosen_user, value=user.name).pack(anchor=tk.W)
+    user_rad = tk.Radiobutton(root, text=user.name, variable=chosen_user, value=user).pack(anchor=tk.W)
 
 
 # Поле для ввода числа
