@@ -143,7 +143,6 @@ dict_area_methods = {'Покупка участка':'buy_area', 'Заложен
 area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()), 
                             textvariable=chosen_method, width=32).pack(anchor='w', padx=10, pady=10)
 
-
 # def give_user():
 #       a = chosen_user.get()
 #       print(f'Выбранный юзер: {a}')
@@ -156,7 +155,13 @@ area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()),
 
 # Функция для кнопки
 def area_oper_btn():
-        exec(f'{chosen_user.get()}'+'.'+f'{dict_area_methods[chosen_method.get()]}'+f'({areas_list[chosen_area.get()]})')
+        try:
+                exec(f'{chosen_user.get()}'+'.'+f'{dict_area_methods[chosen_method.get()]}'+f'({areas_list[chosen_area.get()]})')
+        except SyntaxError:
+              print('Выберите игрока')
+        except KeyError:
+              print('Выберите действие и/или вещь')
+              
 
 btn = ttk.Button(text="Совершить действие\nнад участком", command=area_oper_btn).pack(anchor='sw')
 
