@@ -205,7 +205,7 @@ class User(Area):
             if temp_list2:
                 min_off = max(temp_list2)
                 difference = self.areas[area.name] - min_off
-            else: difference == -2
+            else: difference = -2
 
             if difference != -2:
                 if (0 < self.areas[area.name] <= 4) and ((difference == 0) or (difference == 1)):
@@ -247,7 +247,7 @@ class User(Area):
                 min_off = max(temp_list2)
                 difference = self.areas[area.name] - min_off
             else:
-                difference == -2
+                difference = -2
 
             if difference != 2:
                 if (self.areas[area.name] == 4) and ((difference == 0)or (difference == -1)) and (self.budget >= class_attr.firm_price):
@@ -281,7 +281,7 @@ class User(Area):
             if temp_list2:
                 min_off = max(temp_list2)
                 difference = self.areas[area.name] - min_off
-            else: difference == -2
+            else: difference = -2
 
             if difference != -2:
                 if (self.areas[area.name] == 5) and ((difference == 0) or (difference == 1)):

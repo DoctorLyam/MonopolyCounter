@@ -125,7 +125,7 @@ entry_text.trace("w", lambda *args: character_limit(entry_text))
 
 # Список выбора участка
 chosen_area = tk.StringVar(value='')
-areas_list = {'Дом Гарри':'brown_name', 'Вокзал Кингс-Кросс':'brown_two', 'Отдел магического транспорта':'blue_one', 'Отдел тайн':'blue_two', 
+areas_list = {'Дом Гарри':'brown_one', 'Вокзал Кингс-Кросс':'brown_two', 'Отдел магического транспорта':'blue_one', 'Отдел тайн':'blue_two', 
                 'Отдел обеспечения магического правопорядка':'blue_three', 'Магазин Совы':'pink_one', 'Лавка Олливандера':'pink_two', 'Всё для Квиддича':'pink_three',
                 'Три метлы':'orange_one', 'Кабанья голова':'orange_two', 'Сладкое королевство':'orange_three', 
                 'Большой зал':'red_one', 'Выручай Комната':'red_two', 'Хижина Хагрида':'red_three', 
@@ -138,7 +138,7 @@ areas = ttk.Combobox(root, values=list(areas_list.keys()), textvariable=chosen_a
 # Словарь с методами (действиями)
 chosen_method = tk.StringVar(value='')
 dict_area_methods = {'Покупка участка':'buy_area', 'Заложение участка':'dep_area', 'Выкуп заложенного участка':'get_dep_area',
-                'Покупка филиала':'sale_office', 'Покупка предприятия':'get_firm', 'Продажа предприятия':'sale_firm',
+                'Покупка филиала':'get_office', 'Продажа филиала':'sale_office', 'Покупка предприятия':'get_firm', 'Продажа предприятия':'sale_firm',
                 'Оплата аренды':'pay_area_rent'}
 area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()), 
                             textvariable=chosen_method, width=32).pack(anchor='w', padx=10, pady=10)
