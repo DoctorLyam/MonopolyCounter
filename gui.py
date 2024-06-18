@@ -123,6 +123,9 @@ def character_limit(entry_text):
 entry_text.trace("w", lambda *args: character_limit(entry_text))
 
 
+#-------------------------ПЕРВАЯ ГРУППА МЕТОДОВ------------------------
+
+
 # Список выбора участка
 chosen_area = tk.StringVar(value='')
 areas_list = {'Дом Гарри':'brown_one', 'Вокзал Кингс-Кросс':'brown_two', 'Отдел магического транспорта':'blue_one', 'Отдел тайн':'blue_two', 
@@ -143,18 +146,8 @@ dict_area_methods = {'Покупка участка':'buy_area', 'Заложен
 area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()), 
                             textvariable=chosen_method, width=32).pack(anchor='w', padx=10, pady=10)
 
-# def give_user():
-#       a = chosen_user.get()
-#       print(f'Выбранный юзер: {a}')
-# def give_operation():
-#       b = dict_area_methods[chosen_method.get()]
-#       print(f'Выбранный метод: {b}')
-# def give_area():
-#         c = areas_list[chosen_area.get()]
-#         print(f'Выбранный участок: {c}')
-
-# Функция для кнопки
-def area_oper_btn():
+# Функция для первой кнопки
+def area_oper_btn_1():
         try:
                 exec(f'{chosen_user.get()}'+'.'+f'{dict_area_methods[chosen_method.get()]}'+f'({areas_list[chosen_area.get()]})')
         except SyntaxError:
@@ -163,6 +156,6 @@ def area_oper_btn():
               print('Выберите действие и/или вещь')
               
 
-btn = ttk.Button(text="Совершить действие\nнад участком", command=area_oper_btn).pack(anchor='sw')
+btn = ttk.Button(text="Совершить действие\nнад участком", command=area_oper_btn_1).pack(anchor='sw')
 
 root.mainloop()
