@@ -122,20 +122,23 @@ def character_limit(entry_text):
               entry_text.set(entry_text.get()[:-1])
 entry_text.trace("w", lambda *args: character_limit(entry_text))
 
+# Список со словарями участков, транспорта и саппортов
+all_things = [{'Дом Гарри':'brown_one', 'Вокзал Кингс-Кросс':'brown_two', 'Отдел магического транспорта':'blue_one', 'Отдел тайн':'blue_two', 
+                'Отдел обеспечения магического правопорядка':'blue_three', 'Магазин Совы':'pink_one', 'Лавка Олливандера':'pink_two', 'Всё для Квиддича':'pink_three',
+                'Три метлы':'orange_one', 'Кабанья голова':'orange_two', 'Сладкое королевство':'orange_three', 
+                'Большой зал':'red_one', 'Выручай Комната':'red_two', 'Хижина Хагрида':'red_three', 
+                'Карта Мародёров':'yellow_one', 'Маховик времени':'yellow_two', 'Меч Гриффиндора':'yellow_three', 
+                'Бузинная палочка':'green_one', 'Воскрешающий камень':'green_two', 'Мантия-Невидимка':'green_three', 
+                'Придира':'purple_one', 'Ежедневный пророк':'purple_two'},
+                {'Хогвартс-Экспресс':'transp_one','Летающая метла':'transp_two','Летучий порох':'transp_three', 'Магический портал':'transp_four'},
+                {'Добби':'sup_one', 'Кикимер':'sup_two'}]
 
 #-------------------------ПЕРВАЯ ГРУППА МЕТОДОВ------------------------
 
 
 # Список выбора участка
 chosen_area = tk.StringVar(value='')
-areas_list = {'Дом Гарри':'brown_one', 'Вокзал Кингс-Кросс':'brown_two', 'Отдел магического транспорта':'blue_one', 'Отдел тайн':'blue_two', 
-                'Отдел обеспечения магического правопорядка':'blue_three', 'Магазин Совы':'pink_one', 'Лавка Олливандера':'pink_two', 'Всё для Квиддича':'pink_three',
-                'Три метлы':'orange_one', 'Кабанья голова':'orange_two', 'Сладкое королевство':'orange_three', 
-                'Большой зал':'red_one', 'Выручай Комната':'red_two', 'Хижина Хагрида':'red_three', 
-                'Карта Мародёров':'yellow_one', 'Маховик времени':'yellow_two', 'Меч Гриффиндора':'yellow_three', 
-                'Бузинная палочка':'green_one', 'Воскрешающий камень':'green_two', 'Мантия-Невидимка':'green_three', 
-                'Придира':'purple_one', 'Ежедневный пророк':'purple_two'}
-areas = ttk.Combobox(root, values=list(areas_list.keys()), textvariable=chosen_area).pack(anchor='nw', padx=6, pady=6)
+areas = ttk.Combobox(root, values=list(all_things[0].keys()), textvariable=chosen_area).pack(anchor='nw', padx=6, pady=6)
 
 # Список выбора действий для участков
 # Словарь с методами (действиями)
@@ -149,7 +152,7 @@ area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()),
 # Функция для первой кнопки
 def area_oper_btn_1():
         try:
-                exec(f'{chosen_user.get()}'+'.'+f'{dict_area_methods[chosen_method.get()]}'+f'({areas_list[chosen_area.get()]})')
+                exec(f'{chosen_user.get()}'+'.'+f'{dict_area_methods[chosen_method.get()]}'+f'({all_things[1][chosen_area.get()]})')
         except SyntaxError:
               print('Выберите игрока')
         except KeyError:
