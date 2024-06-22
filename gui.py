@@ -151,26 +151,35 @@ all_methods = {'Покупка участка':'buy_area', 'Заложение �
                 
                 'Купить вещь за свободную сумму на аукционе':'buy_thing_in_auction'}
 
-#-------------------------ПЕРВАЯ ГРУППА МЕТОДОВ------------------------
-
+# Список выбора действий для участков
+# Словарь с методами (действиями)
+chosen_method = tk.StringVar(value='')
+area_methods = ttk.Combobox(root, values=list(all_methods.keys()), textvariable=chosen_method, width=32).pack(anchor='w', padx=10, pady=10)
 
 # Список выбора участка
 chosen_area = tk.StringVar(value='')
 areas = ttk.Combobox(root, values=list(all_things[0].keys()), textvariable=chosen_area).pack(anchor='nw', padx=6, pady=6)
 
-# Список выбора действий для участков
-# Словарь с методами (действиями)
-chosen_method = tk.StringVar(value='')
-dict_area_methods = {'Покупка участка':'buy_area', 'Заложение участка':'dep_area', 'Выкуп заложенного участка':'get_dep_area',
-                'Покупка филиала':'get_office', 'Продажа филиала':'sale_office', 'Покупка предприятия':'get_firm', 'Продажа предприятия':'sale_firm',
-                'Оплата аренды':'pay_area_rent'}
-area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()), 
-                            textvariable=chosen_method, width=32).pack(anchor='w', padx=10, pady=10)
+# Список выбора транспорта
+chosen_transp = tk.StringVar(value='')
+transps = ttk.Combobox(root, values=list(all_things[1].keys()), textvariable=chosen_transp).pack(anchor='nw', padx=6, pady=6)
 
+# Список выбора саппорта
+chosen_sup = tk.StringVar(value='')
+sups = ttk.Combobox(root, values=list(all_things[2].keys()), textvariable=chosen_transp).pack(anchor='nw', padx=6, pady=6)
+
+#----------------------------------
 # Функция для первой кнопки
 def area_oper_btn_1():
         try:
-                exec(f'{chosen_user.get()}'+'.'+f'{dict_area_methods[chosen_method.get()]}'+f'({all_things[0][chosen_area.get()]})')
+                if chosen_method.get() in ('Покупка участка', 'Заложение участка', 'Выкуп заложенного участка',
+                                           'Покупка филиала', 'Продажа филиала', 'Покупка предприятия',
+                                           'Продажа предприятия', 'Оплата аренды за использование участка'):
+                        exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({all_things[0][chosen_area.get()]})')
+                else:
+                       print('Выберите уникальный метод для совершения действия над участком')
+                       print(f'Выбран метод: {chosen_method.get()}')
+
         except SyntaxError:
               print('Выберите игрока')
         except KeyError:
@@ -178,5 +187,7 @@ def area_oper_btn_1():
               
 
 btn = ttk.Button(text="Совершить действие\nнад участком", command=area_oper_btn_1).pack(anchor='sw')
+#----------------------------------
+
 
 root.mainloop()
