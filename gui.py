@@ -133,6 +133,7 @@ all_things = [{'Дом Гарри':'brown_one', 'Вокзал Кингс-Кро�
                 {'Хогвартс-Экспресс':'transp_one','Летающая метла':'transp_two','Летучий порох':'transp_three', 'Магический портал':'transp_four'},
                 {'Добби':'sup_one', 'Кикимер':'sup_two'}]
 
+
 #-------------------------ПЕРВАЯ ГРУППА МЕТОДОВ------------------------
 
 
@@ -152,7 +153,7 @@ area_methods = ttk.Combobox(root, values=list(dict_area_methods.keys()),
 # Функция для первой кнопки
 def area_oper_btn_1():
         try:
-                exec(f'{chosen_user.get()}'+'.'+f'{dict_area_methods[chosen_method.get()]}'+f'({all_things[1][chosen_area.get()]})')
+                exec(f'{chosen_user.get()}'+'.'+f'{dict_area_methods[chosen_method.get()]}'+f'({all_things[0][chosen_area.get()]})')
         except SyntaxError:
               print('Выберите игрока')
         except KeyError:
