@@ -166,7 +166,7 @@ transps = ttk.Combobox(root, values=list(all_things[1].keys()), textvariable=cho
 
 # Список выбора саппорта
 chosen_sup = tk.StringVar(value='')
-sups = ttk.Combobox(root, values=list(all_things[2].keys()), textvariable=chosen_transp).pack(anchor='nw', padx=6, pady=6)
+sups = ttk.Combobox(root, values=list(all_things[2].keys()), textvariable=chosen_sup).pack(anchor='nw', padx=6, pady=6)
 
 #----------------------------------
 # Функция для первой кнопки
