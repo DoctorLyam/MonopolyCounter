@@ -169,8 +169,8 @@ chosen_sup = tk.StringVar(value='')
 sups = ttk.Combobox(root, values=list(all_things[2].keys()), textvariable=chosen_sup).pack(anchor='nw', padx=6, pady=6)
 
 #----------------------------------
-# Функция для первой кнопки
-def area_oper_btn_1():
+# Функция для кнопки уникального действия над участком
+def area_oper_btn():
         try:
                 if chosen_method.get() in ('Покупка участка', 'Заложение участка', 'Выкуп заложенного участка',
                                            'Покупка филиала', 'Продажа филиала', 'Покупка предприятия',
@@ -179,15 +179,47 @@ def area_oper_btn_1():
                 else:
                        print('Выберите уникальный метод для совершения действия над участком')
                        print(f'Выбран метод: {chosen_method.get()}')
-
         except SyntaxError:
               print('Выберите игрока')
         except KeyError:
               print('Выберите действие и/или вещь')
               
 
-btn = ttk.Button(text="Совершить действие\nнад участком", command=area_oper_btn_1).pack(anchor='sw')
+area_btn = ttk.Button(text="Совершить действие\nнад участком", command=area_oper_btn).pack(anchor='sw')
 #----------------------------------
+# Функция для кнопки уникального действия над транспортом
+def transp_oper_btn():
+        try:
+                if chosen_method.get() in ('Покупка транспорта', 'Заложение транспорта',
+                                        'Выкуп заложенного транспорта', 'Оплата за использование чужого транспорта'):
+                        exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({all_things[1][chosen_transp.get()]})')
+                else:
+                       print('Выберите уникальный метод для совершения действия над транспортом')
+                       print(f'Выбран метод: {chosen_method.get()}')
+        except SyntaxError:
+              print('Выберите игрока')
+        except KeyError:
+              print('Выберите действие и/или вещь')
+
+transp_btn = ttk.Button(text="Совершить действие\nнад транспортом", command=transp_oper_btn).pack(anchor='sw')
+#----------------------------------
+# Функция для кнопки уникального действия над саппортом
+def sup_oper_btn():
+        try:
+                if chosen_method.get() in ('Покупка помощника', 'Заложить помощника',
+                                        'Выкуп заложенного помощника', 'Оплата за использование чужого помощника'):
+                        exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({all_things[2][chosen_sup.get()]})')
+                else:
+                       print('Выберите уникальный метод для совершения действия над помощником')
+                       print(f'Выбран метод: {chosen_method.get()}')
+        except SyntaxError:
+              print('Выберите игрока')
+        except KeyError:
+              print('Выберите действие и/или вещь')
+
+sup_btn = ttk.Button(text="Совершить действие\nнад помощником", command=sup_oper_btn).pack(anchor='sw')
+
+
 
 
 root.mainloop()
