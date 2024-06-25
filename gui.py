@@ -221,13 +221,16 @@ sup_btn = ttk.Button(text="Совершить действие\nнад помо�
 #----------------------------------
 # Функция для взятия денег из банка
 def give_money_to_bank():
-       try:
-                if chosen_method.get() is 'Взять деньги из банка':
+        try:
+                if chosen_method.get() == 'Взять деньги из банка':
                         exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({entry_text.get()})')
                 else:
+                       print('Выберите метод "Взять деньги из банка"')
                                        
         except SyntaxError:
               print('Выберите игрока')
+        except TypeError:
+               print('Введите сумму для взятия из банка')
 
 give_bank_btn = ttk.Button(text="Взять деньги из банка", command=give_money_to_bank).pack(anchor='sw')
 
