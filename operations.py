@@ -41,18 +41,19 @@ class User(Area):
 
     # Взять деньги из банка
     def get_money_from_bank(self, money: int):
-        try:
-            self.budget += money
-            print(f'{self.name} получил {money} галлеонов из банка.\nБюджет {self.name} составляет {self.budget}')
-        except TypeError:
-            print('Сумма получаемых в банке денег должна быть в формате int')
+        self.budget += money
+        print(f'{self.name} получил {money} галлеонов из банка.\nБюджет {self.name} составляет {self.budget}')
 
+    # Дать деньги
     def give_money_to_bank(self, money: int):
-        try:
+        if self.budget >= money:
             self.budget -= money
             print(f'{self.name} отдал {money} галлеонов банку.\nБюджет {self.name} составляет {self.budget}')
-        except TypeError:
-            print('Сумма отдаваемы банку денег должна быть в формате int')
+        elif 0 < self.budget < money:
+            print(f'В бюджете {self.name} нет таких денег. Введите сумму поменьше')
+        elif self.budget == 0:
+            print(f'В бюджете {self.name} совсем нет денег')
+
 
     # Круговой доход
     def cicle_add(self):
@@ -63,8 +64,8 @@ class User(Area):
     def nalog(self):
         if self.budget >= 200:
             self.budget -= 200
-            print(f'{self.name} платит за выход из тюрьмы. Бюджет {self.name} равен {self.budget}')
-        else: print(f'{self.name} недостаточно денег для выхода на свободу')
+            print(f'{self.name} платит налог. Бюджет {self.name} равен {self.budget}')
+        else: print(f'{self.name} недостаточно денег оплаты налога')
     
     # Попадание в тюрьму
     def prison(self):

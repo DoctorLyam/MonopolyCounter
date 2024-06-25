@@ -233,7 +233,42 @@ def give_money_to_bank():
                print('Введите сумму для взятия из банка')
 
 give_bank_btn = ttk.Button(text="Взять деньги из банка", command=give_money_to_bank).pack(anchor='sw')
+#----------------------------------
+# Функция, чтобы отдать деньги банку (МОЖНО УЙТИ В МИНУС - ИСПРАВИТЬ ЛОГИКУ)
+def get_money_from_bank():
+        try: 
+                if chosen_method.get() == 'Дать деньги банку':
+                     exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({entry_text.get()})')
+                else:
+                       print('Выберите метод "Дать деньги банку"')
+                                       
+        except SyntaxError:
+              print('Выберите игрока')
+        except TypeError:
+               print('Введите сумму, которую собираетесь дать банку')
 
-
+get_bank_btn = ttk.Button(text="Дать деньги банку", command=get_money_from_bank).pack(anchor='sw')
+#----------------------------------
+# Функция для получения кругового дохода
+def circle_add():
+        try:
+                if chosen_method.get() == 'Получить круговой доход':
+                        exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'()')
+                else:
+                        print('Выберите метод "Получить круговой доход"')
+        except SyntaxError:
+              print('Выберите игрока')
+circle_add_btn = ttk.Button(text="Получить круговой доход", command=circle_add).pack(anchor='sw')
+#----------------------------------
+# Функция уплаты налога
+def nalog():
+        try:
+                if chosen_method.get() == 'Заплатить налог':
+                        exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'()')
+                else:
+                        print('Выберите метод "Заплатить налог"')
+        except SyntaxError:
+              print('Выберите игрока')
+nalog_btn = ttk.Button(text="Заплатить налог", command=nalog).pack(anchor='sw')
 
 root.mainloop()
