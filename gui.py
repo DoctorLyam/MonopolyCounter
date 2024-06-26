@@ -337,7 +337,7 @@ def give_mo():
                      print('Выберите метод "Передать деньги другому игроку"')
         except SyntaxError:
               print('Выберите игрока')
-        except TypeError:
+        except TypeError: РЕШИТЬ ПРОБЛЕМУ С ИСКЛЮЧЕНИЕМ А ТАКЖЕ ЗАПРЕТИТЬ В ЛОГИКЕ ПЕРЕДАВАТЬ ДЕНЬГИ САМОМУ СЕБЕ
                print('Введите сумму, которую собираетесь передать игроку')
 give_money_btn = ttk.Button(text="Передать деньги другому игроку", command=give_mo).pack(anchor='sw')
 
