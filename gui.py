@@ -68,7 +68,7 @@ purple_two = Fourth_2(name='Ежедневный пророк', price=400, depos
         rent_one_off=175, rent_two_off=500, rent_three_off=1100, rent_four_off=1500, rent_firm=1800)
 
 # Примеры запуска кода:
-# user_1.buy_area(purple_one) # positive
+# user_1.give_thing(transp_one, user_2) # positive
 # user_2.buy_area(purple_one) # negative
 # user_1.get_office(purple_two) # negative
 # user_1.get_office(purple_one) # positive
@@ -91,22 +91,27 @@ root.protocol("WM_DELETE_WINDOW", finish)
 root.attributes("-alpha", 0.95) # Прозрачность
 
 
-def log_message(message):
-    # Добавляем новое сообщение в конец текстового поля
-    game_log.insert(tk.END, message + '\n')
-    # Прокручиваем текстовое поле до конца, чтобы видеть последние добавленные сообщения
-    game_log.see(tk.END)
-game_log = tk.Text(root, height=20, width=50)
-game_log.pack(side=tk.BOTTOM, anchor='ne', expand=True)
-log_message("Начало работы приложения")
-log_message("Загрузка данных...")
-log_message("Данные загружены успешно")
+# def log_message(message):
+#     # Добавляем новое сообщение в конец текстового поля
+#     game_log.insert(tk.END, message + '\n')
+#     # Прокручиваем текстовое поле до конца, чтобы видеть последние добавленные сообщения
+#     game_log.see(tk.END)
+# game_log = tk.Text(root, height=20, width=50)
+# game_log.pack(side=tk.BOTTOM, anchor='ne', expand=True)
+# log_message("Начало работы приложения")
+# log_message("Загрузка данных...")
+# log_message("Данные загружены успешно")
 
 # Радиобаттон для выбора юзера
-chosen_user = tk.StringVar(value='Юзер не выбран') # Тип переменоой, которая будет хранить в себе состояние виджета в value
+chosen_user = tk.StringVar(value='Юзер не выбран') # Тип переменной, которая будет хранить в себе состояние виджета в value
 user_list = {'Саша':'user_1', 'Настя':'user_2'}
 for user in user_list:
     user_rad = tk.Radiobutton(root, text=user, variable=chosen_user, value=user_list[user]).pack(anchor=tk.W)
+
+# Радиобаттон для выбора второго юзера
+chosen_user_2 = tk.StringVar(value='Юзер не выбран') # Тип переменной, которая будет хранить в себе состояние виджета в value
+for user in user_list:
+    user_rad = tk.Radiobutton(root, text=user, variable=chosen_user_2, value=user_list[user]).pack(anchor=tk.W)
 
 
 # Поле для ввода числа
@@ -121,6 +126,7 @@ def character_limit(entry_text):
         except ValueError:
               entry_text.set(entry_text.get()[:-1])
 entry_text.trace("w", lambda *args: character_limit(entry_text))
+
 
 # Список со словарями участков, транспорта и саппортов
 all_things = [{'Дом Гарри':'brown_one', 'Вокзал Кингс-Кросс':'brown_two', 'Отдел магического транспорта':'blue_one', 'Отдел тайн':'blue_two', 
@@ -270,5 +276,57 @@ def nalog():
         except SyntaxError:
               print('Выберите игрока')
 nalog_btn = ttk.Button(text="Заплатить налог", command=nalog).pack(anchor='sw')
+#----------------------------------
+# Функция выхода из тюрьмы
+def prison():
+        try:
+                if chosen_method.get() == 'Выйти из тюрьмы':
+                     exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'()')
+                else:
+                     print('Выберите метод "Выйти из тюрьмы"')
+        except SyntaxError:
+              print('Выберите игрока')
+prison_btn = ttk.Button(text="Выйти из тюрьмы", command=prison).pack(anchor='sw')
+#---------------------------------
+# Функция передачи участка другому игроку
+def give_area():
+        try:
+                if chosen_method.get() == 'Передать вещь другому игроку':
+                     exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({all_things[0][chosen_area.get()]}, {chosen_user_2.get()})')
+                else:
+                     print('Выберите метод "Передать вещь другому игроку"')
+        except SyntaxError:
+              print('Выберите игрока')
+        except KeyError:
+              print(f'Выберите действие и/или участок')           
+give_area_btn = ttk.Button(text="Дать участок другому игроку", command=give_area).pack(anchor='sw')
+#---------------------------------
+# Функция передачи транспорта другому игроку
+def give_transp():
+        try:
+                if chosen_method.get() == 'Передать вещь другому игроку':
+                     exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({all_things[1][chosen_area.get()]}, {chosen_user_2.get()})')
+                else:
+                     print('Выберите метод "Передать вещь другому игроку"')
+        except SyntaxError:
+              print('Выберите игрока')
+        except KeyError:
+              print(f'Выберите действие и/или транспорт')           
+give_transp_btn = ttk.Button(text="Дать транспорт другому игроку", command=give_transp).pack(anchor='sw')
+#---------------------------------
+# Функция передачи саппорта другому игроку
+def give_sup():
+        try:
+                if chosen_method.get() == 'Передать вещь другому игроку':
+                     exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({all_things[2][chosen_area.get()]}, {chosen_user_2.get()})')
+                else:
+                     print('Выберите метод "Передать вещь другому игроку"')
+        except SyntaxError:
+              print('Выберите игрока')
+        except KeyError:
+              print('Выберите действие и/или помощника')           
+give_sup_btn = ttk.Button(text="Дать помощника другому игроку", command=give_sup).pack(anchor='sw')
+
+
 
 root.mainloop()
