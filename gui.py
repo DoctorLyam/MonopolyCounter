@@ -305,7 +305,7 @@ give_area_btn = ttk.Button(text="Дать участок другому игро
 def give_transp():
         try:
                 if chosen_method.get() == 'Передать вещь другому игроку':
-                     exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({all_things[1][chosen_area.get()]}, {chosen_user_2.get()})')
+                     exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({all_things[1][chosen_transp.get()]}, {chosen_user_2.get()})')
                 else:
                      print('Выберите метод "Передать вещь другому игроку"')
         except SyntaxError:
@@ -318,7 +318,7 @@ give_transp_btn = ttk.Button(text="Дать транспорт другому и
 def give_sup():
         try:
                 if chosen_method.get() == 'Передать вещь другому игроку':
-                     exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({all_things[2][chosen_area.get()]}, {chosen_user_2.get()})')
+                     exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({all_things[2][chosen_sup.get()]}, {chosen_user_2.get()})')
                 else:
                      print('Выберите метод "Передать вещь другому игроку"')
         except SyntaxError:
@@ -327,6 +327,19 @@ def give_sup():
               print('Выберите действие и/или помощника')           
 give_sup_btn = ttk.Button(text="Дать помощника другому игроку", command=give_sup).pack(anchor='sw')
 
+#----------------------------------
+# Функция передачи денег другому игроку
+def give_mo():
+        try:
+                if chosen_method.get() == 'Передать деньги другому игроку':
+                     exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({entry_text.get()}'+','+f'{chosen_user_2.get()})')
+                else:
+                     print('Выберите метод "Передать деньги другому игроку"')
+        except SyntaxError:
+              print('Выберите игрока')
+        except TypeError:
+               print('Введите сумму, которую собираетесь передать игроку')
+give_money_btn = ttk.Button(text="Передать деньги другому игроку", command=give_mo).pack(anchor='sw')
 
 
 root.mainloop()
