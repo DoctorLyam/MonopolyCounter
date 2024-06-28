@@ -366,15 +366,20 @@ class User(Area):
     # Передать деньги другому игроку
     def give_money(self, money: int, user):
         try:
-            if self.budget >= money:
-                print(f'Бюджет {self.name} ДО передачи денег: {self.budget}')
-                print(f'Бюджет {user.name} ДО получения денег: {user.budget}')
-                user.budget += money
-                self.budget -= money
-                print(f'Бюджет {self.name} ПОСЛЕ передачи денег: {self.budget}')
-                print(f'Бюджет {user.name} ПОСЛЕ получения денег: {user.budget}')
+            if money >= 1:
+                if (self.budget >= money) and (self != user):
+                    print(f'Бюджет {self.name} ДО передачи денег: {self.budget}')
+                    print(f'Бюджет {user.name} ДО получения денег: {user.budget}')
+                    user.budget += money
+                    self.budget -= money
+                    print(f'Бюджет {self.name} ПОСЛЕ передачи денег: {self.budget}')
+                    print(f'Бюджет {user.name} ПОСЛЕ получения денег: {user.budget}')
+                elif self == user:
+                    print('Нет смысла передавать деньги самому себе')
+                elif self.budget < money:
+                    print(f'{self.name} не может передать игроку {user.name} {money} галлеонов, потому что у него их нет')
             else:
-                print(f'{self.name} не может передать игроку {user.name} {money} галлеонов, потому что у него их нет')
+                print('Нет смысла передавать нулевую сумму')
         except TypeError: print('Надо ввести сумму в формате int')
 
     # Покупка транспорта

@@ -1,1 +1,2 @@
-print(isinstance ('llkdskl', str))
+h = 'hei'
+print(h[0])

@@ -121,7 +121,7 @@ sum = ttk.Entry(width=7, textvariable = entry_text).pack(anchor='nw', padx=8, pa
 def character_limit(entry_text):
         try:
                 entry_text_1 = int(entry_text.get())
-                if len(entry_text.get()) > 6:
+                if (len(entry_text.get()) > 6) or (int(entry_text.get()[0]) == 0):
                         entry_text.set(entry_text.get()[:-1])
         except ValueError:
               entry_text.set(entry_text.get()[:-1])
@@ -336,9 +336,15 @@ def give_mo():
                 else:
                      print('Выберите метод "Передать деньги другому игроку"')
         except SyntaxError:
-              print('Выберите игрока')
-        except TypeError: РЕШИТЬ ПРОБЛЕМУ С ИСКЛЮЧЕНИЕМ А ТАКЖЕ ЗАПРЕТИТЬ В ЛОГИКЕ ПЕРЕДАВАТЬ ДЕНЬГИ САМОМУ СЕБЕ
-               print('Введите сумму, которую собираетесь передать игроку')
+                if chosen_user.get() == 'Юзер не выбран':
+                       print('Выберите адресанта')
+                       print(f'Что это?{entry_text.get()}')
+                elif chosen_user_2.get() == 'Юзер не выбран':
+                       print('Выберите адресата')
+                       print(f'Что это?{entry_text.get()}')
+                elif len(entry_text.get()) == 0:
+                       print('Введите сумму перевода')
+
 give_money_btn = ttk.Button(text="Передать деньги другому игроку", command=give_mo).pack(anchor='sw')
 
 
