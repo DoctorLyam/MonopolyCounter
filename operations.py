@@ -554,5 +554,7 @@ class User(Area):
                 print(f'Продано! {self.name} приобрел помощника {thing.name} за {price} галлеонов')
         elif thing.name not in (User.areas_list or User.transport_list or User.support_list):
             print(f'{thing.name} нет на поле - разыгрывать на аукционе нечего')
+            print(f'{thing.name}')
+            print(User.transport_list)
         elif (thing.name in (User.areas_list or User.transport_list or User.support_list)) and (self.budget < price):
             print(f'{self.name} не может приобрести лот на сумму {price}, потому что у него нет таких денег')
