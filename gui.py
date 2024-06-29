@@ -332,20 +332,34 @@ give_sup_btn = ttk.Button(text="Дать помощника другому иг�
 def give_mo():
         try:
                 if chosen_method.get() == 'Передать деньги другому игроку':
-                     exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({entry_text.get()}'+','+f'{chosen_user_2.get()})')
+                     exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({entry_text.get()} ,{chosen_user_2.get()})')
                 else:
                      print('Выберите метод "Передать деньги другому игроку"')
         except SyntaxError:
                 if chosen_user.get() == 'Юзер не выбран':
                        print('Выберите адресанта')
-                       print(f'Что это?{entry_text.get()}')
                 elif chosen_user_2.get() == 'Юзер не выбран':
                        print('Выберите адресата')
-                       print(f'Что это?{entry_text.get()}')
                 elif len(entry_text.get()) == 0:
                        print('Введите сумму перевода')
 
 give_money_btn = ttk.Button(text="Передать деньги другому игроку", command=give_mo).pack(anchor='sw')
 
+#----------------------------------
+# Функция покупки участка на аукционе ИСПРАВИТЬ ОШИБКУ
+def pay_area_auc():
+        try:
+                if chosen_method.get() == 'Купить вещь за свободную сумму на аукционе':
+                     exec(f'{chosen_user.get()}'+'.'+f'{all_methods[chosen_method.get()]}'+f'({all_things[0][chosen_sup.get()]}, {entry_text.get()})')
+                else:
+                     print('Выберите метод "Купить вещь за свободную сумму на аукционе"')
+        except SyntaxError:
+                if chosen_user.get() == 'Юзер не выбран':
+                       print('Выберите игрока')
+                elif len(entry_text.get()) == 0:
+                       print('Введите цену покупки участка')
+        # except KeyError:
+        #       print('Выберите участок')     
+pay_area_btn = ttk.Button(text="Купить участок на аукционе", command=pay_area_auc).pack(anchor='sw')
 
 root.mainloop()
